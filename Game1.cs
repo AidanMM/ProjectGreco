@@ -43,6 +43,8 @@ namespace ProjectGreco
 
         public static KeyboardState KBState = new KeyboardState();
 
+        public static KeyboardState oldKBstate = new KeyboardState();
+
         public Game1()
             : base()
         {
@@ -120,6 +122,8 @@ namespace ProjectGreco
 
 
             OBJECT_HANDLER.Update();
+
+            oldKBstate = KBState;
 
             base.Update(gameTime);
         }

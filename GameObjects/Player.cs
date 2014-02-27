@@ -39,9 +39,9 @@ namespace ProjectGreco.GameObjects
             {
                 velocity.Y += speed;
             }
-            if (Game1.KBState.IsKeyDown(Keys.Up))
+            if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
-                velocity.Y -= 2.5f;
+                velocity.Y -= 10.0f;
             }
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
