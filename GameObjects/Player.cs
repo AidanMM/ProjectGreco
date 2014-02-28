@@ -12,15 +12,33 @@ namespace ProjectGreco.GameObjects
     class Player : GameObject
     {
         float speed = .1f;
+        bool applyGravity = true;
+
+        VertexPositionColor[] vertices;
+        
         
         public Player(Vector2 startPos) : base(startPos, "Player")
         {
-            acceleration.Y = .2f;
+            
+            vertices = new VertexPositionColor[3];
+            vertices[0].Position = new Vector3(100, 100, 0);
+            vertices[0].Color = Color.Red;
+            vertices[1].Position = new Vector3(500, 100, 0);
+            vertices[1].Color = Color.Green;
+            
         }
         public Player(Vector2 startPos, List<List<Texture2D>> aList)
             : base(aList, startPos, "Player")
         {
-            acceleration.Y = .2f;
+            
+
+            
+            vertices = new VertexPositionColor[2];
+            vertices[0].Position = new Vector3(startPos.X, startPos.Y, 0);
+            vertices[0].Color = Color.Red;
+            vertices[1].Position = new Vector3(startPos.X + collisionBox.Width, startPos.Y, 0);
+            vertices[1].Color = Color.Green;
+            
         }
 
         public override void Update()
@@ -42,6 +60,7 @@ namespace ProjectGreco.GameObjects
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
                 velocity.Y -= 10.0f;
+                applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
@@ -64,11 +83,26 @@ namespace ProjectGreco.GameObjects
             {
                 position.Y = 0 - animationList[animationListIndex][frameIndex].Height;
             }
+
+            if (applyGravity == true)
+            {
+                acceleration.Y = .2f;
+            }
+            else
+            {
+                acceleration.Y = 0.0f;
+            }
+            //Update the primitives
+            vertices[0].Position = new Vector3(collisionBox.X , collisionBox.Y - collisionBox.Height / 10, 0);
+            vertices[1].Position = new Vector3(collisionBox.X + collisionBox.Width, collisionBox.Y - collisionBox.Height / 10, 0);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+
+            
+            Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
 
         }
 
@@ -93,10 +127,13 @@ namespace ProjectGreco.GameObjects
                     position.Y = determineEvent.Position.Y + this.collisionBox.Height;
                     velocity.Y = 0;
                 }
+                 applyGravity = false;
 
 
                 
             }
+            
+                
         }
     }
 }

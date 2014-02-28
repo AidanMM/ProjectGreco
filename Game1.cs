@@ -18,7 +18,7 @@ namespace ProjectGreco
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         /// <summary>
@@ -45,6 +45,11 @@ namespace ProjectGreco
 
         public static KeyboardState oldKBstate = new KeyboardState();
 
+
+        //This basic effect is for all primitives
+        public static BasicEffect basicEffect;
+        
+
         public Game1()
             : base()
         {
@@ -63,6 +68,16 @@ namespace ProjectGreco
             // TODO: Add your initialization logic here
             IMAGE_DICTIONARY = new Dictionary<string, Texture2D>();
             ANIMATION_DICTIONARY = new Dictionary<string, List<Texture2D>>();
+
+            basicEffect = new BasicEffect(graphics.GraphicsDevice);
+            basicEffect.VertexColorEnabled = true;
+            basicEffect.Projection = Matrix.CreateOrthographicOffCenter
+               (0, graphics.GraphicsDevice.Viewport.Width,     // left, right
+                graphics.GraphicsDevice.Viewport.Height, 0,    // bottom, top
+                0, 1);                                         // near, far plane
+
+
+            
 
             base.Initialize();
         }
@@ -134,13 +149,18 @@ namespace ProjectGreco
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
 
+            //This line of code is for primitives
+            basicEffect.CurrentTechnique.Passes[0].Apply();
             OBJECT_HANDLER.Draw(spriteBatch);
+
+            
+
 
             spriteBatch.End();
 
