@@ -38,8 +38,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
+    <Compile Include="Levels\Algorithms\HillGeneration.cs" />
     <Compile Include="Levels\BaseState.cs" />
     <Compile Include="Levels\Level1.cs" />
+    <Compile Include="Levels\LevelVariables.cs" />
+    <Compile Include="Levels\Map.cs" />
     <Compile Include="ObjectHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
