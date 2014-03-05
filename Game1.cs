@@ -46,7 +46,9 @@ namespace ProjectGreco
         public static KeyboardState oldKBstate = new KeyboardState();
 
 
-        //This basic effect is for all primitives
+        /// <summary>
+        /// This basic effect is for all primitives
+        /// </summary>
         public static BasicEffect basicEffect;
         
 

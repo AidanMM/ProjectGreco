@@ -18,6 +18,7 @@ namespace ProjectGreco.Levels
             
             AddObjectToHandler("Player", new Player(new Vector2(200, 200), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"])));
             LevelObjectDictionary["Player"].A_BeginAnimation();
+            AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 200)));
            
             for (int i = 0; i < 15; i++)
             {
