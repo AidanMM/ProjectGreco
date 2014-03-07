@@ -121,7 +121,6 @@ namespace ProjectGreco
             set { collisionBox = value; }
         }
 
-
         public string ObjectType;
         
 
@@ -202,6 +201,7 @@ namespace ProjectGreco
         {
             oldPosition = new Vector2(position.X, position.Y);
 
+            position -= Game1.CAMERA_DISPLACEMENT;
             position += velocity;
             velocity += acceleration;
 

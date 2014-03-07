@@ -43,8 +43,10 @@ namespace ProjectGreco.GameObjects
 
         public override void Update()
         {
+            Game1.CAMERA_DISPLACEMENT = this.velocity;
             base.Update();
-
+            //this.position += velocity;
+            
             if (Game1.KBState.IsKeyDown(Keys.Left))
             {
                 velocity.X -= speed;
@@ -92,6 +94,7 @@ namespace ProjectGreco.GameObjects
             {
                 acceleration.Y = 0.0f;
             }
+
             //Update the primitives
             vertices[0].Position = new Vector3(collisionBox.X , collisionBox.Y - collisionBox.Height / 10, 0);
             vertices[1].Position = new Vector3(collisionBox.X + collisionBox.Width, collisionBox.Y - collisionBox.Height / 10, 0);

@@ -41,6 +41,11 @@ namespace ProjectGreco
         /// </summary>
         public static Dictionary<string, List<Texture2D>> ANIMATION_DICTIONARY;
 
+        /// <summary>
+        /// This is the displacement of the camera (= displacement of character)
+        /// </summary>
+        public static Vector2 CAMERA_DISPLACEMENT;
+
         public static KeyboardState KBState = new KeyboardState();
 
         public static KeyboardState oldKBstate = new KeyboardState();
@@ -70,6 +75,7 @@ namespace ProjectGreco
             // TODO: Add your initialization logic here
             IMAGE_DICTIONARY = new Dictionary<string, Texture2D>();
             ANIMATION_DICTIONARY = new Dictionary<string, List<Texture2D>>();
+            CAMERA_DISPLACEMENT = new Vector2(0, 0);
 
             basicEffect = new BasicEffect(graphics.GraphicsDevice);
             basicEffect.VertexColorEnabled = true;

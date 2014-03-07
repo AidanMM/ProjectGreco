@@ -110,7 +110,6 @@ namespace ProjectGreco
         {
             for (int x = 0; x < objectDictionary.Count; x++)
             {
-
                 var itemX = objectDictionary.ElementAt(x);
                 objectDictionary[itemX.Key].Update();
                 TriggerCollisionEvents();

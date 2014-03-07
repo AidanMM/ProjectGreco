@@ -20,7 +20,7 @@ namespace ProjectGreco.Levels
             LevelObjectDictionary["Player"].A_BeginAnimation();
             AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 200)));
            
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 20; i++)
             {
                 AddObjectToHandler("Block", new GameObject(new Vector2(0 + i * 51, 400), "Block"));
             }
