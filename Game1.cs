@@ -111,7 +111,7 @@ namespace ProjectGreco
 
             #region LoadAnimations
             ANIMATION_DICTIONARY.Add("Test", A_CreateAnimation("BlueBeat", "RedBeat", "RedBeat", "BlueBeat", "BlueBeatsafaw"));
-
+            ANIMATION_DICTIONARY.Add("PlayerTest", A_CreateAnimation("THEHERO"));
             #endregion
 
             OBJECT_HANDLER.ChangeState(new Level1());
