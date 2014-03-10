@@ -63,10 +63,10 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
             base.Update();
-            vertices[0].Position = new Vector3(collisionBox.X, collisionBox.Y - collisionBox.Height / 10 , 0);
-            
-            
-            vertices[1].Position = new Vector3(collisionBox.X + (float)(collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)), collisionBox.Y - collisionBox.Height / 10, 0);
+            vertices[0].Position = new Vector3(collisionBox.X + Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - collisionBox.Height / 10 + Game1.CAMERA_DISPLACEMENT.Y, 0);
+
+
+            vertices[1].Position = new Vector3(collisionBox.X + (float)(collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) + Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y + collisionBox.Height / 10 + Game1.CAMERA_DISPLACEMENT.Y, 0);
 
             if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
             {

@@ -62,6 +62,7 @@ namespace ProjectGreco
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
         }
 
         /// <summary>
@@ -72,6 +73,9 @@ namespace ProjectGreco
         /// </summary>
         protected override void Initialize()
         {
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
+
             // TODO: Add your initialization logic here
             IMAGE_DICTIONARY = new Dictionary<string, Texture2D>();
             ANIMATION_DICTIONARY = new Dictionary<string, List<Texture2D>>();

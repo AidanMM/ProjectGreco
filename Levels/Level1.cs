@@ -16,13 +16,13 @@ namespace ProjectGreco.Levels
             : base()
         {
             
-            AddObjectToHandler("Player", new Player(new Vector2(200, 200), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
-            LevelObjectDictionary["Player"].A_BeginAnimation();
-            AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 200)));
-           
-            for (int i = 0; i < 20; i++)
+            AddObjectToHandler("Player", new Player(new Vector2(600, 300), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
+          //  LevelObjectDictionary["Player"].A_BeginAnimation();
+            AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 400)));
+
+            for (int i = 0; i < 50; i++)
             {
-                AddObjectToHandler("Block", new GameObject(new Vector2(0 + i * 51, 400), "Block"));
+                AddObjectToHandler("Block", new GameObject(new Vector2(500 + i * 51, 600 - i * 20), "Block"), i);
             }
         }
     }

@@ -13,39 +13,48 @@ namespace ProjectGreco.GameObjects
     {
         float speed = .1f;
         bool applyGravity = true;
-
-        VertexPositionColor[] vertices;
+        Vector2 startingPositon;
+        
         
         
         public Player(Vector2 startPos) : base(startPos, "Player")
         {
-            
-            vertices = new VertexPositionColor[3];
-            vertices[0].Position = new Vector3(100, 100, 0);
-            vertices[0].Color = Color.Red;
-            vertices[1].Position = new Vector3(500, 100, 0);
-            vertices[1].Color = Color.Green;
+            CheckForCollisions = true;
+            startingPositon = startPos;
             
         }
         public Player(Vector2 startPos, List<List<Texture2D>> aList)
             : base(aList, startPos, "Player")
         {
+            CheckForCollisions = true;
+            startingPositon = startPos;
             
-
             
-            vertices = new VertexPositionColor[2];
-            vertices[0].Position = new Vector3(startPos.X, startPos.Y, 0);
-            vertices[0].Color = Color.Red;
-            vertices[1].Position = new Vector3(startPos.X + collisionBox.Width, startPos.Y, 0);
-            vertices[1].Color = Color.Green;
             
         }
 
         public override void Update()
         {
-            Game1.CAMERA_DISPLACEMENT = this.velocity;
-            base.Update();
-            //this.position += velocity;
+
+            OldPosition = new Vector2(position.X, position.Y);
+
+
+            position += velocity;
+            velocity += acceleration;
+
+            UpdateCollisionBox();
+
+            if (animating == true)
+            {
+                frameIndex++;
+                if (frameIndex >= animationList[animationListIndex].Count && looping == true)
+                    frameIndex = 0;
+                else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
+                    A_StopAnimating();
+
+
+            }
+            
             
             if (Game1.KBState.IsKeyDown(Keys.Left))
             {
@@ -69,23 +78,6 @@ namespace ProjectGreco.GameObjects
                 velocity.X = 0;
                 velocity.Y = 0;
             }
-            if (position.X > 800 + animationList[animationListIndex][frameIndex].Width)
-            {
-                position.X = 0 - animationList[animationListIndex][frameIndex].Width;
-            }
-            if (position.X < 0 - animationList[animationListIndex][frameIndex].Width)
-            {
-                position.X = 800;
-            }
-            if (position.Y < 0 - animationList[animationListIndex][frameIndex].Height)
-            {
-                position.Y = 480;
-            }
-            if (position.Y > 480 + animationList[animationListIndex][frameIndex].Height)
-            {
-                position.Y = 0 - animationList[animationListIndex][frameIndex].Height;
-            }
-
             if (applyGravity == true)
             {
                 acceleration.Y = .2f;
@@ -94,19 +86,15 @@ namespace ProjectGreco.GameObjects
             {
                 acceleration.Y = 0.0f;
             }
+            Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
+            
 
-            //Update the primitives
-            vertices[0].Position = new Vector3(collisionBox.X , collisionBox.Y - collisionBox.Height / 10, 0);
-            vertices[1].Position = new Vector3(collisionBox.X + collisionBox.Width, collisionBox.Y - collisionBox.Height / 10, 0);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-
-            
-            Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
-
+            //spriteBatch.Draw(animationList[animationListIndex][frameIndex], Game1.CAMERA_DISPLACEMENT, Color.White);
         }
 
         /// <summary>
@@ -122,11 +110,13 @@ namespace ProjectGreco.GameObjects
 
                  if (OldPosition.Y < determineEvent.Position.Y)
                 {
+                 
                     position.Y = determineEvent.Position.Y - this.collisionBox.Height;
                     velocity.Y = 0;
                 }
                  if (OldPosition.Y > determineEvent.Position.Y)
                 {
+                   
                     position.Y = determineEvent.Position.Y + this.collisionBox.Height;
                     velocity.Y = 0;
                 }
@@ -135,6 +125,7 @@ namespace ProjectGreco.GameObjects
 
                 
             }
+
             
                 
         }

@@ -38,15 +38,44 @@ namespace ProjectGreco
             int nameIndex = 2;
             while (true)
             {
-                try
+                if(objectDictionary.ContainsKey(name) == false)
                 {
                     objectDictionary.Add(name, objectToAdd);
                     return;
                 }
-
-                catch (Exception e)
+                else
                 {
                     string[] temp = name.Split('_');
+                    name = String.Format(temp[0] + "_" + "{0}", nameIndex);
+                    nameIndex++;
+
+                }
+            }
+        }
+        /// <summary>
+        /// Adds a game object to the object Dictionary.  If the object already exists, the name will be appeneded with a number
+        /// This function with a start index will add the index to the object initially and move on from that point if it does not work
+        /// </summary>
+        /// <param name="name">Name of the object</param>
+        /// <param name="objectToAdd">The Game Object To add</param>
+        /// <param name="startIndex",>The index that you would like to start the adding process at.
+        public void AddObjectToHandler(string name, GameObject objectToAdd, int startIndex)
+        {
+
+            int nameIndex = startIndex;
+            string[] temp = name.Split('_');
+            name = String.Format(temp[0] + "_" + "{0}", nameIndex);
+            nameIndex++;
+            while (true)
+            {
+                if (objectDictionary.ContainsKey(name) == false)
+                {
+                    objectDictionary.Add(name, objectToAdd);
+                    return;
+                }
+                else
+                {
+                    temp = name.Split('_');
                     name = String.Format(temp[0] + "_" + "{0}", nameIndex);
                     nameIndex++;
 
@@ -63,18 +92,21 @@ namespace ProjectGreco
             string[,] collidedObjects = new string[objectDictionary.Count, objectDictionary.Count];
             for (int x = 0; x < objectDictionary.Count; x++)
             {
-                for (int y = 0; y < objectDictionary.Count; y++)
+                if (objectDictionary.ElementAt(x).Value.CheckForCollisions == true)
                 {
-                    if (x != y)
+                    for (int y = 0; y < objectDictionary.Count; y++)
                     {
-                        //Bounding Box Collisions
-
-                        var itemX = objectDictionary.ElementAt(x);
-                        var itemY = objectDictionary.ElementAt(y);
-
-                        if (objectDictionary[itemX.Key].CollisionBox.Intersects(objectDictionary[itemY.Key].CollisionBox))
+                        if (x != y)
                         {
-                            collidedObjects[x, y] = itemY.Key;
+                            //Bounding Box Collisions
+
+                            var itemX = objectDictionary.ElementAt(x);
+                            var itemY = objectDictionary.ElementAt(y);
+
+                            if (objectDictionary[itemX.Key].CollisionBox.Intersects(objectDictionary[itemY.Key].CollisionBox))
+                            {
+                                collidedObjects[x, y] = itemY.Key;
+                            }
                         }
                     }
                 }
@@ -110,11 +142,10 @@ namespace ProjectGreco
         {
             for (int x = 0; x < objectDictionary.Count; x++)
             {
+                TriggerCollisionEvents();
                 var itemX = objectDictionary.ElementAt(x);
                 objectDictionary[itemX.Key].Update();
-                TriggerCollisionEvents();
-                    
-                
+
             }
         }
 

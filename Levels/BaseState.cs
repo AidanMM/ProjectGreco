@@ -48,15 +48,44 @@ namespace ProjectGreco.Levels
             int nameIndex = 2;
             while (true)
             {
-                try
+                if (levelObjectDictionary.ContainsKey(name) == false)
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
                     return;
                 }
-
-                catch (Exception e)
+                else
                 {
                     string[] temp = name.Split('_');
+                    name = String.Format(temp[0] + "_" + "{0}", nameIndex);
+                    nameIndex++;
+
+                }
+            }
+        }
+        /// <summary>
+        /// Adds a game object to the object Dictionary.  If the object already exists, the name will be appeneded with a number
+        /// This function with a start index will add the index to the object initially and move on from that point if it does not work
+        /// </summary>
+        /// <param name="name">Name of the object</param>
+        /// <param name="objectToAdd">The Game Object To add</param>
+        /// <param name="startIndex",>The index that you would like to start the adding process at.
+        public void AddObjectToHandler(string name, GameObject objectToAdd, int startIndex)
+        {
+
+            int nameIndex = startIndex;
+            string[] temp = name.Split('_');
+            name = String.Format(temp[0] + "_" + "{0}", nameIndex);
+            nameIndex++;
+            while (true)
+            {
+                if (levelObjectDictionary.ContainsKey(name) == false)
+                {
+                    levelObjectDictionary.Add(name, objectToAdd);
+                    return;
+                }
+                else
+                {
+                    temp = name.Split('_');
                     name = String.Format(temp[0] + "_" + "{0}", nameIndex);
                     nameIndex++;
 

@@ -121,8 +121,25 @@ namespace ProjectGreco
             set { collisionBox = value; }
         }
 
+        /// <summary>
+        /// This contains the specific "type" of object that this is.  This is used to identify for specific cases in collision and others
+        /// </summary>
         public string ObjectType;
-        
+
+
+        /// <summary>
+        /// This bool will tell the object handler whether or not this object should check for collisions against other objects.
+        /// Useful for things such as walls, which do not actually need to check for collisions against other objects.
+        /// Initial set to false for ALL game objects.
+        /// </summary>
+        protected bool checkForCollisions;
+
+        public bool CheckForCollisions
+        {
+            get { return checkForCollisions; }
+            set { checkForCollisions = value; }
+        }
+    
 
        
         /// <summary>
@@ -130,6 +147,7 @@ namespace ProjectGreco
         /// </summary>
         public GameObject()
         {
+            checkForCollisions = false;
             animationList = new List<List<Texture2D>>();
             animationList.Add(new List<Texture2D>());
             animationList[0].Add(Game1.DEFAULT_TEXTURE);
@@ -155,6 +173,7 @@ namespace ProjectGreco
         /// <param name="GameObjectType">The type of object that it is</param>
         public GameObject(Vector2 pos, string GameObjectType)
         {
+            checkForCollisions = false;
             animationList = new List<List<Texture2D>>();
             animationList.Add(new List<Texture2D>());
             animationList[0].Add(Game1.DEFAULT_TEXTURE);
@@ -180,6 +199,7 @@ namespace ProjectGreco
         /// <param name="GameObjectType">The type of object that it is</param>
         public GameObject(List<List<Texture2D>> animations, Vector2 pos, string GameObjectType)
         {
+            checkForCollisions = false;
             animationList = animations;
             position = pos;
             velocity = new Vector2(0, 0);
@@ -201,7 +221,7 @@ namespace ProjectGreco
         {
             oldPosition = new Vector2(position.X, position.Y);
 
-            position -= Game1.CAMERA_DISPLACEMENT;
+           
             position += velocity;
             velocity += acceleration;
 
@@ -222,7 +242,7 @@ namespace ProjectGreco
         public virtual void Draw(SpriteBatch spriteBatch)
         {
 
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], collisionBox, Color.White);
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height), Color.White);
         }
 
         /// <summary>
