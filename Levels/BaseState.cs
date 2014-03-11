@@ -51,6 +51,7 @@ namespace ProjectGreco.Levels
                 if (levelObjectDictionary.ContainsKey(name) == false)
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
+                    Game1.OBJECT_HANDLER.collisionList.Add(name);
                     return;
                 }
                 else
@@ -81,6 +82,7 @@ namespace ProjectGreco.Levels
                 if (levelObjectDictionary.ContainsKey(name) == false)
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
+                    Game1.OBJECT_HANDLER.collisionList.Add(name);
                     return;
                 }
                 else

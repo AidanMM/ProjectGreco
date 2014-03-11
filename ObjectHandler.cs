@@ -28,6 +28,11 @@ namespace ProjectGreco
         }
 
         /// <summary>
+        /// The list of strings used to manage all of the collisions.  This is used to loop through all of the items in the object dictionary
+        /// </summary>
+        public List<string> collisionList = new List<string>();
+
+        /// <summary>
         /// Adds a game object to the object Dictionary.  If the object already exists, the name will be appeneded with a number
         /// </summary>
         /// <param name="name">Name of the object</param>
@@ -41,6 +46,7 @@ namespace ProjectGreco
                 if(objectDictionary.ContainsKey(name) == false)
                 {
                     objectDictionary.Add(name, objectToAdd);
+                    collisionList.Add(name);
                     return;
                 }
                 else
@@ -71,6 +77,7 @@ namespace ProjectGreco
                 if (objectDictionary.ContainsKey(name) == false)
                 {
                     objectDictionary.Add(name, objectToAdd);
+                    collisionList.Add(name);
                     return;
                 }
                 else
@@ -89,29 +96,25 @@ namespace ProjectGreco
         /// <returns>An array that contains the name of the objects that are colliding</returns>
         public string[,] DetectCollisions()
         {
-            string[,] collidedObjects = new string[objectDictionary.Count, objectDictionary.Count];
-            for (int x = 0; x < objectDictionary.Count; x++)
+
+            string[,] collidedObjects = new string[collisionList.Count, collisionList.Count];
+            for (int x = 0; x < collisionList.Count; x++)
             {
-                if (objectDictionary.ElementAt(x).Value.CheckForCollisions == true)
+                if (objectDictionary[collisionList[x]].CheckForCollisions == true)
                 {
-                    for (int y = 0; y < objectDictionary.Count; y++)
+                    for (int y = 0; y < objectDictionary.Count; y++ )
                     {
                         if (x != y)
                         {
-                            //Bounding Box Collisions
-
-                            var itemX = objectDictionary.ElementAt(x);
-                            var itemY = objectDictionary.ElementAt(y);
-
-                            if (objectDictionary[itemX.Key].CollisionBox.Intersects(objectDictionary[itemY.Key].CollisionBox))
+                            if (objectDictionary[collisionList[x]].CollisionBox.Intersects(objectDictionary[collisionList[y]].CollisionBox))
                             {
-                                collidedObjects[x, y] = itemY.Key;
+                                collidedObjects[x, y] = collisionList[y];
                             }
                         }
                     }
                 }
             }
-
+            
             return collidedObjects;
         }
 
@@ -122,14 +125,14 @@ namespace ProjectGreco
         {
             string[,] collidedObjects = DetectCollisions();
 
-            for (int x = 0; x < objectDictionary.Count; x++)
+            for (int x = 0; x < collisionList.Count; x++)
             {
-                for (int y = 0; y < objectDictionary.Count; y++)
+                for (int y = 0; y < collisionList.Count; y++)
                 {
                     if (collidedObjects[x, y] != null)
                     {
-                        var itemX = objectDictionary.ElementAt(x);
-                        objectDictionary[itemX.Key].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
+                        //var itemX = objectDictionary.ElementAt(x);
+                        objectDictionary[collisionList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
                     }
                 }
             }
@@ -164,13 +167,14 @@ namespace ProjectGreco
         }
 
         /// <summary>
-        /// Adds an object to the object dictionary
+        /// Adds an object to the object dictionary, also adds the object to the collision list.
         /// </summary>
         /// <param name="name">Name of the object</param>
         /// <param name="objectToadd">The object to add</param>
         public void AddToObjectDictionary(string name, GameObject objectToadd)
         {
             objectDictionary.Add(name, objectToadd);
+            collisionList.Add(name);
         }
 
         public void ChangeState(BaseState level)
