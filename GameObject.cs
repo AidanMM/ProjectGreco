@@ -139,6 +139,30 @@ namespace ProjectGreco
             get { return checkForCollisions; }
             set { checkForCollisions = value; }
         }
+
+        /// <summary>
+        /// This bool will keep track of whether or not an object is on the screen.  An object will only be checked against, and check collisions if it is on the screen.
+        /// </summary>
+        protected bool onScreen;
+
+        public bool OnScreen
+        {
+            get { return onScreen; }
+            set { onScreen = value; }
+        }
+
+        /// <summary>
+        /// The Vector used to map the gameobject to the screen using the camera displacement.  To modify position in the level, use position. It is Unsafe to modify this value.
+        /// </summary>
+        protected Vector2 onScreenVector;
+
+        public Vector2 OnScreenVector
+        {
+            get { return onScreenVector; }
+            set { onScreenVector = value; }
+        }
+
+
     
 
        
@@ -163,6 +187,8 @@ namespace ProjectGreco
             collisionBox = new Rectangle((int)position.X, (int)position.Y, animationList[0][0].Width, animationList[0][0].Height);
 
             ObjectType = "Basic_Object";
+
+            onScreen = false;
 
         }
 
@@ -189,6 +215,8 @@ namespace ProjectGreco
 
             ObjectType = GameObjectType;
 
+            onScreen = false;
+
         }
 
         /// <summary>
@@ -211,6 +239,8 @@ namespace ProjectGreco
             collisionBox = new Rectangle((int)position.X, (int)position.Y, animationList[0][0].Width, animationList[0][0].Height);
 
             ObjectType = GameObjectType;
+
+            onScreen = false;
             
         }
 
@@ -237,11 +267,22 @@ namespace ProjectGreco
 
                 
             }
+
+            //Check to see if an object is on screen.
+           // onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
+            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
+            {
+                onScreen = false;
+            }
+            else
+            {
+                onScreen = true;
+            }
+
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
             spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height), Color.White);
         }
 

@@ -20,14 +20,16 @@ namespace ProjectGreco.GameObjects
         public Player(Vector2 startPos) : base(startPos, "Player")
         {
             CheckForCollisions = true;
-            startingPositon = startPos;
+            startingPositon = new Vector2(600, 320);
+            position = startPos;
             
         }
         public Player(Vector2 startPos, List<List<Texture2D>> aList)
             : base(aList, startPos, "Player")
         {
             CheckForCollisions = true;
-            startingPositon = startPos;
+            startingPositon = new Vector2(600, 320);
+            position = startPos;
             
             
             
@@ -66,11 +68,11 @@ namespace ProjectGreco.GameObjects
             }
             if (Game1.KBState.IsKeyDown(Keys.Down))
             {
-                velocity.Y += speed;
+                velocity.Y += 10;
             }
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
-                velocity.Y -= 10.0f;
+                velocity.Y -= 5.0f;
                 applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.B))

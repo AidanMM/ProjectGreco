@@ -16,7 +16,8 @@ namespace ProjectGreco.Levels
             : base()
         {
 
-            AddObjectToHandler("Player", new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT) * 50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
+           // AddObjectToHandler("Player", new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT) * 50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
+            AddObjectToHandler("Player", new Player(new Vector2(0,1000), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
           //  LevelObjectDictionary["Player"].A_BeginAnimation();
             AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 400)));
 
@@ -29,7 +30,7 @@ namespace ProjectGreco.Levels
             Map myMap = new Map(AlgorithmType.HillsDesert);
             
 
-            for (int x = 0; x < LevelVariables.WIDTH / 6; x ++)
+            for (int x = 0; x < LevelVariables.WIDTH / 4; x ++)
             {
                 for (int y = 0; y < LevelVariables.HEIGHT; y ++)
                 {

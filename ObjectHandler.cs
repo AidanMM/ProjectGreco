@@ -104,7 +104,7 @@ namespace ProjectGreco
                 {
                     for (int y = 0; y < objectDictionary.Count; y++ )
                     {
-                        if (x != y)
+                        if (objectDictionary[collisionList[y]].OnScreen == true && x != y)
                         {
                             if (objectDictionary[collisionList[x]].CollisionBox.Intersects(objectDictionary[collisionList[y]].CollisionBox))
                             {
@@ -131,7 +131,6 @@ namespace ProjectGreco
                 {
                     if (collidedObjects[x, y] != null)
                     {
-                        //var itemX = objectDictionary.ElementAt(x);
                         objectDictionary[collisionList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
                     }
                 }
@@ -146,8 +145,7 @@ namespace ProjectGreco
             for (int x = 0; x < objectDictionary.Count; x++)
             {
                 TriggerCollisionEvents();
-                var itemX = objectDictionary.ElementAt(x);
-                objectDictionary[itemX.Key].Update();
+                objectDictionary[collisionList[x]].Update();
 
             }
         }
@@ -160,9 +158,7 @@ namespace ProjectGreco
         {
             for (int x = 0; x < objectDictionary.Count; x++)
             {
-
-                var itemX = objectDictionary.ElementAt(x);
-                objectDictionary[itemX.Key].Draw(spriteBatch);
+                objectDictionary[collisionList[x]].Draw(spriteBatch);
             }
         }
 
