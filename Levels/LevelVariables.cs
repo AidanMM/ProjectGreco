@@ -11,7 +11,8 @@ namespace ProjectGreco.Levels
     {
         Hills,
         Desert,
-        HillsDesert
+        HillsDesert,
+        Cave
     }
 
     static class LevelVariables
@@ -100,6 +101,16 @@ namespace ProjectGreco.Levels
         /// The percent that an averaged peak is lowered.
         /// </summary>
         public const double DESERT_PEAK_AVERAGE_PERCENT = .9;
+
+        #endregion
+
+        #region CAVE_ALGORITHM_CONSTANTS
+        public const int CAVE_MIN_RADIUS = 5;
+        public const int CAVE_MAX_RADIUS = 13;
+        public const int CAVE_MIN_POINTS = 5;
+        public const int CAVE_MAX_POINTS = 13;
+
+
 
         #endregion
 

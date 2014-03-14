@@ -142,8 +142,9 @@ namespace ProjectGreco.Levels.Algorithms
         /// <param name="seed">The seed used to generate the map.  Seed -1 is fully random.</param>
         public HillGeneration(char[][] terrain, int WIDTH, int HEIGHT, int GROUND_HEIGHT, int SAFE_ZONE_WIDTH,
             int HILL_MIN_WIDTH, int HILL_MAX_WIDTH, int HILL_MIN_HEIGHT, int HILL_MAX_HEIGHT,
-            int HILL_SMOOTH_WIDTH, int HILL_VARIATION, double HILL_PEAK_AVERAGE_PERCENT, 
-            int seed = -1) : base (terrain, seed)
+            int HILL_SMOOTH_WIDTH, int HILL_VARIATION, double HILL_PEAK_AVERAGE_PERCENT,
+            int seed = -1)
+            : base(terrain, seed)
         {
             // Store the constants.
             this.WIDTH = WIDTH;
@@ -180,14 +181,14 @@ namespace ProjectGreco.Levels.Algorithms
         /// <param name="endY">The y-coordinate the box ends at.</param>
         public override void Initialize(int startX, int endX, int startY, int endY)
         {
-            
+
             for (int i = startX; i < endX; i++)
             {
                 for (int j = startY; j < endY; j++)
                 {
                     // If the height of the current y coordinate from the bottom is less than the ground height,
                     // the terrain by default is ground, so set it as such.
-                    if ( j < 1)
+                    if (j < 1)
                     {
                         terrain[i][j] = 'X';
                     }
@@ -198,9 +199,9 @@ namespace ProjectGreco.Levels.Algorithms
                     }
                 }
             }
-             
-        }      
-        
+
+        }
+
         /// <summary>
         /// An iterative process that creates hills.
         /// Takes two sector values, creates a hill between the two of them via an iterative smoothing process.
@@ -237,7 +238,7 @@ namespace ProjectGreco.Levels.Algorithms
 
                     // Calculate the slope of the line; the change in y divided by the change in x.
                     double slope = (double)(points[j + 1][1] - points[j][1]) /
-                        (double)(points[j+1][0] - points[j][0]);
+                        (double)(points[j + 1][0] - points[j][0]);
 
                     // Calculate the y-intercept of the line
                     double yIntercept = points[j][1] - (slope * points[j][0]);
@@ -249,7 +250,7 @@ namespace ProjectGreco.Levels.Algorithms
                             x <= points[j + 1][0] - 1; // End x at the second to last x-coordinate of the current sector.
                             x++)
                         {
-                            if (terrain[x][y] == ' ' && 
+                            if (terrain[x][y] == ' ' &&
                                 y <= slope * x + yIntercept)
                             {
                                 terrain[x][y] = 'O';
@@ -258,9 +259,7 @@ namespace ProjectGreco.Levels.Algorithms
                     }
                 }
             }
-
-            // TODO: ADD CAVES.
-        } 
+        }
 
         /// <summary>
         /// Prepares the sector list so it can be properly used.
@@ -309,7 +308,7 @@ namespace ProjectGreco.Levels.Algorithms
                 // Get the avg height and change the indexes to be correct.
                 int avgHeight = mySectors[i].AveragePeaks(peakHeight1, peakHeight2);
                 mySectors[i].UpdateSectorEnd(avgHeight);
-                mySectors[i + 1].UpdateSectorBeginning(avgHeight);   
+                mySectors[i + 1].UpdateSectorBeginning(avgHeight);
             }
             // When looking at the second to last sector we don't want the end to be avg height, we want it to be the lowest height possible.
             mySectors[mySectors.Count - 2].UpdateSectorEnd(GROUND_HEIGHT);
@@ -375,7 +374,7 @@ namespace ProjectGreco.Levels.Algorithms
         public Sector(int startX, int endX, HillGeneration myAlgorithm, bool hasPeak)
         {
             this.myAlgorithm = myAlgorithm;
- 
+
             int numPoints;
             // The number of points in a sector is equivalent to the width divided by the number of points per sector, rounded up.
             if (hasPeak)
@@ -400,7 +399,7 @@ namespace ProjectGreco.Levels.Algorithms
             // We'll have to set up the last point manually, in case of rounding errors.
             points[points.Length - 1] = new int[2];
             points[points.Length - 1][0] = endX;
-            
+
             // The points by default will be around ground level.  We can work around that later.
             points[0][1] = myAlgorithm.Ground_Height;
             points[points.Length - 1][1] = myAlgorithm.Ground_Height;
@@ -419,7 +418,7 @@ namespace ProjectGreco.Levels.Algorithms
         public int AveragePeaks(int peakHeight1, int peakHeight2)
         {
             int newHeight = (int)(((peakHeight1 + peakHeight2) / 2.0) * myAlgorithm.Hill_Peak_Average_Percent);
-            
+
             return newHeight;
         }
 
@@ -430,7 +429,7 @@ namespace ProjectGreco.Levels.Algorithms
         {
             // We'll set the index to any random one that isn't an endpoint.
             peakIndex = myAlgorithm.Rand.Next(1, points.Length - 1);
-            
+
             // The height of a peak lies somewhere between the given minheight and maxheight.
             int peakHeight = myAlgorithm.Ground_Height + myAlgorithm.Rand.Next(myAlgorithm.Hill_Min_Height, myAlgorithm.Hill_Max_Height);
 
@@ -454,7 +453,7 @@ namespace ProjectGreco.Levels.Algorithms
                 if (i < peakIndex)
                 {
                     points[i][1] = points[0][1] + i * differencePrePeak;
-                    points[i][1] += myAlgorithm.Rand.Next(0, myAlgorithm.Hill_Variation);                  
+                    points[i][1] += myAlgorithm.Rand.Next(0, myAlgorithm.Hill_Variation);
                 }
 
                 // If it's after the peak, add the post-peak difference.
@@ -486,7 +485,7 @@ namespace ProjectGreco.Levels.Algorithms
         {
             points[points.Length - 1][1] = height;
         }
-        
+
         /// <summary>
         /// Flattens the a terrain that's meant to be flat by setting
         /// all points y-coordinates to the ground height.
