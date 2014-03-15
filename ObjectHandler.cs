@@ -28,9 +28,21 @@ namespace ProjectGreco
         }
 
         /// <summary>
-        /// The list of strings used to manage all of the collisions.  This is used to loop through all of the items in the object dictionary
+        /// The list of strings used to manage all of the objects that need to collide.
         /// </summary>
         public List<string> collisionList = new List<string>();
+
+
+        /// <summary>
+        /// This list of objects that are on screen
+        /// </summary>
+        public List<string> onScreenList = new List<string>();
+
+        /// <summary>
+        /// The objects that willl actually be collision checked
+        /// </summary>
+        public List<string> collisionCheckList = new List<string>();
+        
 
         /// <summary>
         /// Adds a game object to the object Dictionary.  If the object already exists, the name will be appeneded with a number
@@ -98,21 +110,18 @@ namespace ProjectGreco
         {
 
             string[,] collidedObjects = new string[collisionList.Count, collisionList.Count];
-            for (int x = 0; x < collisionList.Count; x++)
+            
+            for (int x = 0; x < collisionCheckList.Count; x++)
             {
-                if (objectDictionary[collisionList[x]].CheckForCollisions == true)
+                for (int y = 0; y < onScreenList.Count; y++)
                 {
-                    for (int y = 0; y < objectDictionary.Count; y++ )
+                    if (objectDictionary[collisionCheckList[x]].CollisionBox.Intersects(objectDictionary[onScreenList[y]].CollisionBox))
                     {
-                        if (objectDictionary[collisionList[y]].OnScreen == true && x != y)
-                        {
-                            if (objectDictionary[collisionList[x]].CollisionBox.Intersects(objectDictionary[collisionList[y]].CollisionBox))
-                            {
-                                collidedObjects[x, y] = collisionList[y];
-                            }
-                        }
+                        collidedObjects[x, y] = onScreenList[y];
                     }
+                    
                 }
+                
             }
             
             return collidedObjects;
@@ -125,29 +134,37 @@ namespace ProjectGreco
         {
             string[,] collidedObjects = DetectCollisions();
 
-            for (int x = 0; x < collisionList.Count; x++)
+            for (int x = 0; x < collisionCheckList.Count; x++)
             {
-                for (int y = 0; y < collisionList.Count; y++)
+                for (int y = 0; y < onScreenList.Count; y++)
                 {
                     if (collidedObjects[x, y] != null)
                     {
-                        objectDictionary[collisionList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
+                        objectDictionary[collisionCheckList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Updates every game object in the object Dictionary
+        /// Updates every game object in the object Dictionary.  Also colide the OnScreen List and the collision list
         /// </summary>
         public void Update()
         {
+            onScreenList.Clear();
+            collisionCheckList.Clear();
             for (int x = 0; x < objectDictionary.Count; x++)
             {
-                TriggerCollisionEvents();
-                objectDictionary[collisionList[x]].Update();
 
+                objectDictionary[collisionList[x]].Update();
+                if (objectDictionary[collisionList[x]].OnScreen == true)
+                {
+                    onScreenList.Add(collisionList[x]);
+                    if (objectDictionary[collisionList[x]].CheckForCollisions == true)
+                        collisionCheckList.Add(collisionList[x]);
+                }
             }
+            TriggerCollisionEvents();
         }
 
         /// <summary>

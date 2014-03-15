@@ -30,7 +30,7 @@ namespace ProjectGreco.Levels
             Map myMap = new Map(AlgorithmType.HillsDesert);
             
 
-            for (int x = 0; x < LevelVariables.WIDTH / 4; x ++)
+            for (int x = 0; x < LevelVariables.WIDTH; x ++)
             {
                 for (int y = 0; y < LevelVariables.HEIGHT; y ++)
                 {
