@@ -34,7 +34,7 @@ namespace ProjectGreco.Levels
             {
                 for (int y = 0; y < LevelVariables.HEIGHT; y ++)
                 {
-                    if (myMap.Terrain[x][y] == 'E' || myMap.Terrain[x][y] == 'M')
+                    if (myMap.Terrain[x][y] == 'E' || myMap.Terrain[x][y] == 'M' || myMap.Terrain[x][y] == 'C' || myMap.Terrain[x][y] == 'O')
                     {
                         AddObjectToHandler("Block", new GameObject(new Vector2(x * 50, (LevelVariables.HEIGHT - y) * 50), "Block"), x * LevelVariables.HEIGHT + y);
                     }

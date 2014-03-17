@@ -149,9 +149,9 @@ namespace ProjectGreco.Levels
                                 rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
                         }
                         // Create the caves
-                        //CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
-                        //    seed);
-                        //caveGen.Shape();
+                        CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
+                            seed);
+                        caveGen.Shape();
 
 
                     }
@@ -173,10 +173,10 @@ namespace ProjectGreco.Levels
                                 rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
                         }
                         // Create the caves
-                        //CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
-                        //    seed);
-                        //caveGen.Initialize();
-                        //caveGen.Shape();
+                        CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
+                            seed);
+                        caveGen.Initialize();
+                        caveGen.Shape();
                     }
 
 
