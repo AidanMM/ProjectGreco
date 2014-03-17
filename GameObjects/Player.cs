@@ -111,18 +111,18 @@ namespace ProjectGreco.GameObjects
             {
                
 
-                 if (OldPosition.Y < determineEvent.Position.Y)
-                {
+                // if (OldPosition.Y < determineEvent.Position.Y)
+                //{
                  
                     position.Y = determineEvent.Position.Y - this.collisionBox.Height;
                     velocity.Y = 0;
-                }
-                 if (OldPosition.Y > determineEvent.Position.Y)
-                {
+                //}
+                 //if (OldPosition.Y > determineEvent.Position.Y)
+                //{
                    
-                    position.Y = determineEvent.Position.Y + this.collisionBox.Height;
-                    velocity.Y = 0;
-                }
+                  //  position.Y = determineEvent.Position.Y + this.collisionBox.Height;
+                //    velocity.Y = 0;
+              //  }
                  applyGravity = false;
 
 
