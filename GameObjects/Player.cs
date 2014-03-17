@@ -107,7 +107,7 @@ namespace ProjectGreco.GameObjects
         public override void C_OnCollision(GameObject determineEvent)
         {
             base.C_OnCollision(determineEvent);
-            if (determineEvent.ObjectType == "Block")
+            if (determineEvent.ObjectType == "EdgeTile")
             {
                
 

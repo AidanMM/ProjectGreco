@@ -34,6 +34,7 @@ namespace ProjectGreco.Levels
         /// </summary>
         public const int SAFE_ZONE_WIDTH = 7;
 
+
         #region HILL_ALGORITHM_CONSTANTS
 
         /// <summary>

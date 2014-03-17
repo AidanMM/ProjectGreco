@@ -116,6 +116,10 @@ namespace ProjectGreco
             #region LoadAnimations
             ANIMATION_DICTIONARY.Add("Test", A_CreateAnimation("BlueBeat", "RedBeat", "RedBeat", "BlueBeat", "BlueBeatsafaw"));
             ANIMATION_DICTIONARY.Add("PlayerTest", A_CreateAnimation("THEHERO"));
+            ANIMATION_DICTIONARY.Add("dirtBlock", A_CreateAnimation("dirtBlock"));
+            ANIMATION_DICTIONARY.Add("grassBlock", A_CreateAnimation("grassBlock"));
+            ANIMATION_DICTIONARY.Add("caveFillerBlock", A_CreateAnimation("caveFillerBlock"));
+            ANIMATION_DICTIONARY.Add("caveFloorBlock", A_CreateAnimation("caveFloorBlock"));
             #endregion
 
             OBJECT_HANDLER.ChangeState(new Level1());
