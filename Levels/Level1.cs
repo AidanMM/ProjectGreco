@@ -16,7 +16,11 @@ namespace ProjectGreco.Levels
             : base()
         {
 
+<<<<<<< HEAD
             
+=======
+            AddObjectToHandler("Player", new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
+>>>>>>> 85a7a4996deb44942424f865f544e5fac642006b
           //  AddObjectToHandler("Player", new Player(new Vector2(0,1000), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerTest"])));
           //  LevelObjectDictionary["Player"].A_BeginAnimation();
             AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(400, 400)));
