@@ -175,7 +175,10 @@ namespace ProjectGreco
         {
             for (int x = 0; x < objectDictionary.Count; x++)
             {
-                objectDictionary[collisionList[x]].Draw(spriteBatch);
+                if (objectDictionary[collisionList[x]].OnScreen)
+                {
+                    objectDictionary[collisionList[x]].Draw(spriteBatch);
+                }
             }
         }
 

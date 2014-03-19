@@ -11,7 +11,7 @@ namespace ProjectGreco.GameObjects
 {
     class Player : GameObject
     {
-        float speed = .1f;
+        float speed = 3.0f;
         bool applyGravity = true;
         Vector2 startingPositon;
         
@@ -61,19 +61,19 @@ namespace ProjectGreco.GameObjects
             
             if (Game1.KBState.IsKeyDown(Keys.Left))
             {
-                velocity.X -= speed;
+                velocity.X = -speed;
             }
             if (Game1.KBState.IsKeyDown(Keys.Right))
             {
-                velocity.X += speed;
+                velocity.X = speed;
             }
             if (Game1.KBState.IsKeyDown(Keys.Down))
             {
-                velocity.Y += 10;
+                applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
-                velocity.Y -= 5.0f;
+                velocity.Y -= 7.5f;
                 applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.B))
@@ -107,30 +107,24 @@ namespace ProjectGreco.GameObjects
         public override void C_OnCollision(GameObject determineEvent)
         {
             base.C_OnCollision(determineEvent);
-            if (determineEvent.ObjectType == "Block")
+            if (determineEvent.ObjectType == "EdgeTile")
             {
-               
-
-                 if (OldPosition.Y < determineEvent.Position.Y)
-                {
-                 
-                    position.Y = determineEvent.Position.Y - this.collisionBox.Height;
-                    velocity.Y = 0;
-                }
-                 if (OldPosition.Y > determineEvent.Position.Y)
-                {
-                   
-                    position.Y = determineEvent.Position.Y + this.collisionBox.Height;
-                    velocity.Y = 0;
-                }
-                 applyGravity = false;
-
-
                 
+                if (OldPosition.Y + animationList[animationListIndex][frameIndex].Height > determineEvent.Position.Y)
+                {
+                    position = new Vector2(OldPosition.X - velocity.X, OldPosition.Y);
+                    if (Math.Abs(velocity.X) > Math.Abs(velocity.Y))
+                    {
+                        velocity.X = 0;
+                    }
+                }
+                else
+                {
+                    position = OldPosition;
+                }
+                applyGravity = false;
+                velocity.Y = 0;
             }
-
-            
-                
         }
     }
 }

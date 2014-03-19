@@ -65,6 +65,7 @@ namespace ProjectGreco.Levels.Algorithms
 
         #endregion
 
+
         //
         // Properties
         //
