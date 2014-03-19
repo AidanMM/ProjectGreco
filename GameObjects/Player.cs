@@ -109,7 +109,6 @@ namespace ProjectGreco.GameObjects
             base.C_OnCollision(determineEvent);
             if (determineEvent.ObjectType == "EdgeTile")
             {
-<<<<<<< HEAD
                 
                 if (OldPosition.Y + animationList[animationListIndex][frameIndex].Height > determineEvent.Position.Y)
                 {
@@ -123,28 +122,14 @@ namespace ProjectGreco.GameObjects
                 {
                     position = OldPosition;
                 }
-                applyGravity = false;
                 velocity.Y = 0;
-=======
                
 
-                // if (OldPosition.Y < determineEvent.Position.Y)
-                //{
-                 
-                    position.Y = determineEvent.Position.Y - this.collisionBox.Height;
-                    velocity.Y = 0;
-                //}
-                 //if (OldPosition.Y > determineEvent.Position.Y)
-                //{
-                   
-                  //  position.Y = determineEvent.Position.Y + this.collisionBox.Height;
-                //    velocity.Y = 0;
-              //  }
+
                  applyGravity = false;
 
 
                 
->>>>>>> 85a7a4996deb44942424f865f544e5fac642006b
             }
         }
     }
