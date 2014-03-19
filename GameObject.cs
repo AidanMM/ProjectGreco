@@ -270,7 +270,8 @@ namespace ProjectGreco
 
             //Check to see if an object is on screen.
            // onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
-            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
+            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
+                || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
             {
                 onScreen = false;
             }
@@ -283,7 +284,8 @@ namespace ProjectGreco
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height), Color.White);
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, 
+                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height), Color.White);
         }
 
         /// <summary>

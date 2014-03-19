@@ -62,11 +62,13 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         public override void Update()
         {
+
+
+            vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 200, position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y - 100, 0);
+
+            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) - Game1.CAMERA_DISPLACEMENT.X, vertices[0].Position.Y, 0);
             base.Update();
-            vertices[0].Position = new Vector3(collisionBox.X + Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - collisionBox.Height / 10 + Game1.CAMERA_DISPLACEMENT.Y, 0);
-
-
-            vertices[1].Position = new Vector3(collisionBox.X + (float)(collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) + Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y + collisionBox.Height / 10 + Game1.CAMERA_DISPLACEMENT.Y, 0);
+           // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
 
             if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
             {
@@ -82,6 +84,7 @@ namespace ProjectGreco.GameObjects
         {
             base.Draw(spriteBatch);
 
+            
             Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
         }
     }
