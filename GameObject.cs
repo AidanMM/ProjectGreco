@@ -162,6 +162,11 @@ namespace ProjectGreco
             set { onScreenVector = value; }
         }
 
+        /// <summary>
+        /// The name of the object as stored int the dictionary
+        /// </summary>
+        public string dictionaryName;
+
 
     
 
@@ -270,7 +275,7 @@ namespace ProjectGreco
 
             //Check to see if an object is on screen.
            // onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
-            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
+            if (onScreen == true && (collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
                 || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
             {
                 onScreen = false;
@@ -409,8 +414,17 @@ namespace ProjectGreco
 
         }
 
-
-        
-        
+        /// <summary>
+        /// Call this function to remove the object from the game, it will no longer be in the object dictionary or the collision list
+        /// and therefore will not be drawn, or updated.  
+        /// </summary>
+        public void Destroy()
+        {
+            onScreen = false;
+            Game1.OBJECT_HANDLER.objectDictionary.Remove(dictionaryName);
+            Game1.OBJECT_HANDLER.collisionList.Remove(dictionaryName);
+            Game1.OBJECT_HANDLER.escapeBool = true;
+            
+        }
     }
 }

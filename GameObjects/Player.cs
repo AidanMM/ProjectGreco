@@ -82,10 +82,15 @@ namespace ProjectGreco.GameObjects
                 Game1.OBJECT_HANDLER.ChangeState(new FlappyBird());
                 return;
             }
+            if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
+            {
+                Projectile temp = new Projectile(new Vector2(10, 0), this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow");
+            }
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
                 velocity.X = 0;
                 velocity.Y = 0;
+                
             }
             if (applyGravity == true)
             {

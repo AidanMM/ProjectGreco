@@ -44,6 +44,7 @@
     <Compile Include="GameObjects\FrappyBird.cs" />
     <Compile Include="GameObjects\Pipe.cs" />
     <Compile Include="GameObjects\Player.cs" />
+    <Compile Include="GameObjects\Projectile.cs" />
     <Compile Include="Levels\Algorithms\CaveGeneration.cs" />
     <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />
@@ -75,6 +76,9 @@
   <ItemGroup>
     <Content Include="..\..\..\..\..\..\..\..\Program Files %28x86%29\MonoGame\v3.0\Assemblies\WindowsGL\SDL.dll">
       <Link>SDL.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\BlueBeat.png">

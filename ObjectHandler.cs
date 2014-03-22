@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using System.Threading;
 using System.Linq;
 using ProjectGreco.Levels;
 
@@ -21,6 +22,7 @@ namespace ProjectGreco
     public class ObjectHandler
     {
         public Dictionary<String, GameObject> objectDictionary;
+
 
         public ObjectHandler()
         {
@@ -51,7 +53,7 @@ namespace ProjectGreco
         /// <summary>
         /// This bool tells the central update loop whether or not to stop looping.
         /// </summary>
-        private bool changeStateEscapeBool = false;
+        public bool escapeBool = false;
         
 
         /// <summary>
@@ -69,6 +71,7 @@ namespace ProjectGreco
                 {
                     objectDictionary.Add(name, objectToAdd);
                     collisionList.Add(name);
+                    objectToAdd.dictionaryName = name;
                     return;
                 }
                 else
@@ -100,6 +103,7 @@ namespace ProjectGreco
                 {
                     objectDictionary.Add(name, objectToAdd);
                     collisionList.Add(name);
+                    objectToAdd.dictionaryName = name;
                     return;
                 }
                 else
@@ -148,8 +152,9 @@ namespace ProjectGreco
             {
                 for (int y = 0; y < onScreenList.Count; y++)
                 {
-                    if (collidedObjects[x, y] != null)
+                    if (collidedObjects[x, y] != null )
                     {
+                        if(objectDictionary.ContainsKey(collidedObjects[x,y]))
                         objectDictionary[collisionCheckList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
                     }
                 }
@@ -167,9 +172,9 @@ namespace ProjectGreco
             {
 
                 objectDictionary[collisionList[x]].Update();
-                if (changeStateEscapeBool == true)
+                if (escapeBool == true)
                 {
-                    changeStateEscapeBool = false;
+                    escapeBool = false;
                     return;
                 }
                 if (objectDictionary[collisionList[x]].OnScreen == true)
@@ -218,7 +223,7 @@ namespace ProjectGreco
             objectDictionary = currentState.LevelObjectDictionary;
             collisionList = currentState.collisionList;
             Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);
-            changeStateEscapeBool = true;
+            escapeBool = true;
         }
 
     }

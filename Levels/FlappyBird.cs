@@ -19,9 +19,10 @@ namespace ProjectGreco.Levels
         {
             AddObjectToHandler("Frappy", new FrappyBird(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Frappy"])));
 
-            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2( 600, -500)));
-            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(1000, -300)));
-            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(1400, -600)));
+            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(850, -500)));
+            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(1200, -300)));
+            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(1550, -600)));
+            AddObjectToHandler("Pipe", new Pipe(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Pipe"]), new Vector2(1900, -600)));
             
         }
 

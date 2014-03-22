@@ -59,6 +59,7 @@ namespace ProjectGreco.Levels
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
                     collisionList.Add(name);
+                    objectToAdd.dictionaryName = name;
                     return;
                 }
                 else
@@ -90,6 +91,7 @@ namespace ProjectGreco.Levels
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
                     collisionList.Add(name);
+                    objectToAdd.dictionaryName = name;
                     return;
                 }
                 else

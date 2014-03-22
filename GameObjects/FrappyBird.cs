@@ -12,7 +12,7 @@ namespace ProjectGreco.GameObjects
 {
     class FrappyBird : GameObject
     {
-        public FrappyBird(List<List<Texture2D>> aList) : base(aList, new Vector2(200,360), "Frappy")
+        public FrappyBird(List<List<Texture2D>> aList) : base(aList, new Vector2(200,500), "Frappy")
         {
             acceleration.Y = .5f;
             onScreen = true;

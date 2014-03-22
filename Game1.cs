@@ -126,6 +126,7 @@ namespace ProjectGreco
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
+            ANIMATION_DICTIONARY.Add("Arrow", A_CreateAnimation("arrow"));
 
             #endregion
             #endregion
