@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using ProjectGreco.Levels;
 
 namespace ProjectGreco.GameObjects
 {
@@ -75,6 +76,11 @@ namespace ProjectGreco.GameObjects
             {
                 velocity.Y -= 7.5f;
                 applyGravity = true;
+            }
+            if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2) && Game1.oldKBstate.IsKeyUp(Keys.D2))
+            {
+                Game1.OBJECT_HANDLER.ChangeState(new FlappyBird());
+                return;
             }
             if (Game1.KBState.IsKeyDown(Keys.B))
             {

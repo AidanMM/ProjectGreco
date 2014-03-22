@@ -21,12 +21,6 @@ namespace ProjectGreco.Levels
           //  LevelObjectDictionary["Player"].A_BeginAnimation();
             AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Test"]), new Vector2(100, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64)));
 
-            /*
-            for (int i = 0; i < 50; i++)
-            {
-                AddObjectToHandler("Block", new GameObject(new Vector2(500 + i * 51, 600 - i * 20), "Block"), i);
-            }
-            */
             Map myMap = new Map(AlgorithmType.HillsDesert);
 
             int edgeTiles = 0;

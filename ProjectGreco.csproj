@@ -40,11 +40,15 @@
     <Compile Include="GameObjects\BackgroundTile.cs" />
     <Compile Include="GameObjects\BaseEnemy.cs" />
     <Compile Include="GameObjects\EdgeTile.cs" />
+    <Compile Include="GameObjects\EndPipe.cs" />
+    <Compile Include="GameObjects\FrappyBird.cs" />
+    <Compile Include="GameObjects\Pipe.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="Levels\Algorithms\CaveGeneration.cs" />
     <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />
     <Compile Include="Levels\BaseState.cs" />
+    <Compile Include="Levels\FlappyBird.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\LevelVariables.cs" />
     <Compile Include="Levels\Map.cs" />
@@ -94,6 +98,9 @@
     <Content Include="Content\dirtBlock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Frappy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\grassBlock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -137,6 +144,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\moonFiller.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Pipe.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\RedBeat.png">

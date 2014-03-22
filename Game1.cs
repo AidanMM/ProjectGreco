@@ -50,6 +50,8 @@ namespace ProjectGreco
 
         public static KeyboardState oldKBstate = new KeyboardState();
 
+        public static Random RANDOM = new Random();
+
 
         /// <summary>
         /// This basic effect is for all primitives
@@ -120,6 +122,12 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("grassBlock", A_CreateAnimation("grassBlock"));
             ANIMATION_DICTIONARY.Add("caveFillerBlock", A_CreateAnimation("caveFillerBlock"));
             ANIMATION_DICTIONARY.Add("caveFloorBlock", A_CreateAnimation("caveFloorBlock"));
+            
+            #region Frappy(Just Ignore this)
+            ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
+            ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
+
+            #endregion
             #endregion
 
             OBJECT_HANDLER.ChangeState(new Level1());

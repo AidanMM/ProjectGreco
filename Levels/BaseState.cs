@@ -30,9 +30,16 @@ namespace ProjectGreco.Levels
             set { levelObjectDictionary = value; }
         }
 
+        /// <summary>
+        /// This is the collision list for each independent level, this information is stored in ram so that it can be accesesed later
+        /// and also be handed back into the change state method
+        /// </summary>
+        public List<string> collisionList;
+
         public BaseState()
         {
             levelObjectDictionary = new Dictionary<string, GameObject>();
+            collisionList = new List<string>();
 
             
         }
@@ -42,7 +49,7 @@ namespace ProjectGreco.Levels
         /// </summary>
         /// <param name="name">Name of the object</param>
         /// <param name="objectToAdd">The Game Object To add</param>
-        protected void AddObjectToHandler(string name, GameObject objectToAdd)
+        public void AddObjectToHandler(string name, GameObject objectToAdd)
         {
 
             int nameIndex = 2;
@@ -51,7 +58,7 @@ namespace ProjectGreco.Levels
                 if (levelObjectDictionary.ContainsKey(name) == false)
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
-                    Game1.OBJECT_HANDLER.collisionList.Add(name);
+                    collisionList.Add(name);
                     return;
                 }
                 else
@@ -82,7 +89,7 @@ namespace ProjectGreco.Levels
                 if (levelObjectDictionary.ContainsKey(name) == false)
                 {
                     levelObjectDictionary.Add(name, objectToAdd);
-                    Game1.OBJECT_HANDLER.collisionList.Add(name);
+                    collisionList.Add(name);
                     return;
                 }
                 else

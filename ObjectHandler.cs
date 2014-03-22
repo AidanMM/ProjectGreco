@@ -42,6 +42,16 @@ namespace ProjectGreco
         /// The objects that willl actually be collision checked
         /// </summary>
         public List<string> collisionCheckList = new List<string>();
+
+        /// <summary>
+        /// The level state of the game.  This holds the levels variables and so forth.
+        /// </summary>
+        public BaseState currentState;
+
+        /// <summary>
+        /// This bool tells the central update loop whether or not to stop looping.
+        /// </summary>
+        private bool changeStateEscapeBool = false;
         
 
         /// <summary>
@@ -157,6 +167,11 @@ namespace ProjectGreco
             {
 
                 objectDictionary[collisionList[x]].Update();
+                if (changeStateEscapeBool == true)
+                {
+                    changeStateEscapeBool = false;
+                    return;
+                }
                 if (objectDictionary[collisionList[x]].OnScreen == true)
                 {
                     onScreenList.Add(collisionList[x]);
@@ -193,9 +208,17 @@ namespace ProjectGreco
             collisionList.Add(name);
         }
 
+        /// <summary>
+        /// This function will change the state of the game to the passed in state
+        /// </summary>
+        /// <param name="level"></param>
         public void ChangeState(BaseState level)
         {
-            objectDictionary = level.LevelObjectDictionary;
+            currentState = level;
+            objectDictionary = currentState.LevelObjectDictionary;
+            collisionList = currentState.collisionList;
+            Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);
+            changeStateEscapeBool = true;
         }
 
     }

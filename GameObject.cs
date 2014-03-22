@@ -270,7 +270,7 @@ namespace ProjectGreco
 
             //Check to see if an object is on screen.
            // onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
-            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
+            if ((collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
                 || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
             {
                 onScreen = false;
