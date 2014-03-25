@@ -26,10 +26,10 @@ namespace ProjectGreco.Levels
             int edgeTiles = 0;
             int backgroundTiles = 0;
 
-            string mainEdgeTexture = "grassBlock";
-            string secondaryEdgeTexture = "caveFloorBlock";
-            string mainBackgroundTexture = "dirtBlock";
-            string secondaryBackgroundTexture = "caveFillerBlock";
+            string mainTexture = "dirtBlock";
+            string secondaryTexture = "caveFillerBlock";
+            Texture2D mainEdge = Game1.IMAGE_DICTIONARY["dirtEdge"];
+            Texture2D secondaryEdge = Game1.IMAGE_DICTIONARY["caveEdge"];
             
 
             for (int x = 0; x < LevelVariables.WIDTH; x ++)
@@ -39,15 +39,17 @@ namespace ProjectGreco.Levels
                     // Main Edge Tiles
                     if (myMap.Terrain[x][y] == 'E')
                     {
-                        AddObjectToHandler("EdgeTile", new EdgeTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainEdgeTexture])), edgeTiles); 
+                        AddObjectToHandler("EdgeTile", new EdgeTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64), 
+                            mainEdge, myMap.Terrain,
+                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), edgeTiles); 
                         edgeTiles++;
                     }
                     // Secondary Edge Tiles
                     if (myMap.Terrain[x][y] == 'M')
                     {
-                        AddObjectToHandler("EdgeTile", new EdgeTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryEdgeTexture])), edgeTiles); 
+                        AddObjectToHandler("EdgeTile", new EdgeTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64), 
+                            secondaryEdge, myMap.Terrain,
+                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), edgeTiles); 
                         edgeTiles++;
                     }
                     
@@ -55,14 +57,14 @@ namespace ProjectGreco.Levels
                     if (myMap.Terrain[x][y] == 'O')
                     {
                         AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainBackgroundTexture])), backgroundTiles); 
+                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), backgroundTiles); 
                         backgroundTiles++;
                     }
                     // Secondary Background Tiles
                     if (myMap.Terrain[x][y] == 'C')
                     {
                         AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryBackgroundTexture])), backgroundTiles); 
+                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), backgroundTiles); 
                         backgroundTiles++;
                     }
 

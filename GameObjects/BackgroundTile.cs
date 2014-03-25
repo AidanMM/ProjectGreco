@@ -30,5 +30,12 @@ namespace ProjectGreco.GameObjects
         {
         }
 
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
+                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height),
+                new Rectangle(0, 0, collisionBox.Width, collisionBox.Height), Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+        }
+
     }
 }

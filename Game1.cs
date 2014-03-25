@@ -110,7 +110,9 @@ namespace ProjectGreco
 
             DEFAULT_TEXTURE = Content.Load<Texture2D>("BlueBeat");
             IMAGE_DICTIONARY.Add("BlueBeat", DEFAULT_TEXTURE);
-
+            IMAGE_DICTIONARY.Add("defaultEdge", Content.Load<Texture2D>("defaultEdge"));
+            IMAGE_DICTIONARY.Add("dirtEdge", Content.Load<Texture2D>("dirtEdge"));
+            IMAGE_DICTIONARY.Add("caveEdge", Content.Load<Texture2D>("caveEdge"));
             #endregion
 
 
