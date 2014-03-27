@@ -41,6 +41,7 @@ namespace ProjectGreco.GameObjects
         {
             position = startPos;
             onScreen = true;
+            zOrder = 2;
 
             // Undo everything done to the index.
             terrainX = (int)(startPos.X / 64);
@@ -58,6 +59,7 @@ namespace ProjectGreco.GameObjects
         {
             position = startPos;
             onScreen = true;
+            zOrder = 2;
 
             // Undo everything done to the index.
             terrainX = (int)(startPos.X / 64);

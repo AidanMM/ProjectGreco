@@ -17,6 +17,7 @@ namespace ProjectGreco.GameObjects
         {
             position = startPos;
             onScreen = true;
+            zOrder = -2;
             
         }
         public BackgroundTile(Vector2 startPos, List<List<Texture2D>> aList)
@@ -24,6 +25,7 @@ namespace ProjectGreco.GameObjects
         {
             position = startPos;
             onScreen = true;
+            zOrder = -2;
         }
 
         public override void Update()
