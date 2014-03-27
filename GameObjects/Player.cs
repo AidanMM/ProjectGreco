@@ -13,7 +13,7 @@ namespace ProjectGreco.GameObjects
     class Player : GameObject
     {
         float speed = 3.0f;
-        bool applyGravity = false;
+        bool applyGravity = true;
         Vector2 startingPositon;
 
 
@@ -76,7 +76,7 @@ namespace ProjectGreco.GameObjects
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
                 velocity.Y -= 7.5f;
-                //applyGravity = true;
+                applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2) && Game1.oldKBstate.IsKeyUp(Keys.D2))
             {
@@ -119,10 +119,13 @@ namespace ProjectGreco.GameObjects
             base.C_OnCollision(determineEvent);
             if (determineEvent.ObjectType == "EdgeTile")
             {
+                
                 //Did I collide from above?
-                if (OldPosition.Y + Height < determineEvent.Position.Y)
+                if (OldPosition.Y  < determineEvent.Position.Y
+                    && (OldPosition.X > determineEvent.Position.X || OldPosition.X + Width > determineEvent.Position.X)
+                    && OldPosition.X < determineEvent.Position.X + determineEvent.Width)
                 {
-                   // applyGravity = false;
+                    applyGravity = false;
                     velocity.Y = 0;
                     position.Y = determineEvent.Position.Y - Height;
                 }
@@ -133,17 +136,20 @@ namespace ProjectGreco.GameObjects
                     position.Y = determineEvent.Position.Y + determineEvent.Height;
                 }
                 //Did I collide From the left?
-                if(OldPosition.X + Width < determineEvent.Position.X)
+                else if (OldPosition.X < determineEvent.Position.X
+                    && (OldPosition.Y > determineEvent.Position.Y || OldPosition.Y + Height > determineEvent.Position.Y))
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X - Width;
                 }
                 //Did I collide from the right?
-                else if (OldPosition.X > determineEvent.Position.X + determineEvent.Width)
+                else 
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X + determineEvent.Width;
                 }
+                
+                
             }
         }
 
