@@ -87,6 +87,14 @@ namespace ProjectGreco.GameObjects
             {
                 Projectile temp = new Projectile(new Vector2(10, 0), this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow");
             }
+            if (Game1.KBState.IsKeyUp(Keys.Right) && Game1.oldKBstate.IsKeyDown(Keys.Right))
+            {
+                velocity.X = 0;
+            }
+            if (Game1.KBState.IsKeyUp(Keys.Left) && Game1.oldKBstate.IsKeyDown(Keys.Left))
+            {
+                velocity.X = 0;
+            }
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
                 velocity.X = 0;
@@ -155,7 +163,6 @@ namespace ProjectGreco.GameObjects
 
         public override void C_NoCollisions()
         {
-            
         }
     }
 }
