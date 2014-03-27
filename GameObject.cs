@@ -123,6 +123,18 @@ namespace ProjectGreco
             set { collisionBox = value; }
         }
 
+        public float Height
+        {
+            get { return collisionBox.Height; }
+            set { collisionBox = new Rectangle(collisionBox.X, collisionBox.Y, CollisionBox.Width, (int)value); }
+        }
+
+        public float Width
+        {
+            get { return collisionBox.Width; }
+            set { collisionBox = new Rectangle(collisionBox.X, collisionBox.Y, (int)value, collisionBox.Height ); }
+        }
+
         /// <summary>
         /// This contains the specific "type" of object that this is.  This is used to identify for specific cases in collision and others
         /// </summary>
@@ -418,6 +430,14 @@ namespace ProjectGreco
         /// Use the determineEvent.ObjectType to decide how to react with each collision
         /// </summary>
         public virtual void C_OnCollision(GameObject determineEvent)
+        {
+
+        }
+
+        /// <summary>
+        /// This function gets called if no collisions happened for an object
+        /// </summary>
+        public virtual void C_NoCollisions()
         {
 
         }

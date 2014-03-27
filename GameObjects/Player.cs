@@ -13,11 +13,10 @@ namespace ProjectGreco.GameObjects
     class Player : GameObject
     {
         float speed = 3.0f;
-        bool applyGravity = true;
+        bool applyGravity = false;
         Vector2 startingPositon;
-        
-        
-        
+
+
         public Player(Vector2 startPos) : base(startPos, "Player")
         {
             CheckForCollisions = true;
@@ -71,12 +70,13 @@ namespace ProjectGreco.GameObjects
             }
             if (Game1.KBState.IsKeyDown(Keys.Down))
             {
-                applyGravity = true;
+              //  applyGravity = true;
+                velocity.Y = 3;
             }
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
                 velocity.Y -= 7.5f;
-                applyGravity = true;
+                //applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2) && Game1.oldKBstate.IsKeyUp(Keys.D2))
             {
@@ -95,15 +95,13 @@ namespace ProjectGreco.GameObjects
             }
             if (applyGravity == true)
             {
-                acceleration.Y = .2f;
+               acceleration.Y = 0.3f;
             }
             else
             {
                 acceleration.Y = 0.0f;
             }
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
-            
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -121,27 +119,37 @@ namespace ProjectGreco.GameObjects
             base.C_OnCollision(determineEvent);
             if (determineEvent.ObjectType == "EdgeTile")
             {
-
-                if (OldPosition.Y + animationList[animationListIndex][frameIndex].Height > determineEvent.Position.Y)
+                //Did I collide from above?
+                if (OldPosition.Y + Height < determineEvent.Position.Y)
                 {
-                    position = new Vector2(OldPosition.X - Velocity.X, OldPosition.Y);
-                    if (Math.Abs(velocity.X) > Math.Abs(velocity.Y))
-                    {
-                        velocity.X = 0;
-                    }
+                   // applyGravity = false;
+                    velocity.Y = 0;
+                    position.Y = determineEvent.Position.Y - Height;
                 }
-                else
+                //Did I collide from below?
+                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height)
                 {
-                    position = OldPosition;
+                    velocity.Y = 0;
+                    position.Y = determineEvent.Position.Y + determineEvent.Height;
                 }
-                velocity.Y = 0;
+                //Did I collide From the left?
+                if(OldPosition.X + Width < determineEvent.Position.X)
+                {
+                    velocity.X = 0;
+                    position.X = determineEvent.Position.X - Width;
+                }
+                //Did I collide from the right?
+                else if (OldPosition.X > determineEvent.Position.X + determineEvent.Width)
+                {
+                    velocity.X = 0;
+                    position.X = determineEvent.Position.X + determineEvent.Width;
+                }
+            }
+        }
 
-                applyGravity = false;
-            }
-            if (determineEvent.ObjectType == "Player" && Velocity.Y == 0 && acceleration.Y == 0)
-            {
-                applyGravity = true;
-            }
+        public override void C_NoCollisions()
+        {
+            
         }
     }
 }

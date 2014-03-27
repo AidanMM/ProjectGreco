@@ -129,7 +129,7 @@ namespace ProjectGreco
             {
                 for (int y = 0; y < onScreenList.Count; y++)
                 {
-                    if (objectDictionary[collisionCheckList[x]].CollisionBox.Intersects(objectDictionary[onScreenList[y]].CollisionBox))
+                    if (collisionCheckList[x] != onScreenList[y] && objectDictionary[collisionCheckList[x]].CollisionBox.Intersects(objectDictionary[onScreenList[y]].CollisionBox))
                     {
                         collidedObjects[x, y] = onScreenList[y];
                     }
@@ -150,13 +150,21 @@ namespace ProjectGreco
 
             for (int x = 0; x < collisionCheckList.Count; x++)
             {
+                bool collideCall = false;
                 for (int y = 0; y < onScreenList.Count; y++)
                 {
                     if (collidedObjects[x, y] != null )
                     {
-                        if(objectDictionary.ContainsKey(collidedObjects[x,y]))
-                        objectDictionary[collisionCheckList[x]].C_OnCollision(objectDictionary[collidedObjects[x,y]]);
+                        if (objectDictionary.ContainsKey(collidedObjects[x, y]))
+                        {
+                            objectDictionary[collisionCheckList[x]].C_OnCollision(objectDictionary[collidedObjects[x, y]]);
+                            collideCall = true;
+                        }
                     }
+                }
+                if (collideCall == false)
+                {
+                    objectDictionary[collisionCheckList[x]].C_NoCollisions();
                 }
             }
         }
