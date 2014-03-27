@@ -24,6 +24,7 @@ namespace ProjectGreco.GameObjects
             startingPositon = new Vector2(600, 320);
             position = startPos;
             onScreen = true;
+            zOrder = 1;
             
         }
         public Player(Vector2 startPos, List<List<Texture2D>> aList)
@@ -32,8 +33,8 @@ namespace ProjectGreco.GameObjects
             CheckForCollisions = true;
             startingPositon = new Vector2(600, 320);
             position = startPos;
-            onScreen = true;            
-            
+            onScreen = true;
+            zOrder = 1;
             
         }
 

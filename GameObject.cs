@@ -20,6 +20,8 @@ namespace ProjectGreco
 {
     public class GameObject
     {
+
+
         /// <summary>
         /// This is a list of lists.  The reason for this being that to contain each of the seperate animations, you must have a seperate
         /// list to hold it.  For example, animationList[0][2] would be the third frame of the idle animation. Idle animation being the first animation
@@ -168,9 +170,15 @@ namespace ProjectGreco
         public string dictionaryName;
 
 
-    
+        protected int zOrder = 0;
 
-       
+        public int ZOrder
+        {
+            get { return zOrder; }
+            set { zOrder = value; }
+        }
+
+
         /// <summary>
         /// Default constructor, simply initializes a base texture and a base position
         /// </summary>

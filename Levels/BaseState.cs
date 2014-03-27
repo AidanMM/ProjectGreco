@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using System.Net;
+using System.Linq;
 using ProjectGreco.GameObjects;
 
 //------------------------------------------------------------------------------+
@@ -102,6 +104,22 @@ namespace ProjectGreco.Levels
 
                 }
             }
+        }
+
+        /// <summary>
+        /// This function will sort the level's object dictionary and collision dictionary by the zOrder so that they will be drawn correctly
+        /// </summary>
+        public void SortByZorder()
+        {
+            levelObjectDictionary = levelObjectDictionary.OrderBy(x => x.Value.ZOrder).ToDictionary(x => x.Key, x => x.Value);
+
+            collisionList = new List<string>();
+
+            foreach (var key in levelObjectDictionary)
+            {
+                collisionList.Add(key.Key);
+            }
+ 
         }
     }
 }
