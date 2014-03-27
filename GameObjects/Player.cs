@@ -113,7 +113,7 @@ namespace ProjectGreco.GameObjects
         }
 
         /// <summary>
-        /// Override of the base collisions to incororate an action to happen when you collide with an object. This one checks what side it collided on and fixes the issues
+        /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one checks what side it collided on and fixes the issues
         /// </summary>
         /// <param name="determineEvent"></param>
         public override void C_OnCollision(GameObject determineEvent)
@@ -121,10 +121,10 @@ namespace ProjectGreco.GameObjects
             base.C_OnCollision(determineEvent);
             if (determineEvent.ObjectType == "EdgeTile")
             {
-                
+
                 if (OldPosition.Y + animationList[animationListIndex][frameIndex].Height > determineEvent.Position.Y)
                 {
-                    position = new Vector2(OldPosition.X - velocity.X, OldPosition.Y);
+                    position = new Vector2(OldPosition.X - Velocity.X, OldPosition.Y);
                     if (Math.Abs(velocity.X) > Math.Abs(velocity.Y))
                     {
                         velocity.X = 0;
@@ -135,13 +135,12 @@ namespace ProjectGreco.GameObjects
                     position = OldPosition;
                 }
                 velocity.Y = 0;
-               
 
-
-                 applyGravity = false;
-
-
-                
+                applyGravity = false;
+            }
+            if (determineEvent.ObjectType == "Player" && Velocity.Y == 0 && acceleration.Y == 0)
+            {
+                applyGravity = true;
             }
         }
     }

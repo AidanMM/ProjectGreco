@@ -162,7 +162,7 @@ namespace ProjectGreco
         }
 
         /// <summary>
-        /// Updates every game object in the object Dictionary.  Also colide the OnScreen List and the collision list
+        /// Updates every game object in the object Dictionary.  Also collide the OnScreen List and the collision list
         /// </summary>
         public void Update()
         {
