@@ -24,7 +24,7 @@ namespace ProjectGreco.GameObjects
             startingPosition = new Vector2(600, 320);
             position = startPos;
             onScreen = true;
-            zOrder = 9001;
+            zOrder = 10;
         }
 
         public override void Update()
@@ -40,6 +40,9 @@ namespace ProjectGreco.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);     // yo aidan, I currently have a commented out hide the cursor in Game1, but how do I specify the texture of a cursor object?
+                                        // yo mike, do you really think the best way to ask questions is by hiding them in comments and hopping that I will happen to read
+                                        // the comment?  Because that is not a good idea.  Also, it is in the base game object constructor.  You should probably look at
+                                        // the class you are deriving from and note that it has multiple constructors that all have explinations.
         }
         /// <summary>
         /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one will check to see if the cursor is interacting with a button
