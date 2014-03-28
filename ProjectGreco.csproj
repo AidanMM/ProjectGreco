@@ -39,6 +39,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="GameObjects\BackgroundTile.cs" />
     <Compile Include="GameObjects\BaseEnemy.cs" />
+    <Compile Include="GameObjects\Button.cs" />
     <Compile Include="GameObjects\Cursor.cs" />
     <Compile Include="GameObjects\EdgeTile.cs" />
     <Compile Include="GameObjects\EndPipe.cs" />

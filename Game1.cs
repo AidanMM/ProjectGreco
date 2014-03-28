@@ -90,6 +90,7 @@ namespace ProjectGreco
                 graphics.GraphicsDevice.Viewport.Height, 0,    // bottom, top
                 0, 1);                                         // near, far plane
 
+            //IsMouseVisible = false;
 
             
 
