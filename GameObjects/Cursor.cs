@@ -15,13 +15,15 @@ namespace ProjectGreco.GameObjects
     class Cursor : GameObject
     {
         Vector2 startingPosition;
+        Texture2D cursorSprite;
         MouseState mouseState;
         MouseState prevMouseState;
 
-        public Cursor(Vector2 startPos) : base(startPos, "Cursor")
+        public Cursor(Vector2 startPos, Texture2D cS) : base(startPos, "Cursor")
         {
             CheckForCollisions = true;
             startingPosition = new Vector2(600, 320);
+            cursorSprite = cS;
             position = startPos;
             onScreen = true;
             zOrder = 10;
@@ -35,14 +37,13 @@ namespace ProjectGreco.GameObjects
             mouseState = Mouse.GetState();
             position.X = mouseState.X;
             position.Y = mouseState.Y;
+
+            UpdateCollisionBox();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);     // yo aidan, I currently have a commented out hide the cursor in Game1, but how do I specify the texture of a cursor object?
-                                        // yo mike, do you really think the best way to ask questions is by hiding them in comments and hopping that I will happen to read
-                                        // the comment?  Because that is not a good idea.  Also, it is in the base game object constructor.  You should probably look at
-                                        // the class you are deriving from and note that it has multiple constructors that all have explinations.
+            spriteBatch.Draw(cursorSprite, new Rectangle((int)position.X, (int)position.Y, 20, 20), Color.White);
         }
         /// <summary>
         /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one will check to see if the cursor is interacting with a button

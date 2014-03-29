@@ -90,7 +90,7 @@ namespace ProjectGreco
                 graphics.GraphicsDevice.Viewport.Height, 0,    // bottom, top
                 0, 1);                                         // near, far plane
 
-            //IsMouseVisible = false;
+            IsMouseVisible = false;
 
             
 
@@ -114,6 +114,7 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("defaultEdge", Content.Load<Texture2D>("defaultEdge"));
             IMAGE_DICTIONARY.Add("dirtEdge", Content.Load<Texture2D>("dirtEdge"));
             IMAGE_DICTIONARY.Add("caveEdge", Content.Load<Texture2D>("caveEdge"));
+            IMAGE_DICTIONARY.Add("cursor", Content.Load<Texture2D>("cursor"));
             #endregion
 
 
@@ -125,6 +126,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("grassBlock", A_CreateAnimation("grassBlock"));
             ANIMATION_DICTIONARY.Add("caveFillerBlock", A_CreateAnimation("caveFillerBlock"));
             ANIMATION_DICTIONARY.Add("caveFloorBlock", A_CreateAnimation("caveFloorBlock"));
+            ANIMATION_DICTIONARY.Add("cursorTest", A_CreateAnimation("cursor"));
             
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));

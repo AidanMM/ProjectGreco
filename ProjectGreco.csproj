@@ -104,6 +104,9 @@
     <Content Include="Content\caveFloorBlock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\cursor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\defaultEdge.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

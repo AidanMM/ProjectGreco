@@ -70,7 +70,7 @@ namespace ProjectGreco.GameObjects
             }
             if (Game1.KBState.IsKeyDown(Keys.Down))
             {
-              //  applyGravity = true;
+                //applyGravity = true;
                 velocity.Y = 3;
             }
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))

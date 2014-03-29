@@ -218,7 +218,7 @@ namespace ProjectGreco
         }
 
         /// <summary>
-        /// Paramaterized constructor to create a game object with a degfault image, starting position, and a object type
+        /// Paramaterized constructor to create a game object with a default image, starting position, and a object type
         /// </summary>
         /// <param name="pos">The position to start the object at in the world</param>
         /// <param name="GameObjectType">The type of object that it is</param>
