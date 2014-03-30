@@ -28,6 +28,7 @@ namespace ProjectGreco.GameObjects
             onScreen = true;
             zOrder = 10;
         }
+        
 
         public override void Update()
         {
@@ -55,6 +56,8 @@ namespace ProjectGreco.GameObjects
             {
 
             }
+
+            Game1.TITLE_STRING = determineEvent.dictionaryName;
         }
 
     }

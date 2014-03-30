@@ -46,17 +46,46 @@ namespace ProjectGreco
         /// </summary>
         public static Vector2 CAMERA_DISPLACEMENT;
 
+        /// <summary>
+        /// The current keyboard state used by the game
+        /// </summary>
         public static KeyboardState KBState = new KeyboardState();
 
+        /// <summary>
+        /// The keyboard state that existed one frame before the current keyboard state
+        /// </summary>
         public static KeyboardState oldKBstate = new KeyboardState();
 
+        /// <summary>
+        /// The random object to be used by the entire game. This is to prevent multiple instances of random being created
+        /// at the same time
+        /// </summary>
         public static Random RANDOM = new Random();
+
+        public SpriteFont DEFUALT_SPRITEFONT;
 
 
         /// <summary>
         /// This basic effect is for all primitives
         /// </summary>
         public static BasicEffect basicEffect;
+
+        /// <summary>
+        /// Hides, or shows the debug mode command string
+        /// </summary>
+        public bool debugMode;
+
+        /// <summary>
+        /// The debug command prompt for the game
+        /// </summary>
+        private CommandInput debugPrompt;
+
+        /// <summary>
+        /// This bool will toggle whether or not the object handler updates all of its objects
+        /// </summary>
+        public static bool pauseObjectUpdate;
+
+        public static string TITLE_STRING = "Project Greco";
         
 
         public Game1()
@@ -64,6 +93,7 @@ namespace ProjectGreco
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.Window.Title = "Project Greco";
 
         }
 
@@ -90,8 +120,13 @@ namespace ProjectGreco
                 graphics.GraphicsDevice.Viewport.Height, 0,    // bottom, top
                 0, 1);                                         // near, far plane
 
-            IsMouseVisible = false;
+            IsMouseVisible = true;
 
+            debugMode = false;
+
+            pauseObjectUpdate = false;
+
+            debugPrompt = new CommandInput();
             
 
             base.Initialize();
@@ -105,6 +140,8 @@ namespace ProjectGreco
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            DEFUALT_SPRITEFONT = Content.Load<SpriteFont>("TempGameFont");
             
 
             #region LoadTextures
@@ -165,8 +202,22 @@ namespace ProjectGreco
             // TODO: Add your update logic here
             KBState = Keyboard.GetState();
 
-
+            if(pauseObjectUpdate == false)
             OBJECT_HANDLER.Update();
+
+            if (debugMode == true)
+            {
+                debugPrompt.Update();
+                this.Window.Title = TITLE_STRING;
+            }
+
+            if (KBState.IsKeyDown(Keys.LeftAlt) && KBState.IsKeyDown(Keys.OemTilde) && oldKBstate.IsKeyUp(Keys.OemTilde))
+            {
+                if (debugMode == true)
+                    debugMode = false;
+                else
+                    debugMode = true;
+            }
 
             oldKBstate = KBState;
 
@@ -189,8 +240,11 @@ namespace ProjectGreco
             basicEffect.CurrentTechnique.Passes[0].Apply();
             OBJECT_HANDLER.Draw(spriteBatch);
 
-            
-
+            if (debugMode == true)
+            {
+                //spriteBatch.DrawString(spFont1, commandString, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(DEFUALT_SPRITEFONT, debugPrompt.commandString, new Vector2(0, 0), Color.Black);
+            }
 
             spriteBatch.End();
 
