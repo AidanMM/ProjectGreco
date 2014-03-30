@@ -15,6 +15,7 @@ namespace ProjectGreco.GameObjects
     class Cursor : GameObject
     {
         Vector2 startingPosition;
+        Vector2 screenPosition;
         Texture2D cursorSprite;
         MouseState mouseState;
         MouseState prevMouseState;
@@ -36,15 +37,17 @@ namespace ProjectGreco.GameObjects
             prevMouseState = mouseState;
 
             mouseState = Mouse.GetState();
-            position.X = mouseState.X;
-            position.Y = mouseState.Y;
+            screenPosition.X = mouseState.X;
+            screenPosition.Y = mouseState.Y;
+            position.X = Game1.CAMERA_DISPLACEMENT.X + mouseState.X;
+            position.Y = Game1.CAMERA_DISPLACEMENT.Y + mouseState.Y;
 
             UpdateCollisionBox();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(cursorSprite, new Rectangle((int)position.X, (int)position.Y, 20, 20), Color.White);
+            spriteBatch.Draw(cursorSprite, new Rectangle((int)screenPosition.X, (int)screenPosition.Y, 20, 20), Color.White);
         }
         /// <summary>
         /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one will check to see if the cursor is interacting with a button
