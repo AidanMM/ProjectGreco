@@ -30,7 +30,7 @@ namespace ProjectGreco.Levels
             Texture2D secondaryEdge = Game1.IMAGE_DICTIONARY["caveEdge"];
             
 
-            for (int x = 0; x < LevelVariables.WIDTH / 5; x ++)
+            for (int x = 0; x < LevelVariables.WIDTH / 10; x ++)
             {
                 for (int y = 0; y < LevelVariables.HEIGHT; y ++)
                 {

@@ -329,11 +329,19 @@ namespace ProjectGreco
             animating = false;
         }
 
+        public void A_ToggleAnimating()
+        {
+            if (animating == true)
+                animating = false;
+            else
+                animating = true;
+        }
+
         /// <summary>
         /// Switch animation index to the given index
         /// </summary>
         /// <param name="index">Index to switch to</param>
-        public void A_SwitchAnimationIndex(int index)
+        public void A_GoToAnimationIndex(int index)
         {
             animationListIndex = index;
             frameIndex = 0;

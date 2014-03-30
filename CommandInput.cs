@@ -10,6 +10,12 @@ using ProjectGreco.GameObjects;
 using ProjectGreco.Levels;
 
 
+//------------------------------------------------------------------------------ +
+//Author: Aidan                                                                 |
+//Purpose: Debug command prompt for the game.  Handles key presses and takes    |
+//commands to control the game while it is running                              |
+//------------------------------------------------------------------------------ +
+
 namespace ProjectGreco
 {
     class CommandInput
@@ -755,6 +761,41 @@ namespace ProjectGreco
                     stringIndex++;
                 }
             }
+            
+            if (Game1.KBState.IsKeyDown(Keys.OemMinus) && !Game1.oldKBstate.IsKeyDown(Keys.OemMinus) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
+            {
+                if (stringIndex == commandString.Length)
+                {
+                    HandleLine();
+                    commandString += '_';
+                    stringIndex++;
+
+                }
+                else
+                {
+                    HandleLine();
+                    timer = 25;
+                    commandString = commandString.Insert(stringIndex, "_");
+                    stringIndex++;
+                }
+            }
+            else if (Game1.KBState.IsKeyDown(Keys.OemMinus) && !Game1.oldKBstate.IsKeyDown(Keys.OemMinus))
+            {
+                if (stringIndex == commandString.Length)
+                {
+                    HandleLine();
+                    commandString += '-';
+                    stringIndex++;
+
+                }
+                else
+                {
+                    HandleLine();
+                    timer = 25;
+                    commandString = commandString.Insert(stringIndex, "-");
+                    stringIndex++;
+                }
+            }
 
 
             #endregion
@@ -844,7 +885,16 @@ namespace ProjectGreco
                         prevCommandIndex = 0;
                     }
                     if (noBackLength != commandString.Length)
-                        commandString = commandString.Remove(noBackLength);
+                    {
+                        try
+                        {
+                            commandString = commandString.Remove(noBackLength);
+                        }
+                        catch(Exception e)
+                        {
+                            stringIndex = commandString.Length;
+                        }
+                    }
                     commandString += prevCommandList[prevCommandIndex];
                     stringIndex = commandString.Length;
 
@@ -877,8 +927,16 @@ namespace ProjectGreco
             if (timer == 50)
             {
                 displayPipe = true;
-                commandString = commandString.Insert(stringIndex, "|");
-                stringIndex++;
+                try
+                {
+                    commandString = commandString.Insert(stringIndex, "|");
+                    stringIndex++;
+                }
+                catch (Exception e)
+                {
+                    stringIndex = commandString.Length;
+
+                }
             }
             if (timer == 100)
             {
@@ -917,9 +975,14 @@ namespace ProjectGreco
                 {
                     try
                     {
-                        lineLimit = (int)ReturnNumberAfterEquals(command);
-                        string tempString = "Line limit succesfully changed to " + lineLimit;
-                        AddString(tempString);
+                        if ((int)ReturnNumberAfterEquals(command) > 2)
+                        {
+                            lineLimit = (int)ReturnNumberAfterEquals(command);
+                            string tempString = "Line limit succesfully changed to " + lineLimit;
+                            AddString(tempString);
+                        }
+                        else
+                            AddString("Line limit given was too small.");
                     }
                     catch (Exception e)
                     {
@@ -957,15 +1020,31 @@ namespace ProjectGreco
                                 AddString("Not a valid input for altering position, the format is 'set nameOfObject position = #,#'");
                             }
                         }
-                        if (command.Contains("velocity"))
+                        else if (command.Contains("velocity"))
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity = ReturnNumbersSerperatedByCommas(command);
                             AddString("Done!" + parts[1] + "velocity has been set to( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity.Y + " )");
                         }
-                        if (command.Contains("acceleration"))
+                        else if (command.Contains("acceleration"))
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration = ReturnNumbersSerperatedByCommas(command);
                             AddString("Done!" + parts[1] + "acceleration has been set to( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.Y + " )");
+                        }
+                        else if (command.Contains("zorder"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder = (int)ReturnNumberAfterEquals(command);
+                            Game1.OBJECT_HANDLER.SortByZorder();
+                            AddString("Done!" + parts[1] + "zOrder has been set to " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder);
+                        }
+                        else if (command.Contains("frame"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_GoToFrameIndex((int)ReturnNumberAfterEquals(command));
+                            AddString("Done!" + parts[1] + "frame has been set" );
+                        }
+                        else if (command.Contains("animation"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_GoToAnimationIndex((int)ReturnNumberAfterEquals(command));
+                            AddString("Done!" + parts[1] + "animation has been set");
                         }
                     }
                     else
@@ -996,6 +1075,10 @@ namespace ProjectGreco
                         {
                             AddString(parts[1] + " acceleration is ( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.Y + " )");
                         }
+                        if (command.Contains("zorder"))
+                        {
+                            AddString(parts[1] + "zOrder is " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder);
+                        }
                     }
                     else
                     {
@@ -1009,13 +1092,48 @@ namespace ProjectGreco
             }
             else if (command.Contains("help"))
             {
-                AddString("Set commands for position, velocity, and acceleration follows this set up:");
+                AddString("Set commands for position, velocity, and acceleration, zorder, frame, and animation follows this set up:");
                 AddString("set objectName variable = #,#");
                 AddString("Return commands for position, velocity, and acceleration follows this set up:");
                 AddString("return objectName variable");
                 AddString("pause & unpause will both toggle the game being paused.");
+                AddString("You can toggle animating, colliding");
+                AddString("toggle gameObject animating");
                 AddString("Change the line limit of the debug prompt with: ");
                 AddString("line limit = #");
+            }
+            else if (command.Contains("toggle"))
+            {
+                try
+                {
+                    if (Game1.OBJECT_HANDLER.objectDictionary.ContainsKey(parts[1]))
+                    {
+                        if (command.Contains("animating"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_ToggleAnimating();
+                        }
+                        if (command.Contains("colliding"))
+                        {
+                            if (Game1.OBJECT_HANDLER.objectDictionary[parts[1]].CheckForCollisions == true)
+                                Game1.OBJECT_HANDLER.objectDictionary[parts[1]].CheckForCollisions = false;
+                            else
+                                Game1.OBJECT_HANDLER.objectDictionary[parts[1]].CheckForCollisions = true;
+                        }
+                        else
+                        {
+                            AddString("Not a valid toggle input");
+                        }
+                    }
+                    else
+                    {
+                        AddString("Not a valid gameObject");
+                    }
+
+                }
+                catch(Exception e)
+                {
+                    AddString("There was an issue with your input");
+                }
             }
             else
             {

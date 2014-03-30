@@ -10,11 +10,11 @@ using System.Threading;
 using System.Linq;
 using ProjectGreco.Levels;
 
-//------------------------------------------------------------------------------+
+//------------------------------------------------------------------------------ +
 //Author: Aidan                                                                 |
 //Purpose: The object handler holds, updates, and detects collisions between all|
 //game objects.                                                                 |
-//------------------------------------------------------------------------------+
+//------------------------------------------------------------------------------ +
 
 
 namespace ProjectGreco
@@ -232,6 +232,22 @@ namespace ProjectGreco
             collisionList = currentState.collisionList;
             Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);
             escapeBool = true;
+        }
+
+        /// <summary>
+        /// This function will sort the object dictionary and collision dictionary by the zOrder so that they will be drawn correctly
+        /// </summary>
+        public void SortByZorder()
+        {
+            objectDictionary = objectDictionary.OrderBy(x => x.Value.ZOrder).ToDictionary(x => x.Key, x => x.Value);
+
+            collisionList = new List<string>();
+
+            foreach (var key in objectDictionary)
+            {
+                collisionList.Add(key.Key);
+            }
+
         }
 
     }

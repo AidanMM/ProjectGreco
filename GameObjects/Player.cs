@@ -85,7 +85,14 @@ namespace ProjectGreco.GameObjects
             }
             if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
             {
-                Projectile temp = new Projectile(new Vector2(10, 0), this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow");
+                Vector2 toMouse = new Vector2(
+                    this.position.X - Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X,
+                    this.position.Y - Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y);
+                toMouse.Normalize();
+                float angle = (float)Math.Atan(toMouse.X / toMouse.Y);
+                toMouse *= -1;
+                toMouse *= 10;
+                Projectile temp = new Projectile(toMouse, this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow", angle);
             }
             if (Game1.KBState.IsKeyUp(Keys.Right) && Game1.oldKBstate.IsKeyDown(Keys.Right))
             {
