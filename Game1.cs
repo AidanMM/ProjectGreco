@@ -152,6 +152,16 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("dirtEdge", Content.Load<Texture2D>("dirtEdge"));
             IMAGE_DICTIONARY.Add("caveEdge", Content.Load<Texture2D>("caveEdge"));
             IMAGE_DICTIONARY.Add("cursor", Content.Load<Texture2D>("cursor"));
+            IMAGE_DICTIONARY.Add("castleblock", Content.Load<Texture2D>("castleblock"));
+            IMAGE_DICTIONARY.Add("caveDirtBlock", Content.Load<Texture2D>("caveDirtBlock"));
+            IMAGE_DICTIONARY.Add("caveWall", Content.Load<Texture2D>("caveWall"));
+            IMAGE_DICTIONARY.Add("desertFloor", Content.Load<Texture2D>("desertFloor"));
+            IMAGE_DICTIONARY.Add("floodedcaveFloorBlock", Content.Load<Texture2D>("floodedcaveFloorBlock"));
+            IMAGE_DICTIONARY.Add("forestBlock", Content.Load<Texture2D>("forestBlock"));
+            IMAGE_DICTIONARY.Add("hillsBlock", Content.Load<Texture2D>("hillsBlock"));
+            IMAGE_DICTIONARY.Add("iceFloor", Content.Load<Texture2D>("iceFloor"));
+            IMAGE_DICTIONARY.Add("moonBlock", Content.Load<Texture2D>("moonBlock"));
+
             #endregion
 
 
@@ -164,7 +174,20 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("caveFillerBlock", A_CreateAnimation("caveFillerBlock"));
             ANIMATION_DICTIONARY.Add("caveFloorBlock", A_CreateAnimation("caveFloorBlock"));
             ANIMATION_DICTIONARY.Add("cursorTest", A_CreateAnimation("cursor"));
-            
+            ANIMATION_DICTIONARY.Add("caveDirtBlock", A_CreateAnimation("caveDirtBlock"));
+            ANIMATION_DICTIONARY.Add("caveWall", A_CreateAnimation("caveWall"));
+            ANIMATION_DICTIONARY.Add("desertFiller", A_CreateAnimation("desertFiller"));
+            ANIMATION_DICTIONARY.Add("floodedcaveFillerBlock", A_CreateAnimation("floodedcaveFillerBlock"));
+            ANIMATION_DICTIONARY.Add("forestdirtBlock", A_CreateAnimation("forestdirtBlock"));
+            ANIMATION_DICTIONARY.Add("iceFiller", A_CreateAnimation("iceFiller"));
+            ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
+
+            //Charater Animations
+            ANIMATION_DICTIONARY.Add("WalkRight",A_CreateAnimation("PaladinWalking1","PaladinWalking2","PaladinWalking3","PaladinWalking4","PaladinWalking5",
+                "PaladinWalking6","PaladinWalking7","PaladinWalking8"));
+            ANIMATION_DICTIONARY.Add("WalkLeft", A_CreateAnimation("PaladinWalking1L", "PaladinWalking2L", "PaladinWalking3L", "PaladinWalking4L", "PaladinWalking5L",
+                "PaladinWalking6L", "PaladinWalking7L", "PaladinWalking8L"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
