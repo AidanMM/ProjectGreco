@@ -68,11 +68,11 @@ namespace ProjectGreco.GameObjects
             {
                 velocity.X = speed;
             }
-            if (Game1.KBState.IsKeyDown(Keys.Down))
+            /*if (Game1.KBState.IsKeyDown(Keys.Down))
             {
                 //applyGravity = true;
                 velocity.Y = 3;
-            }
+            }*/
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
                 velocity.Y -= 7.5f;
@@ -134,9 +134,9 @@ namespace ProjectGreco.GameObjects
             base.C_OnCollision(determineEvent);
             if (determineEvent.ObjectType == "EdgeTile")
             {
-                
+
                 //Did I collide from above?
-                if (OldPosition.Y  < determineEvent.Position.Y
+                if (OldPosition.Y < determineEvent.Position.Y
                     && (OldPosition.X > determineEvent.Position.X || OldPosition.X + Width > determineEvent.Position.X)
                     && OldPosition.X < determineEvent.Position.X + determineEvent.Width)
                 {
@@ -145,7 +145,7 @@ namespace ProjectGreco.GameObjects
                     position.Y = determineEvent.Position.Y - Height;
                 }
                 //Did I collide from below?
-                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height)
+                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height) 
                 {
                     velocity.Y = 0;
                     position.Y = determineEvent.Position.Y + determineEvent.Height;
@@ -158,18 +158,27 @@ namespace ProjectGreco.GameObjects
                     position.X = determineEvent.Position.X - Width;
                 }
                 //Did I collide from the right?
-                else 
+                else
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X + determineEvent.Width;
                 }
-                
-                
+            }
+            else
+            {
+                if (OldPosition.Y == Position.Y)
+                {
+                    applyGravity = true;
+                }
             }
         }
 
         public override void C_NoCollisions()
         {
+            if (OldPosition.Y == Position.Y)
+            {
+                applyGravity = true;
+            }
         }
     }
 }
