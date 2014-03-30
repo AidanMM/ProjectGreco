@@ -190,6 +190,15 @@ namespace ProjectGreco
             set { zOrder = value; }
         }
 
+        protected bool objectBelow = false;
+
+        public bool ObjectBelow
+        {
+            get { return objectBelow; }
+            set { objectBelow = value; }
+        }
+
+
 
         /// <summary>
         /// Default constructor, simply initializes a base texture and a base position

@@ -127,11 +127,24 @@ namespace ProjectGreco
             
             for (int x = 0; x < collisionCheckList.Count; x++)
             {
+                objectDictionary[collisionCheckList[x]].ObjectBelow = false;
                 for (int y = 0; y < onScreenList.Count; y++)
                 {
-                    if (collisionCheckList[x] != onScreenList[y] && objectDictionary[collisionCheckList[x]].CollisionBox.Intersects(objectDictionary[onScreenList[y]].CollisionBox))
+                    if (collisionCheckList[x] != onScreenList[y])
                     {
-                        collidedObjects[x, y] = onScreenList[y];
+                        Vector2 distanceBetweenObjects = new Vector2(Math.Abs(objectDictionary[collisionCheckList[x]].CollisionBox.X - objectDictionary[onScreenList[y]].CollisionBox.X), Math.Abs(objectDictionary[collisionCheckList[x]].CollisionBox.Y - objectDictionary[onScreenList[y]].CollisionBox.Y));
+
+                        if (distanceBetweenObjects.X < objectDictionary[collisionCheckList[x]].CollisionBox.Width)
+                        {
+                            if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height + 5)
+                            {
+                                objectDictionary[collisionCheckList[x]].ObjectBelow = true;
+                                if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
+                                {
+                                    collidedObjects[x, y] = onScreenList[y];
+                                }
+                            }
+                        }
                     }
                     
                 }

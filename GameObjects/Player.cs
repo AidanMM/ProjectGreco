@@ -116,6 +116,11 @@ namespace ProjectGreco.GameObjects
             {
                 acceleration.Y = 0.0f;
             }
+            if (objectBelow == false)
+            {
+                applyGravity = true;
+            }
+
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
         }
 
@@ -164,21 +169,12 @@ namespace ProjectGreco.GameObjects
                     position.X = determineEvent.Position.X + determineEvent.Width;
                 }
             }
-            else
-            {
-                if (OldPosition.Y == Position.Y)
-                {
-                    applyGravity = true;
-                }
-            }
+            
         }
 
         public override void C_NoCollisions()
         {
-            if (OldPosition.Y == Position.Y)
-            {
-                applyGravity = true;
-            }
+            
         }
     }
 }
