@@ -303,9 +303,10 @@ namespace ProjectGreco
             }
 
             //Check to see if an object is on screen.
-           // onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
-            if (onScreen == true && (collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280) 
-                || (onScreenVector.Y < 0 && collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
+            //onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
+            if (onScreen == true &&
+                (collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < 0 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1280)
+                || (collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y < 0 || collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 720))
             {
                 onScreen = false;
             }
@@ -352,8 +353,11 @@ namespace ProjectGreco
         /// <param name="index">Index to switch to</param>
         public void A_GoToAnimationIndex(int index)
         {
-            animationListIndex = index;
-            frameIndex = 0;
+            if (animationListIndex != index)
+            {
+                animationListIndex = index;
+                frameIndex = 0;
+            }
         }
 
         /// <summary>

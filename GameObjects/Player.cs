@@ -12,7 +12,8 @@ namespace ProjectGreco.GameObjects
 {
     class Player : GameObject
     {
-        float speed = 3.0f;
+        float speed = .5f;
+        float speedLimit = 7.5f;
         bool applyGravity = true;
         Vector2 startingPositon;
 
@@ -34,6 +35,7 @@ namespace ProjectGreco.GameObjects
             position = startPos;
             onScreen = true;
             zOrder = 1;
+            A_BeginAnimation();
             
         }
 
@@ -62,20 +64,65 @@ namespace ProjectGreco.GameObjects
             
             if (Game1.KBState.IsKeyDown(Keys.Left))
             {
-                velocity.X = -speed;
+                acceleration.X = -speed;
+                
+                A_GoToAnimationIndex(1);
+                A_BeginAnimation();
+                
             }
-            if (Game1.KBState.IsKeyDown(Keys.Right))
+            else if (Game1.KBState.IsKeyDown(Keys.Right))
             {
-                velocity.X = speed;
+                acceleration.X = speed;
+                A_GoToAnimationIndex(0);
+                A_BeginAnimation();
             }
-            /*if (Game1.KBState.IsKeyDown(Keys.Down))
+            else if (Math.Abs(velocity.X) < .2f && (Math.Floor(velocity.X) == 0 || Math.Ceiling(velocity.X) == 0))
             {
-                //applyGravity = true;
-                velocity.Y = 3;
-            }*/
+                velocity.X = 0;
+                acceleration.X = 0;
+                A_StopAnimating();
+            }
+            if (Game1.KBState.IsKeyUp(Keys.Right) && Game1.oldKBstate.IsKeyDown(Keys.Right))
+            {
+                if (velocity.X > 0)
+                {
+                    acceleration.X = -.2f;
+                }
+                else
+                {
+                    acceleration.X = .2f;
+                    
+                }
+                if (Math.Abs(velocity.X) < .2f && (Math.Floor(velocity.X) == 0 || Math.Ceiling(velocity.X) == 0))
+                {
+                    velocity.X = 0;
+                    acceleration.X = 0;
+                    A_StopAnimating();
+                }
+
+            }
+            if (Game1.KBState.IsKeyUp(Keys.Left) && Game1.oldKBstate.IsKeyDown(Keys.Left))
+            {
+                if (velocity.X > 0)
+                {
+                    acceleration.X = -.2f;
+                }
+                else
+                {
+                    acceleration.X = .2f;
+                }
+                if (Math.Abs(velocity.X) < .2f && (Math.Floor(velocity.X) == 0 || Math.Ceiling(velocity.X) == 0))
+                {
+                    velocity.X = 0;
+                    acceleration.X = 0;
+                    A_StopAnimating();
+                }
+
+            }
+            
             if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
             {
-                velocity.Y -= 7.5f;
+                velocity.Y -= 10.5f;
                 applyGravity = true;
             }
             if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2) && Game1.oldKBstate.IsKeyUp(Keys.D2))
@@ -86,22 +133,14 @@ namespace ProjectGreco.GameObjects
             if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
             {
                 Vector2 toMouse = new Vector2(
-                    this.position.X - Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X,
-                    this.position.Y - Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y);
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X,
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y);
                 toMouse.Normalize();
-                float angle = (float)Math.Atan(toMouse.X / toMouse.Y);
-                toMouse *= -1;
+                float angle = -(float)Math.Atan(toMouse.X / -toMouse.Y);
                 toMouse *= 10;
                 Projectile temp = new Projectile(toMouse, this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow", angle);
             }
-            if (Game1.KBState.IsKeyUp(Keys.Right) && Game1.oldKBstate.IsKeyDown(Keys.Right))
-            {
-                velocity.X = 0;
-            }
-            if (Game1.KBState.IsKeyUp(Keys.Left) && Game1.oldKBstate.IsKeyDown(Keys.Left))
-            {
-                velocity.X = 0;
-            }
+            
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
                 velocity.X = 0;
@@ -119,6 +158,19 @@ namespace ProjectGreco.GameObjects
             if (objectBelow == false)
             {
                 applyGravity = true;
+            }
+            if (velocity.X == 0)
+            {
+                A_StopAnimating();
+                A_GoToFrameIndex(0);
+            }
+            if (velocity.X > speedLimit)
+            {
+                velocity.X = speed;
+            }
+            else if (velocity.X < -speedLimit)
+            {
+                velocity.X = -speedLimit;
             }
 
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
@@ -161,12 +213,14 @@ namespace ProjectGreco.GameObjects
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X - Width;
+                    acceleration.X = 0;
                 }
                 //Did I collide from the right?
                 else
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X + determineEvent.Width;
+                    acceleration.X = 0;
                 }
             }
             

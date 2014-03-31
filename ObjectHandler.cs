@@ -138,6 +138,7 @@ namespace ProjectGreco
                         {
                             if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height + 5)
                             {
+                                if(objectDictionary[onScreenList[y]].ObjectType == "EdgeTile")
                                 objectDictionary[collisionCheckList[x]].ObjectBelow = true;
                                 if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
                                 {
