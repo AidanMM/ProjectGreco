@@ -195,7 +195,8 @@ namespace ProjectGreco.GameObjects
                 //Did I collide from above?
                 if (OldPosition.Y < determineEvent.Position.Y
                     && (OldPosition.X > determineEvent.Position.X || OldPosition.X + Width > determineEvent.Position.X)
-                    && OldPosition.X < determineEvent.Position.X + determineEvent.Width)
+                    && OldPosition.X < determineEvent.Position.X + determineEvent.Width
+                    && velocity.Y > 0)
                 {
                     applyGravity = false;
                     velocity.Y = 0;
@@ -214,6 +215,7 @@ namespace ProjectGreco.GameObjects
                     velocity.X = 0;
                     position.X = determineEvent.Position.X - Width;
                     acceleration.X = 0;
+                    
                 }
                 //Did I collide from the right?
                 else
