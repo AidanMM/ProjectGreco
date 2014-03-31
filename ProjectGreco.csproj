@@ -53,6 +53,7 @@
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />
     <Compile Include="Levels\BaseState.cs" />
     <Compile Include="Levels\FlappyBird.cs" />
+    <Compile Include="Levels\HomeWorld.cs" />
     <Compile Include="Levels\Level1.cs" />
     <Compile Include="Levels\LevelVariables.cs" />
     <Compile Include="Levels\Map.cs" />
@@ -217,6 +218,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\RedBeat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TempGround.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\THEHERO.png">

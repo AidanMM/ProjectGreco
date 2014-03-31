@@ -181,6 +181,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("forestdirtBlock", A_CreateAnimation("forestdirtBlock"));
             ANIMATION_DICTIONARY.Add("iceFiller", A_CreateAnimation("iceFiller"));
             ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
+            ANIMATION_DICTIONARY.Add("tempGround", A_CreateAnimation("TempGround"));
 
             //Charater Animations
             ANIMATION_DICTIONARY.Add("WalkRight",A_CreateAnimation("PaladinWalking1","PaladinWalking2","PaladinWalking3","PaladinWalking4","PaladinWalking5",

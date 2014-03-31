@@ -908,9 +908,16 @@ namespace ProjectGreco
                     prevCommandIndex++;
                     if (prevCommandIndex >= prevCommandList.Count)
                     {
-                        prevCommandIndex = prevCommandList.Count ;
-                        commandString = commandString.Remove(noBackLength);
-                        stringIndex = noBackLength;
+                        try
+                        {
+                            prevCommandIndex = prevCommandList.Count;
+                            commandString = commandString.Remove(noBackLength);
+                            stringIndex = noBackLength;
+                        }
+                        catch (Exception e)
+                        {
+                            stringIndex = noBackLength;
+                        }
                     }
                     else
                     {

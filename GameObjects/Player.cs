@@ -120,7 +120,7 @@ namespace ProjectGreco.GameObjects
 
             }
             
-            if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up))
+            if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up) && applyGravity ==false)
             {
                 velocity.Y -= 10.5f;
                 applyGravity = true;
@@ -166,7 +166,7 @@ namespace ProjectGreco.GameObjects
             }
             if (velocity.X > speedLimit)
             {
-                velocity.X = speed;
+                velocity.X = speedLimit;
             }
             else if (velocity.X < -speedLimit)
             {
@@ -188,7 +188,7 @@ namespace ProjectGreco.GameObjects
         /// <param name="determineEvent"></param>
         public override void C_OnCollision(GameObject determineEvent)
         {
-            base.C_OnCollision(determineEvent);
+         
             if (determineEvent.ObjectType == "EdgeTile")
             {
 
