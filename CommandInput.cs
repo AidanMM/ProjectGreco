@@ -1064,7 +1064,52 @@ namespace ProjectGreco
                     AddString("There was an issue with your input");
                 }
             }
-            else if(commandString.Contains("return"))
+            else if (commandString.Contains("mod"))
+            {
+                try
+                {
+                    if (Game1.OBJECT_HANDLER.objectDictionary.ContainsKey(parts[1]))
+                    {
+                        if (command.Contains("position"))
+                        {
+                            try
+                            {
+                                Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Position += ReturnNumbersSerperatedByCommas(command);
+                                AddString("Done!" + parts[1] + "position has been set to( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Position.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Position.Y + " )");
+                            }
+                            catch (Exception e)
+                            {
+                                AddString("Not a valid input for altering position, the format is 'set nameOfObject position = #,#'");
+                            }
+                        }
+                        else if (command.Contains("velocity"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity += ReturnNumbersSerperatedByCommas(command);
+                            AddString("Done!" + parts[1] + "velocity has been set to( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Velocity.Y + " )");
+                        }
+                        else if (command.Contains("acceleration"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration += ReturnNumbersSerperatedByCommas(command);
+                            AddString("Done!" + parts[1] + "acceleration has been set to( " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Acceleration.Y + " )");
+                        }
+                        else if (command.Contains("zorder"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder += (int)ReturnNumberAfterEquals(command);
+                            Game1.OBJECT_HANDLER.SortByZorder();
+                            AddString("Done!" + parts[1] + "zOrder has been set to " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder);
+                        }
+                    }
+                    else
+                    {
+                        AddString("Not a valid gameObject, check spelling and capitalization");
+                    }
+                }
+                catch (Exception e)
+                {
+                    AddString("There was an issue with your input");
+                }
+            }
+            else if (commandString.Contains("return"))
             {
                 try
                 {
@@ -1101,6 +1146,8 @@ namespace ProjectGreco
             {
                 AddString("Set commands for position, velocity, and acceleration, zorder, frame, and animation follows this set up:");
                 AddString("set objectName variable = #,#");
+                AddString("Mod position, velocity, acceleration and zOrder by a set ammount");
+                AddString("mod objectName variable = #,#");
                 AddString("Return commands for position, velocity, and acceleration follows this set up:");
                 AddString("return objectName variable");
                 AddString("pause & unpause will both toggle the game being paused.");
@@ -1137,7 +1184,7 @@ namespace ProjectGreco
                     }
 
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     AddString("There was an issue with your input");
                 }

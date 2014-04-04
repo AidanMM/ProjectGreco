@@ -42,17 +42,14 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
 
+            
+
             OldPosition = new Vector2(position.X, position.Y);
-
-
-            position += velocity;
-            velocity += acceleration;
-
-            UpdateCollisionBox();
 
             if (animating == true)
             {
-                frameIndex++;
+                if (Game1.TIMER % (60 / framesPerSecond) == 0)
+                    frameIndex++;
                 if (frameIndex >= animationList[animationListIndex].Count && looping == true)
                     frameIndex = 0;
                 else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
@@ -60,8 +57,12 @@ namespace ProjectGreco.GameObjects
 
 
             }
-            
-            
+
+            position += velocity;
+            velocity += acceleration;
+
+            UpdateCollisionBox();
+
             if (Game1.KBState.IsKeyDown(Keys.Left))
             {
                 acceleration.X = -speed;
@@ -172,6 +173,10 @@ namespace ProjectGreco.GameObjects
             {
                 velocity.X = -speedLimit;
             }
+            if (position.Y > LevelVariables.HEIGHT * 64)
+            {
+                position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
+            }
 
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
         }
@@ -194,28 +199,27 @@ namespace ProjectGreco.GameObjects
 
                 //Did I collide from above?
                 if (OldPosition.Y < determineEvent.Position.Y
-                    && (OldPosition.X > determineEvent.Position.X || OldPosition.X + Width > determineEvent.Position.X)
-                    && OldPosition.X < determineEvent.Position.X + determineEvent.Width
-                    && velocity.Y > 0)
+                   && (OldPosition.X > determineEvent.Position.X + determineEvent.Width
+                    || OldPosition.X < determineEvent.Position.X + determineEvent.Width)
+                    || OldPosition.Y + Height < determineEvent.Position.Y)
                 {
                     applyGravity = false;
                     velocity.Y = 0;
                     position.Y = determineEvent.Position.Y - Height;
                 }
                 //Did I collide from below?
-                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height) 
+                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height)
                 {
                     velocity.Y = 0;
                     position.Y = determineEvent.Position.Y + determineEvent.Height;
                 }
-                //Did I collide From the left?
-                else if (OldPosition.X < determineEvent.Position.X
-                    && (OldPosition.Y > determineEvent.Position.Y || OldPosition.Y + Height > determineEvent.Position.Y))
+                //Did I collide moving From the left?
+                else if (OldPosition.X < determineEvent.Position.X)
                 {
                     velocity.X = 0;
-                    position.X = determineEvent.Position.X - Width;
+                    position.X = determineEvent.Position.X -  Width;
                     acceleration.X = 0;
-                    
+
                 }
                 //Did I collide from the right?
                 else

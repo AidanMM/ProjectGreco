@@ -51,6 +51,11 @@ namespace ProjectGreco
         protected int frameIndex;
 
         /// <summary>
+        /// The ammount of frames to be shown per second for animations
+        /// </summary>
+        protected int framesPerSecond = 12;
+
+        /// <summary>
         /// A bool to control whether or not the game object is animating
         /// Deafult value is false
         /// </summary>
@@ -123,12 +128,18 @@ namespace ProjectGreco
             set { collisionBox = value; }
         }
 
+        /// <summary>
+        /// Height of the collision box
+        /// </summary>
         public float Height
         {
             get { return collisionBox.Height; }
             set { collisionBox = new Rectangle(collisionBox.X, collisionBox.Y, CollisionBox.Width, (int)value); }
         }
 
+        /// <summary>
+        /// Width of the collision box
+        /// </summary>
         public float Width
         {
             get { return collisionBox.Width; }
@@ -293,6 +304,7 @@ namespace ProjectGreco
 
             if (animating == true)
             {
+                if(Game1.TIMER % (60 / framesPerSecond) == 0)
                 frameIndex++;
                 if (frameIndex >= animationList[animationListIndex].Count && looping == true)
                     frameIndex = 0;

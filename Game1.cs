@@ -64,6 +64,8 @@ namespace ProjectGreco
 
         public SpriteFont DEFUALT_SPRITEFONT;
 
+        public static int TIMER;
+
 
         /// <summary>
         /// This basic effect is for all primitives
@@ -127,6 +129,8 @@ namespace ProjectGreco
             pauseObjectUpdate = false;
 
             debugPrompt = new CommandInput();
+
+            TIMER = 0;
             
 
             base.Initialize();
@@ -225,6 +229,7 @@ namespace ProjectGreco
 
             // TODO: Add your update logic here
             KBState = Keyboard.GetState();
+            TIMER++;
 
             if(pauseObjectUpdate == false)
             OBJECT_HANDLER.Update();

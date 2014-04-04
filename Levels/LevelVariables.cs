@@ -24,11 +24,11 @@ namespace ProjectGreco.Levels
         /// <summary>
         /// Height of the total terrain in a level.
         /// </summary>
-        public const int HEIGHT = 68;
+        public const int HEIGHT = 48;
         /// <summary>
         /// Average height of a "ground level."
         /// </summary>
-        public const int GROUND_HEIGHT = 30;
+        public const int GROUND_HEIGHT = 10;
         /// <summary>
         /// Width of the safe zone.
         /// </summary>

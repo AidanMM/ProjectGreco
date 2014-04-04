@@ -65,9 +65,9 @@ namespace ProjectGreco.GameObjects
         {
 
 
-            vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 200, position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y - 100, 0);
+            vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
 
-            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) - Game1.CAMERA_DISPLACEMENT.X, vertices[0].Position.Y, 0);
+            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) , vertices[0].Position.Y, 0);
             base.Update();
            // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
 
@@ -83,7 +83,20 @@ namespace ProjectGreco.GameObjects
         /// <param name="spriteBatch">spritebatch for which to use to draw</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            //vertices[0].Position = new Vector3(vertices[0].Position.X - Game1.CAMERA_DISPLACEMENT.X, vertices[0].Position.Y - Game1.CAMERA_DISPLACEMENT.Y, vertices[0].Position.Z);
+
+            //vertices[1].Position = new Vector3(vertices[1].Position.X - Game1.CAMERA_DISPLACEMENT.X, vertices[1].Position.Y - Game1.CAMERA_DISPLACEMENT.Y, vertices[1].Position.Z);
+
+            Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
+                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.White);
+
+            vertices[0].Position.X = drawRec.X;
+            vertices[0].Position.Y = drawRec.Y;
+
+
+            vertices[1].Position.X = drawRec.X + 100;
+            vertices[1].Position.Y = drawRec.Y;
 
             
             Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
