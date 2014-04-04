@@ -24,7 +24,7 @@ namespace ProjectGreco.Levels
         /// <summary>
         /// Height of the total terrain in a level.
         /// </summary>
-        public const int HEIGHT = 70;
+        public const int HEIGHT = 68;
         /// <summary>
         /// Average height of a "ground level."
         /// </summary>
@@ -33,7 +33,6 @@ namespace ProjectGreco.Levels
         /// Width of the safe zone.
         /// </summary>
         public const int SAFE_ZONE_WIDTH = 7;
-
 
         #region HILL_ALGORITHM_CONSTANTS
 
@@ -110,6 +109,42 @@ namespace ProjectGreco.Levels
         public const int CAVE_MAX_RADIUS = 13;
         public const int CAVE_MIN_POINTS = 5;
         public const int CAVE_MAX_POINTS = 13;
+
+
+
+        #endregion
+
+        #region ENEMY_SPAWNING_CONSTANTS
+
+        /// <summary>
+        /// Length of a sector, that is to say a section of the map to use to spawn enemies.  4 is a good number typically.
+        /// </summary>
+        public const int SPAWNING_SECTOR_LENGTH = 4;
+        /// <summary>
+        /// "Worth" of a small enemy.  Should be at 1 for the sake of simplicity.
+        /// </summary>
+        public const int SMALL_ENEMY_VALUE = 1;
+        /// <summary>
+        /// Value of a medium enemy compared to a small one.
+        /// </summary>
+        public const int MEDIUM_ENEMY_VALUE = 4;
+        /// <summary>
+        /// Value of a large enemy compared to a small one.
+        /// </summary>
+        public const int LARGE_ENEMY_VALUE = 6;
+
+        /// <summary>
+        /// How much the average sector should have in terms of enemies
+        /// </summary>
+        public const int AVERAGE_SECTOR_VALUE = 9;
+        /// <summary>
+        /// The variation in number of credits per sector. (Credits per sector = AverageSectorValue +- SpawningSectorVariation)
+        /// </summary>
+        public const int SPAWNING_SECTOR_VARIATION = 3;
+        /// <summary>
+        /// Value of enemies that can be spent
+        /// </summary>
+        public const int ENEMY_VALUE_PER_LEVEL = 100;
 
 
 

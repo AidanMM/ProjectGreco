@@ -46,6 +46,7 @@ namespace ProjectGreco.GameObjects
         public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos)
             : base(animationList, pos, "enemy")
         {
+            zOrder = 8999;
 
             //Create the vertices and their color
             vertices = new VertexPositionColor[3];
