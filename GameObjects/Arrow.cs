@@ -14,8 +14,8 @@ namespace ProjectGreco.GameObjects
 {
     class Arrow : Projectile
     {
-        public Arrow(Vector2 vel, Vector2 pos, string name, float angleToSet) : 
-            base(vel, pos, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), name, angleToSet)
+        public Arrow(Vector2 vel, Vector2 pos, string name) : 
+            base(vel, pos, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), name, 0)
         {
             acceleration.Y = 0.2f;
         }

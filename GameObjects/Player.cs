@@ -13,8 +13,13 @@ namespace ProjectGreco.GameObjects
     class Player : GameObject
     {
         float speed = .5f;
+        float dashVelocity = 30.0f;
         float speedLimit = 7.5f;
         bool applyGravity = true;
+        bool canDash = false;
+        bool dashing = false;
+        int dashTimer = 0;
+        int dashTimeLength = 10;
         Vector2 startingPositon;
 
 
@@ -46,6 +51,7 @@ namespace ProjectGreco.GameObjects
 
             OldPosition = new Vector2(position.X, position.Y);
 
+            #region Animation
             if (animating == true)
             {
                 if (Game1.TIMER % (60 / framesPerSecond) == 0)
@@ -57,12 +63,17 @@ namespace ProjectGreco.GameObjects
 
 
             }
+            #endregion
+
+            #region General Updates
 
             position += velocity;
             velocity += acceleration;
-
             UpdateCollisionBox();
+            #endregion
 
+
+            #region General Movement
             if (Game1.KBState.IsKeyDown(Keys.A))
             {
                 acceleration.X = -speed;
@@ -77,6 +88,7 @@ namespace ProjectGreco.GameObjects
                 A_GoToAnimationIndex(0);
                 A_BeginAnimation();
             }
+            
             else if (Math.Abs(velocity.X) < .2f && (Math.Floor(velocity.X) == 0 || Math.Ceiling(velocity.X) == 0))
             {
                 velocity.X = 0;
@@ -121,16 +133,91 @@ namespace ProjectGreco.GameObjects
 
             }
             
+            
             if (Game1.KBState.IsKeyDown(Keys.W) && !Game1.oldKBstate.IsKeyDown(Keys.W) && applyGravity ==false)
             {
                 velocity.Y -= 10.5f;
                 applyGravity = true;
             }
+            #endregion
+
+            #region Dashing
+            
+            if (Game1.KBState.IsKeyDown(Keys.Q) && canDash == true)
+            {
+                dashing = true;
+                dashTimer++;
+                if (dashing == true)
+                {
+                    velocity.X = -dashVelocity;
+                    acceleration.X = 0;
+                    velocity.Y = 0;
+                    if (dashTimer > dashTimeLength)
+                    {
+                        dashTimer = 0;
+                        velocity.X = 0;
+                        canDash = false;
+
+                    }
+                }
+                
+            }
+            else if (Game1.KBState.IsKeyDown(Keys.E) && canDash == true)
+            {
+
+                dashing = true;
+                dashTimer++;
+                if (dashing == true)
+                {
+                    velocity.X = dashVelocity;
+                    velocity.Y = 0;
+                    acceleration.X = 0;
+                    if (dashTimer > dashTimeLength)
+                    {
+                        dashTimer = 0;
+                        velocity.X = 0;
+                        canDash = false;
+
+                    }
+                }
+                
+            }
+            else if (dashing == true)
+            {
+                dashTimer = 0;
+                velocity.X = 0;
+                dashing = false;
+                canDash = false;
+                if (velocity.X > speedLimit)
+                    velocity.X = speedLimit;
+
+                if (velocity.X < -speedLimit)
+                    velocity.X = -speedLimit;
+            }
+            if (Game1.KBState.IsKeyDown(Keys.E) && Game1.oldKBstate.IsKeyUp(Keys.E) && applyGravity == false)
+            {
+                canDash = true;
+            }
+            if (Game1.KBState.IsKeyDown(Keys.Q) && Game1.oldKBstate.IsKeyUp(Keys.Q) && applyGravity == false)
+            {
+                canDash = true;
+            }
+            
+            
+
+           
+
+            #endregion
+
+            #region Frappy
             if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2) && Game1.oldKBstate.IsKeyUp(Keys.D2))
             {
                 Game1.OBJECT_HANDLER.ChangeState(new FlappyBird());
                 return;
             }
+            #endregion
+
+            #region Shooting
             if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.prevMouseState.LeftButton == ButtonState.Released)
             {
                 Vector2 toMouse = new Vector2(
@@ -145,14 +232,17 @@ namespace ProjectGreco.GameObjects
                 Vector2 arrowVel = new Vector2(dir.X * toMouse.Length()/200 , dir.Y * toMouse.Length()/200);
                 if (toMouse.X > 0)
                 {
-                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow", angle);
+                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow");
                 }
                 else
                 {
-                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow", angle + (float)Math.PI);
+                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow");
                 }
             }
-            
+
+            #endregion
+
+            #region Other Events
             if (Game1.KBState.IsKeyDown(Keys.B))
             {
                 velocity.X = 0;
@@ -170,17 +260,18 @@ namespace ProjectGreco.GameObjects
             if (objectBelow == false)
             {
                 applyGravity = true;
+                
             }
             if (velocity.X == 0)
             {
                 A_StopAnimating();
                 A_GoToFrameIndex(0);
             }
-            if (velocity.X > speedLimit)
+            if (velocity.X > speedLimit && dashing == false)
             {
                 velocity.X = speedLimit;
             }
-            else if (velocity.X < -speedLimit)
+            else if (velocity.X < -speedLimit && dashing == false)
             {
                 velocity.X = -speedLimit;
             }
@@ -188,8 +279,10 @@ namespace ProjectGreco.GameObjects
             {
                 position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
             }
+            
 
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
+            #endregion
         }
 
         public override void Draw(SpriteBatch spriteBatch)
