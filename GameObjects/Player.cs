@@ -63,7 +63,7 @@ namespace ProjectGreco.GameObjects
 
             UpdateCollisionBox();
 
-            if (Game1.KBState.IsKeyDown(Keys.Left))
+            if (Game1.KBState.IsKeyDown(Keys.A))
             {
                 acceleration.X = -speed;
                 
@@ -71,7 +71,7 @@ namespace ProjectGreco.GameObjects
                 A_BeginAnimation();
                 
             }
-            else if (Game1.KBState.IsKeyDown(Keys.Right))
+            else if (Game1.KBState.IsKeyDown(Keys.D))
             {
                 acceleration.X = speed;
                 A_GoToAnimationIndex(0);
@@ -83,7 +83,7 @@ namespace ProjectGreco.GameObjects
                 acceleration.X = 0;
                 A_StopAnimating();
             }
-            if (Game1.KBState.IsKeyUp(Keys.Right) && Game1.oldKBstate.IsKeyDown(Keys.Right))
+            if (Game1.KBState.IsKeyUp(Keys.D) && Game1.oldKBstate.IsKeyDown(Keys.D))
             {
                 if (velocity.X > 0)
                 {
@@ -102,7 +102,7 @@ namespace ProjectGreco.GameObjects
                 }
 
             }
-            if (Game1.KBState.IsKeyUp(Keys.Left) && Game1.oldKBstate.IsKeyDown(Keys.Left))
+            if (Game1.KBState.IsKeyUp(Keys.A) && Game1.oldKBstate.IsKeyDown(Keys.A))
             {
                 if (velocity.X > 0)
                 {
@@ -121,7 +121,7 @@ namespace ProjectGreco.GameObjects
 
             }
             
-            if (Game1.KBState.IsKeyDown(Keys.Up) && !Game1.oldKBstate.IsKeyDown(Keys.Up) && applyGravity ==false)
+            if (Game1.KBState.IsKeyDown(Keys.W) && !Game1.oldKBstate.IsKeyDown(Keys.W) && applyGravity ==false)
             {
                 velocity.Y -= 10.5f;
                 applyGravity = true;
@@ -131,15 +131,26 @@ namespace ProjectGreco.GameObjects
                 Game1.OBJECT_HANDLER.ChangeState(new FlappyBird());
                 return;
             }
-            if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
+            if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.prevMouseState.LeftButton == ButtonState.Released)
             {
                 Vector2 toMouse = new Vector2(
                     Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X,
                     Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y);
-                toMouse.Normalize();
-                float angle = -(float)Math.Atan(toMouse.X / -toMouse.Y);
+                Vector2 dir = toMouse;
+                
+                dir.Normalize();
+                float angle = (float)Math.Atan(toMouse.Y / toMouse.X);
                 toMouse *= 10;
-                Projectile temp = new Projectile(toMouse, this.position, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), "Arrow", angle);
+                //toMouse += velocity;
+                Vector2 arrowVel = new Vector2(dir.X * toMouse.Length()/200 , dir.Y * toMouse.Length()/200);
+                if (toMouse.X > 0)
+                {
+                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow", angle);
+                }
+                else
+                {
+                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow", angle + (float)Math.PI);
+                }
             }
             
             if (Game1.KBState.IsKeyDown(Keys.B))

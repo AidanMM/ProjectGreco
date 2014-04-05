@@ -17,8 +17,7 @@ namespace ProjectGreco.GameObjects
         Vector2 startingPosition;
         Vector2 screenPosition;
         Texture2D cursorSprite;
-        MouseState mouseState;
-        MouseState prevMouseState;
+
 
         public Cursor(Vector2 startPos, Texture2D cS) : base(startPos, "Cursor")
         {
@@ -34,13 +33,13 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
             OldPosition = new Vector2(position.X, position.Y);
-            prevMouseState = mouseState;
+            Game1.prevMouseState = Game1.mouseState;
 
-            mouseState = Mouse.GetState();
-            screenPosition.X = mouseState.X;
-            screenPosition.Y = mouseState.Y;
-            position.X = Game1.CAMERA_DISPLACEMENT.X + mouseState.X;
-            position.Y = Game1.CAMERA_DISPLACEMENT.Y + mouseState.Y;
+            Game1.mouseState = Mouse.GetState();
+            screenPosition.X = Game1.mouseState.X;
+            screenPosition.Y = Game1.mouseState.Y;
+            position.X = Game1.CAMERA_DISPLACEMENT.X + Game1.mouseState.X;
+            position.Y = Game1.CAMERA_DISPLACEMENT.Y + Game1.mouseState.Y;
 
             UpdateCollisionBox();
         }

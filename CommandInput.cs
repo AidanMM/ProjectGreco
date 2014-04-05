@@ -1142,6 +1142,34 @@ namespace ProjectGreco
                     AddString("There was an issue with your input");
                 }
             }
+            else if (commandString.Contains("change"))
+            {
+                try
+                {
+                    if (commandString.Contains("level"))
+                    {
+                        if (commandString.Contains("level1"))
+                        {
+                            Game1.OBJECT_HANDLER.ChangeState(new Level1());
+                            AddString("Level has been changed");
+                        }
+                        if (command.Contains("home"))
+                        {
+                            Game1.OBJECT_HANDLER.ChangeState(new HomeWorld());
+                            AddString("Level has been changed");
+                        }
+                        
+                    }
+                    else
+                    {
+                        AddString("Not a valid gameObject, check spelling and capitalization");
+                    }
+                }
+                catch (Exception e)
+                {
+                    AddString("There was an issue with your input");
+                }
+            }
             else if (command.Contains("help"))
             {
                 AddString("Set commands for position, velocity, and acceleration, zorder, frame, and animation follows this set up:");

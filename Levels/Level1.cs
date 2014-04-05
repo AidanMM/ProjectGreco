@@ -53,20 +53,20 @@ namespace ProjectGreco.Levels
                         edgeTiles++;
                     }
 
-                    // Main Background Tiles
-                    if (myMap.Terrain[x][y] == 'O')
-                    {
-                        AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), backgroundTiles);
-                        backgroundTiles++;
-                    }
-                    // Secondary Background Tiles
-                    if (myMap.Terrain[x][y] == 'C')
-                    {
-                        AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), backgroundTiles);
-                        backgroundTiles++;
-                    }
+                    //// Main Background Tiles
+                    //if (myMap.Terrain[x][y] == 'O')
+                    //{
+                    //    AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
+                    //        Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), backgroundTiles);
+                    //    backgroundTiles++;
+                    //}
+                    //// Secondary Background Tiles
+                    //if (myMap.Terrain[x][y] == 'C')
+                    //{
+                    //    AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
+                    //        Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), backgroundTiles);
+                    //    backgroundTiles++;
+                    //}
 
 
                 }

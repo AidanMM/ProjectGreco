@@ -88,6 +88,16 @@ namespace ProjectGreco
         public static bool pauseObjectUpdate;
 
         public static string TITLE_STRING = "Project Greco";
+
+        /// <summary>
+        /// The mouse state for the game to use
+        /// </summary>
+        public static MouseState mouseState;
+
+        /// <summary>
+        /// The previous mouse state of the last frame
+        /// </summary>
+        public static MouseState prevMouseState;
         
 
         public Game1()
@@ -229,6 +239,7 @@ namespace ProjectGreco
 
             // TODO: Add your update logic here
             KBState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
             TIMER++;
 
             if(pauseObjectUpdate == false)
@@ -249,6 +260,7 @@ namespace ProjectGreco
             }
 
             oldKBstate = KBState;
+            prevMouseState = mouseState;
 
             base.Update(gameTime);
         }
