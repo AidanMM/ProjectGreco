@@ -11,7 +11,7 @@ using System.Linq;
 using ProjectGreco.GameObjects;
 
 //------------------------------------------------------------------------------+
-//Author: Aidan                                                                 |
+//Author: Aidan McInerny                                                        |
 //Purpose: The base state manages overall level logic and what objects that will|
 //be created and managed in the game.                                           |
 //------------------------------------------------------------------------------+

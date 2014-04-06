@@ -1043,6 +1043,11 @@ namespace ProjectGreco
                             Game1.OBJECT_HANDLER.SortByZorder();
                             AddString("Done!" + parts[1] + "zOrder has been set to " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].ZOrder);
                         }
+                        else if (command.Contains("angle"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Angle = (int)ReturnNumberAfterEquals(command);
+                            AddString("Done!" + parts[1] + " angle has been set to " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Angle);
+                        }
                         else if (command.Contains("frame"))
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_GoToFrameIndex((int)ReturnNumberAfterEquals(command));
@@ -1051,7 +1056,12 @@ namespace ProjectGreco
                         else if (command.Contains("animation"))
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_GoToAnimationIndex((int)ReturnNumberAfterEquals(command));
-                            AddString("Done!" + parts[1] + "animation has been set");
+                            AddString("Done!" + parts[1] + " animation has been set ");
+                        }
+                        else if (command.Contains("scale"))
+                        {
+                            Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale = ReturnNumbersSerperatedByCommas(command);
+                            AddString("Done!" + parts[1] + " scale has been set (" + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale.Y + " )");
                         }
                     }
                     else

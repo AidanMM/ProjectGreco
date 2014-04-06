@@ -201,6 +201,9 @@ namespace ProjectGreco
             set { zOrder = value; }
         }
 
+        /// <summary>
+        /// A bool telling whether or not there is another object below this one
+        /// </summary>
         protected bool objectBelow = false;
 
         public bool ObjectBelow
@@ -208,6 +211,27 @@ namespace ProjectGreco
             get { return objectBelow; }
             set { objectBelow = value; }
         }
+
+        /// <summary>
+        /// The angle of the objects rotation, in Radians
+        /// </summary>
+        protected float angle = 0;
+
+        public float Angle
+        {
+            get { return angle; }
+            set { angle = value; }
+        }
+
+        protected Vector2 scale = new Vector2(1,1);
+
+        public Vector2 Scale
+        {
+            get { return scale; }
+            set { scale = value; }
+        }
+
+        
 
 
 
@@ -331,8 +355,15 @@ namespace ProjectGreco
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, 
-                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height), Color.White);
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                Color.White,
+                angle,
+                new Vector2(Width / 2, Height / 2),
+                scale,
+                SpriteEffects.None,
+                1);
         }
 
         /// <summary>

@@ -42,6 +42,7 @@ namespace ProjectGreco.GameObjects
             zOrder = 1;
             A_BeginAnimation();
             
+            
         }
 
         public override void Update()
