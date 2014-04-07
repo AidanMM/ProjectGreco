@@ -55,7 +55,7 @@
     <Compile Include="Levels\BaseState.cs" />
     <Compile Include="Levels\FlappyBird.cs" />
     <Compile Include="Levels\HomeWorld.cs" />
-    <Compile Include="Levels\Level1.cs" />
+    <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelVariables.cs" />
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\Spawner.cs" />

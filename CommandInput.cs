@@ -1160,7 +1160,7 @@ namespace ProjectGreco
                     {
                         if (commandString.Contains("level1"))
                         {
-                            Game1.OBJECT_HANDLER.ChangeState(new Level1());
+                            Game1.OBJECT_HANDLER.ChangeState(new Level(LevelName.Hills, true));
                             AddString("Level has been changed");
                         }
                         if (command.Contains("home"))

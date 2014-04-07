@@ -211,7 +211,7 @@ namespace ProjectGreco
             #endregion
             #endregion
 
-            OBJECT_HANDLER.ChangeState(new Level1());
+            OBJECT_HANDLER.ChangeState(new Level(LevelName.Hills, true));
 
             
 

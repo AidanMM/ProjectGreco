@@ -58,7 +58,7 @@ namespace ProjectGreco.GameObjects
             }
             if (Game1.KBState.IsKeyDown(Keys.LeftAlt) && Game1.KBState.IsKeyDown(Keys.D2)  && Game1.oldKBstate.IsKeyUp(Keys.D2))
             {
-                Game1.OBJECT_HANDLER.ChangeState(new Level1());
+                Game1.OBJECT_HANDLER.ChangeState(new Level(LevelName.Hills, true));
             }
             
 
