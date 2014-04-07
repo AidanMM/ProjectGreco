@@ -62,6 +62,16 @@
     <Compile Include="ObjectHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skills\ChaoticReset.cs" />
+    <Compile Include="Skills\ConfuseRay.cs" />
+    <Compile Include="Skills\Dash.cs" />
+    <Compile Include="Skills\Exile.cs" />
+    <Compile Include="Skills\Ghost.cs" />
+    <Compile Include="Skills\LightJump.cs" />
+    <Compile Include="Skills\LightWall.cs" />
+    <Compile Include="Skills\ShadowDagger.cs" />
+    <Compile Include="Skills\ShadowHold.cs" />
+    <Compile Include="Skills\ShadowPush.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

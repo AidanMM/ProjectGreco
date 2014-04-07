@@ -7,20 +7,60 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using ProjectGreco.Levels;
+using ProjectGreco.Skills;
 
 namespace ProjectGreco.GameObjects
 {
+    enum ActionSkills
+    {
+        ChaoticReset,
+        ConfuseRay,
+        Exile,
+        Ghost,
+        LightJump,
+        LightWall,
+        ShadowDagger,
+        ShadowHold,
+        ShadowPush
+    }
+
     class Player : GameObject
     {
-        float speed = .5f;
-        float dashVelocity = 30.0f;
-        float speedLimit = 7.5f;
-        bool applyGravity = true;
-        bool canDash = false;
-        bool dashing = false;
-        int dashTimer = 0;
-        int dashTimeLength = 10;
+        public float speed = .5f;
+        public float dashVelocity = 30.0f;
+        public float speedLimit = 7.5f;
+        public bool applyGravity = true;
+        public bool canDash = false;
+        public bool dashing = false;
+        public int dashTimer = 0;
+        public int dashTimeLength = 10;
+        public int jumpCounter = 0;
+        private int maximumJumps;
+        private int activeSkillIndex;
         Vector2 startingPositon;
+        List<ActionSkills> availableSkills = new List<ActionSkills>();
+
+        // A // means the skill has yet to actually be implemented yet
+        #region SKILLS
+        public bool SkillChaoticReset = false;//
+        public bool SkillConfuseRay = false;//
+        public bool SkillDash = true;
+        public bool SkillDoubleJump = true;
+        public bool SkillExile = false;//
+        public bool SkillFastFall = false;//
+        public bool SkillGhost = false;//
+        public bool SkillJumpHeight = false;//
+        public bool SkillLightJump = false;//
+        public bool SkillLightWall = false;//
+        public bool SkillMeleeAir = false;//
+        public bool SkillRangedAir = false;//
+        public bool SkillShadowDagger = false;//
+        public bool SkillShadowHold = false;//
+        public bool SkillShadowPush = false;//
+        public bool SkillSpeed = false;//
+        public bool SkillTripleJump = false;
+        public bool SkillWings = true;
+        #endregion
 
 
         public Player(Vector2 startPos) : base(startPos, "Player")
@@ -30,7 +70,38 @@ namespace ProjectGreco.GameObjects
             position = startPos;
             onScreen = true;
             zOrder = 1;
-            
+
+            #region Skill Setup
+            // Setup the player's ability to jump multiple times
+            maximumJumps = 1;
+
+            if (SkillDoubleJump)
+                maximumJumps++;
+            if (SkillTripleJump)
+                maximumJumps++;
+
+            // Create the player's list of active skills
+            if (SkillChaoticReset)
+                availableSkills.Add(ActionSkills.ChaoticReset);
+            if (SkillConfuseRay)
+                availableSkills.Add(ActionSkills.ConfuseRay);
+            if (SkillExile)
+                availableSkills.Add(ActionSkills.Exile);
+            if (SkillGhost)
+                availableSkills.Add(ActionSkills.Ghost);
+            if (SkillLightJump)
+                availableSkills.Add(ActionSkills.LightJump);
+            if (SkillLightWall)
+                availableSkills.Add(ActionSkills.LightWall);
+            if (SkillShadowDagger)
+                availableSkills.Add(ActionSkills.ShadowDagger);
+            if (SkillShadowHold)
+                availableSkills.Add(ActionSkills.ShadowHold);
+            if (SkillShadowPush)
+                availableSkills.Add(ActionSkills.ShadowPush);
+
+            #endregion
+
         }
         public Player(Vector2 startPos, List<List<Texture2D>> aList)
             : base(aList, startPos, "Player")
@@ -41,8 +112,37 @@ namespace ProjectGreco.GameObjects
             onScreen = true;
             zOrder = 1;
             A_BeginAnimation();
-            
-            
+
+            #region Skill Setup
+            // Setup the player's ability to jump multiple times
+            maximumJumps = 1;
+
+            if (SkillDoubleJump)
+                maximumJumps++;
+            if (SkillTripleJump)
+                maximumJumps++;
+
+            // Create the player's list of active skills
+            if (SkillChaoticReset)
+                availableSkills.Add(ActionSkills.ChaoticReset);
+            if (SkillConfuseRay)
+                availableSkills.Add(ActionSkills.ConfuseRay);
+            if (SkillExile)
+                availableSkills.Add(ActionSkills.Exile);
+            if (SkillGhost)
+                availableSkills.Add(ActionSkills.Ghost);
+            if (SkillLightJump)
+                availableSkills.Add(ActionSkills.LightJump);
+            if (SkillLightWall)
+                availableSkills.Add(ActionSkills.LightWall);
+            if (SkillShadowDagger)
+                availableSkills.Add(ActionSkills.ShadowDagger);
+            if (SkillShadowHold)
+                availableSkills.Add(ActionSkills.ShadowHold);
+            if (SkillShadowPush)
+                availableSkills.Add(ActionSkills.ShadowPush);
+
+            #endregion
         }
 
         public override void Update()
@@ -72,7 +172,6 @@ namespace ProjectGreco.GameObjects
             velocity += acceleration;
             UpdateCollisionBox();
             #endregion
-
 
             #region General Movement
             if (Game1.KBState.IsKeyDown(Keys.A))
@@ -134,52 +233,34 @@ namespace ProjectGreco.GameObjects
 
             }
             
-            
-            if (Game1.KBState.IsKeyDown(Keys.W) && !Game1.oldKBstate.IsKeyDown(Keys.W) && applyGravity ==false)
+            if (Game1.KBState.IsKeyDown(Keys.W) && !Game1.oldKBstate.IsKeyDown(Keys.W) && jumpCounter < maximumJumps)
             {
-                velocity.Y -= 10.5f;
+                velocity.Y = -10.5f;
                 applyGravity = true;
+                jumpCounter++;
+            }
+            if (Game1.KBState.IsKeyDown(Keys.W) && Game1.oldKBstate.IsKeyDown(Keys.W) && SkillWings && velocity.Y > 2.5f)
+            {
+                velocity.Y = 2.5f;
             }
             #endregion
 
             #region Dashing
             
-            if (Game1.KBState.IsKeyDown(Keys.Q) && canDash == true)
+            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.A) && canDash == true)
             {
-                dashing = true;
-                dashTimer++;
-                if (dashing == true)
+                if (SkillDash)
                 {
-                    velocity.X = -dashVelocity;
-                    acceleration.X = 0;
-                    velocity.Y = 0;
-                    if (dashTimer > dashTimeLength)
-                    {
-                        dashTimer = 0;
-                        velocity.X = 0;
-                        canDash = false;
-
-                    }
+                    Dash myDash = new Dash(this, Direction.Left);
                 }
                 
             }
-            else if (Game1.KBState.IsKeyDown(Keys.E) && canDash == true)
+            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.D) && canDash == true)
             {
 
-                dashing = true;
-                dashTimer++;
-                if (dashing == true)
+                if (SkillDash)
                 {
-                    velocity.X = dashVelocity;
-                    velocity.Y = 0;
-                    acceleration.X = 0;
-                    if (dashTimer > dashTimeLength)
-                    {
-                        dashTimer = 0;
-                        velocity.X = 0;
-                        canDash = false;
-
-                    }
+                    Dash myDash = new Dash(this, Direction.Right);
                 }
                 
             }
@@ -195,11 +276,11 @@ namespace ProjectGreco.GameObjects
                 if (velocity.X < -speedLimit)
                     velocity.X = -speedLimit;
             }
-            if (Game1.KBState.IsKeyDown(Keys.E) && Game1.oldKBstate.IsKeyUp(Keys.E) && applyGravity == false)
+            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
             {
                 canDash = true;
             }
-            if (Game1.KBState.IsKeyDown(Keys.Q) && Game1.oldKBstate.IsKeyUp(Keys.Q) && applyGravity == false)
+            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
             {
                 canDash = true;
             }
@@ -207,6 +288,53 @@ namespace ProjectGreco.GameObjects
             
 
            
+
+            #endregion
+
+            #region Skills
+
+            // Main skill
+            if (Game1.KBState.IsKeyDown(Keys.Space))
+            {
+                UseSkill(activeSkillIndex);
+            }
+            // Secondary Skill
+            if (Game1.KBState.IsKeyDown(Keys.LeftShift))
+            {
+                int secondaryIndex;
+                if (activeSkillIndex + 1 == availableSkills.Count)
+                {
+                    secondaryIndex = 0;
+                }
+                else
+                    secondaryIndex = activeSkillIndex + 1;
+
+                UseSkill(secondaryIndex);
+                
+            }
+            // Change Skill
+            if (Game1.KBState.IsKeyDown(Keys.E) && !Game1.oldKBstate.IsKeyDown(Keys.E))
+            {
+                if (activeSkillIndex + 1 == availableSkills.Count)
+                {
+                    activeSkillIndex = 0;
+                }
+                else
+                {
+                    activeSkillIndex++;
+                }
+            }
+            else if (Game1.KBState.IsKeyDown(Keys.Q) && !Game1.oldKBstate.IsKeyDown(Keys.Q))
+            {
+                if (activeSkillIndex - 1 < 0)
+                {
+                    activeSkillIndex = availableSkills.Count - 1;
+                }
+                else
+                {
+                    activeSkillIndex--;
+                }
+            }
 
             #endregion
 
@@ -309,6 +437,7 @@ namespace ProjectGreco.GameObjects
                     || OldPosition.Y + Height < determineEvent.Position.Y)
                 {
                     applyGravity = false;
+                    jumpCounter = 0;
                     velocity.Y = 0;
                     position.Y = determineEvent.Position.Y - Height;
                 }
@@ -340,6 +469,48 @@ namespace ProjectGreco.GameObjects
         public override void C_NoCollisions()
         {
             
+        }
+
+        public void UseSkill(int skillIndex)
+        {
+            if (availableSkills.Count == 0)
+            {
+                return;
+            }
+
+            switch (availableSkills[skillIndex])
+            {
+                case ActionSkills.ChaoticReset:
+                    ChaoticReset myChaoticReset = new ChaoticReset(this);
+                    break;
+                case ActionSkills.ConfuseRay:
+                    ConfuseRay myConfuseRay = new ConfuseRay(this);
+                    break;
+                case ActionSkills.Exile:
+                    Exile myExile = new Exile(this);
+                    break;
+                case ActionSkills.Ghost:
+                    Ghost myGhost = new Ghost(this);
+                    break;
+                case ActionSkills.LightJump:
+                    LightJump myLightJump = new LightJump(this);
+                    break;
+                case ActionSkills.LightWall:
+                    LightWall myLightWall = new LightWall(this);
+                    break;
+                case ActionSkills.ShadowDagger:
+                    ShadowDagger myShadowDagger = new ShadowDagger(this);
+                    break;
+                case ActionSkills.ShadowHold:
+                    ShadowHold myShadowHold = new ShadowHold(this);
+                    break;
+                case ActionSkills.ShadowPush:
+                    ShadowPush myShadowPush = new ShadowPush(this);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }
