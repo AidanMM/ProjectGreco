@@ -166,12 +166,7 @@ namespace ProjectGreco.GameObjects
             }
             #endregion
 
-            #region General Updates
-
-            position += velocity;
-            velocity += acceleration;
-            UpdateCollisionBox();
-            #endregion
+            
 
             #region General Movement
             if (Game1.KBState.IsKeyDown(Keys.A))
@@ -408,8 +403,13 @@ namespace ProjectGreco.GameObjects
             {
                 position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
             }
-            
 
+            #region General Updates
+
+            position += velocity;
+            velocity += acceleration;
+            UpdateCollisionBox();
+            #endregion
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
             #endregion
         }
@@ -430,38 +430,56 @@ namespace ProjectGreco.GameObjects
             if (determineEvent.ObjectType == "EdgeTile")
             {
 
-                //Did I collide from above?
-                if (OldPosition.Y < determineEvent.Position.Y
-                   && (OldPosition.X > determineEvent.Position.X + determineEvent.Width
-                    || OldPosition.X < determineEvent.Position.X + determineEvent.Width)
-                    || OldPosition.Y + Height < determineEvent.Position.Y)
-                {
-                    applyGravity = false;
-                    jumpCounter = 0;
-                    velocity.Y = 0;
-                    position.Y = determineEvent.Position.Y - Height;
-                }
-                //Did I collide from below?
-                else if (OldPosition.Y > determineEvent.Position.Y + determineEvent.Height)
-                {
-                    velocity.Y = 0;
-                    position.Y = determineEvent.Position.Y + determineEvent.Height;
-                }
-                //Did I collide moving From the left?
-                else if (OldPosition.X < determineEvent.Position.X)
+                if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X 
+                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y &&
+                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
+                    && OldPosition.Y >= determineEvent.Position.Y)))
                 {
                     velocity.X = 0;
-                    position.X = determineEvent.Position.X -  Width;
+                    position.X = determineEvent.Position.X - Width;
                     acceleration.X = 0;
-
                 }
-                //Did I collide from the right?
-                else
+                else if (OldPosition.X >= determineEvent.Position.X + determineEvent.Width
+                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y &&
+                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
+                    && OldPosition.Y >= determineEvent.Position.Y)))
                 {
                     velocity.X = 0;
                     position.X = determineEvent.Position.X + determineEvent.Width;
                     acceleration.X = 0;
                 }
+                else if(Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
+                    && ( (OldPosition.X + Width >= determineEvent.Position.X  
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width 
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    applyGravity = false;
+                    jumpCounter = 0;
+                    velocity.Y = 0;
+                    acceleration.Y = 0;
+                    position.Y = determineEvent.Position.Y - Height;
+                }
+                else if (Math.Floor(OldPosition.Y) > determineEvent.Position.Y + determineEvent.Height
+                    && position.Y < determineEvent.Position.Y + determineEvent.Height
+                    && ((OldPosition.X + Width >= determineEvent.Position.X
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    position.Y = determineEvent.Position.Y + determineEvent.Height;
+                    velocity.Y = 0;
+                    
+                }
+                
+
+                
             }
             
         }

@@ -132,18 +132,20 @@ namespace ProjectGreco
                 {
                     if (collisionCheckList[x] != onScreenList[y])
                     {
-                        Vector2 distanceBetweenObjects = new Vector2(objectDictionary[collisionCheckList[x]].CollisionBox.X - objectDictionary[onScreenList[y]].CollisionBox.X, Math.Abs(objectDictionary[collisionCheckList[x]].CollisionBox.Y - objectDictionary[onScreenList[y]].CollisionBox.Y));
+                        float distanceY = objectDictionary[collisionCheckList[x]].CollisionBox.Y - objectDictionary[onScreenList[y]].CollisionBox.Y;
+                        Vector2 distanceBetweenObjects = new Vector2(objectDictionary[collisionCheckList[x]].CollisionBox.X - objectDictionary[onScreenList[y]].CollisionBox.X, Math.Abs(distanceY));
 
                         if ((distanceBetweenObjects.X >= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[onScreenList[y]].CollisionBox.Width) || (distanceBetweenObjects.X <= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[onScreenList[x]].CollisionBox.Width))
                         {
-                            if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height + 5)
+                            if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
+                            {
+                                collidedObjects[x, y] = onScreenList[y];
+                            }
+                            if (distanceY > -objectDictionary[collisionCheckList[x]].CollisionBox.Height - 5 && distanceY < 0)
                             {
                                 if(objectDictionary[onScreenList[y]].ObjectType == "EdgeTile")
                                 objectDictionary[collisionCheckList[x]].ObjectBelow = true;
-                                if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
-                                {
-                                    collidedObjects[x, y] = onScreenList[y];
-                                }
+                                
                             }
                         }
                     }
