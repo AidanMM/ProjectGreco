@@ -1009,7 +1009,7 @@ namespace ProjectGreco
                     Game1.pauseObjectUpdate = false;
 
             }
-            else if (command.Contains("set"))
+            else if (command.Contains("set "))
             {
                 try
                 {
@@ -1062,6 +1062,11 @@ namespace ProjectGreco
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale = ReturnNumbersSerperatedByCommas(command);
                             AddString("Done!" + parts[1] + " scale has been set (" + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale.X + " , " + Game1.OBJECT_HANDLER.objectDictionary[parts[1]].Scale.Y + " )");
+                        }
+                        else if (command.Contains("jumps"))
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).MaximumJumps = (int)ReturnNumberAfterEquals(command);
+                            AddString("Done!");
                         }
                     }
                     else
@@ -1180,6 +1185,7 @@ namespace ProjectGreco
                     AddString("There was an issue with your input");
                 }
             }
+            
             else if (command.Contains("help"))
             {
                 AddString("Set commands for position, velocity, and acceleration, zorder, frame, and animation follows this set up:");
@@ -1198,12 +1204,239 @@ namespace ProjectGreco
             {
                 try
                 {
+                    if (command.Contains("chaoticreset"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillChaoticReset == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillChaoticReset = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.ChaoticReset);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillChaoticReset == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.ChaoticReset)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("confuseray"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillConfuseRay == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillConfuseRay = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.ConfuseRay);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillConfuseRay == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.ConfuseRay)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("exile"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.Exile);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.Exile)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("ghost"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillGhost == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.Ghost);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillGhost == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.Ghost)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("lightjump"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillLightJump == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.LightJump);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillLightJump == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.LightJump)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("lightwall"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillLightWall == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.LightWall);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillLightWall == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.LightWall)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("shadowdagger"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowDagger == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.ShadowDagger);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowDagger == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.ShadowDagger)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("shadowhold"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowHold == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.ShadowHold);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowHold == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.ShadowHold)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if (command.Contains("shadowpush"))
+                    {
+                        if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowPush == false)
+                        {
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillExile = true;
+                            (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Add(ActionSkills.ShadowPush);
+                        }
+                        else if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillShadowPush == true)
+                        {
+                            for (int i = 0; i < (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.Count; i++)
+                            {
+                                if ((Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills[i] == ActionSkills.ShadowPush)
+                                {
+                                    (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).availableSkills.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                        }
+                        AddString("Done");
+                        return;
+                    }
+                    if(command.Contains("dash"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillDash = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillDash;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("fastfall"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillFastFall = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillFastFall;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("jumpheight"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillJumpHeight = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillJumpHeight;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("meleeair"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillMeleeAir = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillMeleeAir;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("rangedair"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillRangedAir = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillRangedAir;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("speed"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillSpeed = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillSpeed;
+                        AddString("Done!");
+                    }
+                    if (command.Contains("wings"))
+                    {
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillWings = !(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).SkillWings;
+                        AddString("Done!");
+                    }
+
+                    
                     if (Game1.OBJECT_HANDLER.objectDictionary.ContainsKey(parts[1]))
                     {
                         if (command.Contains("animating"))
                         {
                             Game1.OBJECT_HANDLER.objectDictionary[parts[1]].A_ToggleAnimating();
                         }
+                        
                         if (command.Contains("colliding"))
                         {
                             if (Game1.OBJECT_HANDLER.objectDictionary[parts[1]].CheckForCollisions == true)
@@ -1216,10 +1449,7 @@ namespace ProjectGreco
                             AddString("Not a valid toggle input");
                         }
                     }
-                    else
-                    {
-                        AddString("Not a valid gameObject");
-                    }
+                    
 
                 }
                 catch (Exception e)

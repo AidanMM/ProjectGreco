@@ -36,9 +36,15 @@ namespace ProjectGreco.GameObjects
         public int dashTimeLength = 10;
         public int jumpCounter = 0;
         private int maximumJumps;
+
+        public int MaximumJumps
+        {
+            get { return maximumJumps; }
+            set { maximumJumps = value; }
+        }
         private int activeSkillIndex;
         Vector2 startingPositon;
-        List<ActionSkills> availableSkills = new List<ActionSkills>();
+        public List<ActionSkills> availableSkills = new List<ActionSkills>();
 
         // A // means the skill has yet to actually be implemented yet
         #region SKILLS
@@ -75,10 +81,10 @@ namespace ProjectGreco.GameObjects
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;
 
-            if (SkillDoubleJump)
-                maximumJumps++;
-            if (SkillTripleJump)
-                maximumJumps++;
+                if (SkillDoubleJump)
+                    maximumJumps++;
+                if (SkillTripleJump)
+                    maximumJumps++;
 
             // Create the player's list of active skills
             if (SkillChaoticReset)
@@ -495,7 +501,10 @@ namespace ProjectGreco.GameObjects
             {
                 return;
             }
-
+            if (skillIndex > availableSkills.Count)
+            {
+                skillIndex = availableSkills.Count - 1;
+            }
             switch (availableSkills[skillIndex])
             {
                 case ActionSkills.ChaoticReset:
