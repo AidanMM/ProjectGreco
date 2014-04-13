@@ -203,7 +203,7 @@ namespace ProjectGreco.Levels
                             continue;
                     }
 
-                    char[] edgeBlocks = new char[4] { 'X', 'X', 'X', 'X' };
+                    char[] edgeBlocks = new char[8] {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'};
 
                     //
                     // Edge of Screen Detection/Acquiring blocks on the side
@@ -220,6 +220,18 @@ namespace ProjectGreco.Levels
 
                     if (y < terrain[x].Length - 1)
                         edgeBlocks[3] = terrain[x][y + 1];
+
+                    if (x > 0 && y > 0)
+                        edgeBlocks[4] = terrain[x - 1][y - 1];
+
+                    if (x < terrain.Length - 1 && y > 0)
+                        edgeBlocks[5] = terrain[x + 1][y - 1];
+
+                    if (x > 0 && y < terrain[x].Length - 1)
+                        edgeBlocks[6] = terrain[x - 1][y + 1];
+
+                    if (x < terrain.Length - 1 && y < terrain[x].Length - 1)
+                        edgeBlocks[7] = terrain[x + 1][y + 1];
 
                     //
                     // Make changes if possible.
