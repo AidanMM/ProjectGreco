@@ -88,8 +88,8 @@ namespace ProjectGreco.Levels
                 case LevelName.Hills:
                     this.mainTexture = "dirtBlock";
                     this.secondaryTexture = "caveFillerBlock";
-                    this.mainEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
-                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
+                    this.mainEdge = Game1.IMAGE_DICTIONARY["dirtEdge"];
+                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["caveEdge"];
                     break;
 
                 case LevelName.Ice:
