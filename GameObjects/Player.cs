@@ -179,8 +179,9 @@ namespace ProjectGreco.GameObjects
             {
                 acceleration.X = -speed;
                 
-                A_GoToAnimationIndex(1);
+                A_GoToAnimationIndex(0);
                 A_BeginAnimation();
+                hFlip = true;
                 
             }
             else if (Game1.KBState.IsKeyDown(Keys.D))
@@ -188,12 +189,15 @@ namespace ProjectGreco.GameObjects
                 acceleration.X = speed;
                 A_GoToAnimationIndex(0);
                 A_BeginAnimation();
+                hFlip = false;
             }
             
             else if (Math.Abs(velocity.X) < .2f && (Math.Floor(velocity.X) == 0 || Math.Ceiling(velocity.X) == 0))
             {
                 velocity.X = 0;
                 acceleration.X = 0;
+                A_GoToAnimationIndex(0);
+                A_GoToFrameIndex(0);
                 A_StopAnimating();
             }
             if (Game1.KBState.IsKeyUp(Keys.D) && Game1.oldKBstate.IsKeyDown(Keys.D))
@@ -435,7 +439,7 @@ namespace ProjectGreco.GameObjects
          
             if (determineEvent.ObjectType == "EdgeTile")
             {
-
+                OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
                 if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X 
                     && ( (OldPosition.Y + Height >= determineEvent.Position.Y &&
                     OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)

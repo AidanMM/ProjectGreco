@@ -223,12 +223,23 @@ namespace ProjectGreco
             set { angle = value; }
         }
 
+        /// <summary>
+        /// The scale for the object
+        /// </summary>
         protected Vector2 scale = new Vector2(1,1);
 
         public Vector2 Scale
         {
             get { return scale; }
             set { scale = value; }
+        }
+
+        protected bool hFlip = false;
+
+        public bool HFlip
+        {
+            get { return hFlip; }
+            set { hFlip = value; }
         }
 
         
@@ -355,15 +366,30 @@ namespace ProjectGreco
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex],
-                new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
-                new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
-                Color.White,
-                angle,
-                new Vector2(Width / 2, Height / 2),
-                scale,
-                SpriteEffects.None,
-                1);
+            if (hFlip == false)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.None,
+                    1);
+            }
+            else if (hFlip == true)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.FlipHorizontally,
+                    1);
+            }
         }
 
         /// <summary>

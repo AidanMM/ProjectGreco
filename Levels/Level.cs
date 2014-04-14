@@ -160,24 +160,24 @@ namespace ProjectGreco.Levels
                             Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), edgeTiles);
                         edgeTiles++;
                     }
-
-                    if (renderBackground)
-                    {
-                        // Main Background Tiles
-                        if (myMap.Terrain[x][y] == 'O')
-                        {
-                            AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                                Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), backgroundTiles);
-                            backgroundTiles++;
-                        }
-                        // Secondary Background Tiles
-                        if (myMap.Terrain[x][y] == 'C')
-                        {
-                            AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
-                                Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), backgroundTiles);
-                            backgroundTiles++;
-                        }
-                    }
+                
+                    //if (renderBackground)
+                    //{
+                    //    // Main Background Tiles
+                    //    if (myMap.Terrain[x][y] == 'O')
+                    //    {
+                    //        AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
+                    //            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[mainTexture])), backgroundTiles);
+                    //        backgroundTiles++;
+                    //    }
+                    //    // Secondary Background Tiles
+                    //    if (myMap.Terrain[x][y] == 'C')
+                    //    {
+                    //        AddObjectToHandler("BackgroundTile", new BackgroundTile(new Vector2(x * 64, (LevelVariables.HEIGHT - y) * 64),
+                    //            Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), backgroundTiles);
+                    //        backgroundTiles++;
+                    //    }
+                    //}
                 }
             }
 
