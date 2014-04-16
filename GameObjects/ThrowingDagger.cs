@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using System.Linq;
 using ProjectGreco.Levels;
-using ProjectGreco.Skills;
 using ProjectGreco.GameObjects;
 
-namespace ProjectGreco.Skills
+
+namespace ProjectGreco.GameObjects
 {
-    class ShadowDagger
+    class ThrowingDagger : Projectile
     {
-        public ShadowDagger(Player myPlayer)
+
+        public ThrowingDagger(Vector2 velocity, Vector2 startPos)
+            : base(velocity, startPos, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Swords"]), "ThrowingDagger", 0)
         {
-            new ShadowThrowingDagger(new Vector2(25, 0), myPlayer.Position, myPlayer);
+
         }
     }
 }

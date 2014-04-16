@@ -52,7 +52,9 @@
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Projectile.cs" />
     <Compile Include="GameObjects\Buttons\StartButton.cs" />
+    <Compile Include="GameObjects\ShadowThrowingDagger.cs" />
     <Compile Include="GameObjects\Sword.cs" />
+    <Compile Include="GameObjects\ThrowingDagger.cs" />
     <Compile Include="Levels\Algorithms\CaveGeneration.cs" />
     <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />

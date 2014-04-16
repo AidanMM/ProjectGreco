@@ -124,7 +124,7 @@ namespace ProjectGreco.GameObjects
             zOrder = 1;
             A_BeginAnimation();
             SkillLightJump = true;
-
+            SkillShadowDagger = true;
             #region Skill Setup
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;
@@ -304,14 +304,15 @@ namespace ProjectGreco.GameObjects
 
             #region Skills
 
-            activeSkillIndex = 4;
+            
             // Main skill
             if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
             {
                 UseSkill(activeSkillIndex);
+                
             }
             // Secondary Skill
-            if (Game1.KBState.IsKeyDown(Keys.LeftShift))
+            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
             {
                 int secondaryIndex;
                 if (activeSkillIndex + 1 == availableSkills.Count)
@@ -338,7 +339,7 @@ namespace ProjectGreco.GameObjects
             }
             else if (Game1.KBState.IsKeyDown(Keys.Q) && !Game1.oldKBstate.IsKeyDown(Keys.Q))
             {
-                if (activeSkillIndex - 1 < 0)
+                 if (activeSkillIndex - 1 < 0)
                 {
                     activeSkillIndex = availableSkills.Count - 1;
                 }
