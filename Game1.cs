@@ -218,6 +218,8 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("Swords", A_CreateAnimation("TempSword"));
 
+            ANIMATION_DICTIONARY.Add("OneWayBlock", A_CreateAnimation("TempOneWay"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));

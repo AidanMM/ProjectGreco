@@ -69,6 +69,8 @@ namespace ProjectGreco.GameObjects
         public bool SkillWings = true;
         #endregion
 
+        
+
 
         public Player(Vector2 startPos) : base(startPos, "Player")
         {
@@ -77,6 +79,8 @@ namespace ProjectGreco.GameObjects
             position = startPos;
             onScreen = true;
             zOrder = 1;
+
+            
 
             #region Skill Setup
             // Setup the player's ability to jump multiple times
@@ -119,6 +123,7 @@ namespace ProjectGreco.GameObjects
             onScreen = true;
             zOrder = 1;
             A_BeginAnimation();
+            SkillLightJump = true;
 
             #region Skill Setup
             // Setup the player's ability to jump multiple times
@@ -299,8 +304,9 @@ namespace ProjectGreco.GameObjects
 
             #region Skills
 
+            activeSkillIndex = 4;
             // Main skill
-            if (Game1.KBState.IsKeyDown(Keys.Space))
+            if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
             {
                 UseSkill(activeSkillIndex);
             }
@@ -403,6 +409,7 @@ namespace ProjectGreco.GameObjects
                 velocity.Y = 0;
                 
             }
+            
             if (applyGravity == true)
             {
                acceleration.Y = 0.3f;
@@ -508,11 +515,24 @@ namespace ProjectGreco.GameObjects
                     velocity.Y = 0;
 
                 }
-                
-                
-                
 
-                
+            }
+            if (determineEvent.ObjectType == "OneWayBlock")
+            {
+                if (Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
+                    && ((OldPosition.X + Width - 1 > determineEvent.Position.X
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    applyGravity = false;
+                    jumpCounter = 0;
+                    velocity.Y = 0;
+                    acceleration.Y = 0;
+                    position.Y = determineEvent.Position.Y - Height;
+                }
             }
             
         }

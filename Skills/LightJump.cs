@@ -16,9 +16,11 @@ namespace ProjectGreco.Skills
 {
     class LightJump
     {
+        public static OneWayBlock oneWayBlock;
+
         public LightJump(Player myPlayer)
         {
-            
+            oneWayBlock = new OneWayBlock(new Vector2(myPlayer.Position.X, myPlayer.Position.Y + myPlayer.Height + 5), 100);        
         }
     }
 }

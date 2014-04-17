@@ -47,6 +47,7 @@
     <Compile Include="GameObjects\EndPipe.cs" />
     <Compile Include="GameObjects\FrappyBird.cs" />
     <Compile Include="GameObjects\LevelPortal.cs" />
+    <Compile Include="GameObjects\OneWayBlock.cs" />
     <Compile Include="GameObjects\Pipe.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Projectile.cs" />
@@ -253,6 +254,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TempGround.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TempOneWay.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TempSword.png">
