@@ -217,11 +217,11 @@ namespace ProjectGreco
         /// <param name="spriteBatch"></param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            for (int x = 0; x < objectDictionary.Count; x++)
+            for (int x = 0; x < onScreenList.Count; x++)
             {
-                if (objectDictionary[collisionList[x]].OnScreen)
+                if (objectDictionary[onScreenList[x]].OnScreen)
                 {
-                    objectDictionary[collisionList[x]].Draw(spriteBatch);
+                    objectDictionary[onScreenList[x]].Draw(spriteBatch);
                 }
             }
         }
