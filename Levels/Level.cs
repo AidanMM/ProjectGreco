@@ -95,8 +95,8 @@ namespace ProjectGreco.Levels
                 case LevelName.Ice:
                     this.mainTexture = "iceFiller";
                     this.secondaryTexture = "caveFillerBlock";
-                    this.mainEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
-                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
+                    this.mainEdge = Game1.IMAGE_DICTIONARY["iceEdge"];
+                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["iceEdge"];
                     break;
             }
         }

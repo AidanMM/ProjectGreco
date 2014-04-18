@@ -166,6 +166,9 @@
     <Content Include="Content\hillsBlock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\iceEdge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\iceFiller.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

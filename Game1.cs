@@ -18,6 +18,11 @@ namespace ProjectGreco
     /// </summary>
     public class Game1 : Game
     {
+        /// <summary>
+        /// Set this to false if you don't want background tiles to be rendering for some reason.
+        /// </summary>
+        public const bool RENDER_BACKGROUNDS = true;
+
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -174,6 +179,7 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("forestBlock", Content.Load<Texture2D>("forestBlock"));
             IMAGE_DICTIONARY.Add("hillsBlock", Content.Load<Texture2D>("hillsBlock"));
             IMAGE_DICTIONARY.Add("iceFloor", Content.Load<Texture2D>("iceFloor"));
+            IMAGE_DICTIONARY.Add("iceEdge", Content.Load<Texture2D>("iceEdge"));
             IMAGE_DICTIONARY.Add("moonBlock", Content.Load<Texture2D>("moonBlock"));
 
             #endregion
@@ -211,7 +217,7 @@ namespace ProjectGreco
             #endregion
             #endregion
 
-            OBJECT_HANDLER.ChangeState(new Level(LevelName.Hills, true));
+            OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
 
             
 
