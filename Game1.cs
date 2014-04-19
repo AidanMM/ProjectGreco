@@ -182,6 +182,7 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("iceEdge", Content.Load<Texture2D>("iceEdge"));
             IMAGE_DICTIONARY.Add("moonBlock", Content.Load<Texture2D>("moonBlock"));
 
+
             #endregion
 
 
@@ -208,6 +209,9 @@ namespace ProjectGreco
                 "PaladinWalking6","PaladinWalking7","PaladinWalking8"));
             ANIMATION_DICTIONARY.Add("WalkLeft", A_CreateAnimation("PaladinWalking1L", "PaladinWalking2L", "PaladinWalking3L", "PaladinWalking4L", "PaladinWalking5L",
                 "PaladinWalking6L", "PaladinWalking7L", "PaladinWalking8L"));
+
+            //Button States
+            ANIMATION_DICTIONARY.Add("ButtonStates", A_CreateAnimation("buttonstatic", "buttonover", "buttondown"));
 
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));

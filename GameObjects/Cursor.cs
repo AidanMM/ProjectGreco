@@ -17,6 +17,9 @@ namespace ProjectGreco.GameObjects
         Vector2 startingPosition;
         Vector2 screenPosition;
         Texture2D cursorSprite;
+        private bool mouseClicked;  // bool to determine if the mouse was clicked
+
+        public bool MouseClicked { get { return mouseClicked; } }
 
 
         public Cursor(Vector2 startPos, Texture2D cS) : base(startPos, "Cursor")
@@ -25,6 +28,7 @@ namespace ProjectGreco.GameObjects
             startingPosition = new Vector2(600, 320);
             cursorSprite = cS;
             position = startPos;
+            mouseClicked = true;
             onScreen = true;
             zOrder = 10;
         }
@@ -42,6 +46,32 @@ namespace ProjectGreco.GameObjects
             position.Y = Game1.CAMERA_DISPLACEMENT.Y + Game1.mouseState.Y;
 
             UpdateCollisionBox();
+            
+            ///
+            /// Checks to see if the mouse button was clicked
+            ///
+            #region ClickedChecks
+            if ((Game1.mouseState.LeftButton == ButtonState.Released) && (Game1.prevMouseState.LeftButton == ButtonState.Released))
+            {
+                mouseClicked = false;
+            }
+
+            if ((Game1.mouseState.LeftButton == ButtonState.Pressed) && (Game1.prevMouseState.LeftButton == ButtonState.Released))
+            {
+                mouseClicked = true;
+            }
+
+            if ((Game1.mouseState.LeftButton == ButtonState.Pressed) && (Game1.prevMouseState.LeftButton == ButtonState.Pressed))
+            {
+                mouseClicked = true;
+            }
+
+            if ((Game1.mouseState.LeftButton == ButtonState.Released) && (Game1.prevMouseState.LeftButton == ButtonState.Pressed))
+            {
+                mouseClicked = false;
+            }
+
+            #endregion
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -50,9 +80,11 @@ namespace ProjectGreco.GameObjects
         }
         /// <summary>
         /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one will check to see if the cursor is interacting with a button
+        /// 
+        /// Determined for the time being that button does not need collision. Correct in the future if needed.
         /// </summary>
         /// <param name="determineEvent"></param>
-        public override void C_OnCollision(GameObject determineEvent)
+       /* public override void C_OnCollision(GameObject determineEvent)
         {
             if (determineEvent.ObjectType == "Button")
             {
@@ -61,6 +93,6 @@ namespace ProjectGreco.GameObjects
 
             Game1.TITLE_STRING = determineEvent.dictionaryName;
         }
-
+        */
     }
 }
