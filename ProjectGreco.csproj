@@ -94,7 +94,7 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\arrow.png">
+    <Content Include="Content\Entities\arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\BlueBeat.png">
@@ -131,6 +131,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\dirtEdge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\Onion.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Frappy.png">
@@ -184,52 +187,52 @@
     <Content Include="Content\moonFiller.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking1.png">
+    <Content Include="Content\Entities\PaladinWalking1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking1L.png">
+    <Content Include="Content\Entities\PaladinWalking1L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking2.png">
+    <Content Include="Content\Entities\PaladinWalking2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking2L.png">
+    <Content Include="Content\Entities\PaladinWalking2L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking3.png">
+    <Content Include="Content\Entities\PaladinWalking3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking3L.png">
+    <Content Include="Content\Entities\PaladinWalking3L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking4.png">
+    <Content Include="Content\Entities\PaladinWalking4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking4L.png">
+    <Content Include="Content\Entities\PaladinWalking4L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking5.png">
+    <Content Include="Content\Entities\PaladinWalking5.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking5L.png">
+    <Content Include="Content\Entities\PaladinWalking5L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking6.png">
+    <Content Include="Content\Entities\PaladinWalking6.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking6L.png">
+    <Content Include="Content\Entities\PaladinWalking6L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking7.png">
+    <Content Include="Content\Entities\PaladinWalking7.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking7L.png">
+    <Content Include="Content\Entities\PaladinWalking7L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking8.png">
+    <Content Include="Content\Entities\PaladinWalking8.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\PaladinWalking8L.png">
+    <Content Include="Content\Entities\PaladinWalking8L.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Pipe.png">

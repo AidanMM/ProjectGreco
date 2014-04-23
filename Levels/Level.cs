@@ -194,7 +194,7 @@ namespace ProjectGreco.Levels
                         enemyType = "cursorTest";
                         break;
                     case EnemyType.Ground:
-                        enemyType = "desertFiller";
+                        enemyType = "Onion";
                         break;
                 }
 

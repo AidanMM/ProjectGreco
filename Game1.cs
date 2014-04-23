@@ -203,12 +203,13 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("iceFiller", A_CreateAnimation("iceFiller"));
             ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
             ANIMATION_DICTIONARY.Add("tempGround", A_CreateAnimation("TempGround"));
+            ANIMATION_DICTIONARY.Add("Onion", A_CreateAnimation("Entities\\Onion"));
 
-            //Charater Animations
-            ANIMATION_DICTIONARY.Add("WalkRight",A_CreateAnimation("PaladinWalking1","PaladinWalking2","PaladinWalking3","PaladinWalking4","PaladinWalking5",
-                "PaladinWalking6","PaladinWalking7","PaladinWalking8"));
-            ANIMATION_DICTIONARY.Add("WalkLeft", A_CreateAnimation("PaladinWalking1L", "PaladinWalking2L", "PaladinWalking3L", "PaladinWalking4L", "PaladinWalking5L",
-                "PaladinWalking6L", "PaladinWalking7L", "PaladinWalking8L"));
+            //Character Animations
+            ANIMATION_DICTIONARY.Add("WalkRight", A_CreateAnimation("Entities\\PaladinWalking1", "Entities\\PaladinWalking2", "Entities\\PaladinWalking3", "Entities\\PaladinWalking4", "Entities\\PaladinWalking5",
+                "Entities\\PaladinWalking6", "Entities\\PaladinWalking7", "Entities\\PaladinWalking8"));
+            ANIMATION_DICTIONARY.Add("WalkLeft", A_CreateAnimation("Entities\\PaladinWalking1L", "Entities\\PaladinWalking2L", "Entities\\PaladinWalking3L", "Entities\\PaladinWalking4L", "Entities\\PaladinWalking5L",
+                "Entities\\PaladinWalking6L", "Entities\\PaladinWalking7L", "Entities\\PaladinWalking8L"));
 
             //Button States
             ANIMATION_DICTIONARY.Add("ButtonStates", A_CreateAnimation("buttonstatic", "buttonover", "buttondown"));
@@ -216,7 +217,7 @@ namespace ProjectGreco
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
-            ANIMATION_DICTIONARY.Add("Arrow", A_CreateAnimation("arrow"));
+            ANIMATION_DICTIONARY.Add("Arrow", A_CreateAnimation("Entities\\arrow"));
 
             #endregion
             #endregion
