@@ -17,7 +17,7 @@ namespace ProjectGreco.GameObjects
         Vector2 startingPosition;
         Vector2 screenPosition;
         Texture2D cursorSprite;
-        private bool mouseClicked;  // bool to determine if the mouse was clicked
+        bool mouseClicked;  // bool to determine if the mouse was clicked
 
         public bool MouseClicked { get { return mouseClicked; } }
 
