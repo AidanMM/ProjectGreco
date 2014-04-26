@@ -7,10 +7,24 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 
+using ProjectGreco.Levels;
+
 namespace ProjectGreco.GameObjects
 {
+
     class BaseEnemy : GameObject
     {
+        public float speed = .5f;
+        public float speedLimit = 7.5f;
+        public bool applyGravity = true;
+        public int jumpCounter = 0;
+        public Random rand;
+        public int counter = 0;
+        public int ghostCounter = 0;
+
+        private const float FLYING_VELOCITY_MAX = .4f;
+
+
         /// <summary>
         /// The array of vertices used to draw the health bar primitive for the enemy
         /// </summary>
@@ -38,14 +52,26 @@ namespace ProjectGreco.GameObjects
             set { currentHealth = value; }
         }
 
+        private EnemyType ai;
+
+        /// <summary>
+        /// The current AI the enemy is following.
+        /// </summary>
+        public EnemyType AI
+        {
+            get { return ai; }
+        }
+
         /// <summary>
         /// Basic paramaterized constructor for the base enemy object. Does not account for health, use the health paramaterzied constructor for that
         /// </summary>
         /// <param name="animationList">The animations for the enemy</param>
         /// <param name="pos">The position to spawn the enemy at</param>
-        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos)
+        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos, EnemyType ai, Random rand)
             : base(animationList, pos, "enemy")
         {
+            this.rand = rand;
+
             zOrder = 8999;
 
             //Create the vertices and their color
@@ -54,8 +80,14 @@ namespace ProjectGreco.GameObjects
             vertices[0].Color = Color.Red;
             vertices[1].Position = new Vector3(pos.X, pos.Y, 0);
             vertices[1].Color = Color.Green;
+            this.ai = ai;
+            
+
+            CheckForCollisions = true;
 
             currentHealth = maxHealth;
+
+            
         }
 
         /// <summary>
@@ -67,14 +99,139 @@ namespace ProjectGreco.GameObjects
 
             vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
 
-            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)) , vertices[0].Position.Y, 0);
+            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)), vertices[0].Position.Y, 0);
             base.Update();
-           // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
+            // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
 
             if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
             {
                 currentHealth--;
             }
+
+            #region Artificial Intelligence Update
+            switch (ai)
+            {
+                case EnemyType.Ghost:
+                    if (onScreen)
+                    {
+                        // Let's make the ghost hover around
+                        if (velocity.X >= -speedLimit && velocity.X <= speedLimit)
+                        {
+                            if (ghostCounter <= 60)
+                            {
+                                velocity.X = -0.2f;
+                            }
+                            else if (ghostCounter <= 120)
+                            {
+                                velocity.X = 0.2f;
+                            }
+                            if (ghostCounter <= 30 || ghostCounter > 90)
+                            {
+                                velocity.Y = -0.2f;
+                            }
+                            else if (ghostCounter > 30 || ghostCounter <= 90)
+                            {
+                                velocity.Y = 0.2f;
+                            }
+                        }
+
+                    }
+
+
+                    break;
+                case EnemyType.Ground:
+                    if (onScreen)
+                    {
+                        // Ground enemies should occasionally hop to mix up movement a bit.
+                        if (counter >= 10)
+                        {
+                            int roll = rand.Next(0, 20);
+                            if (roll == 0 && jumpCounter == 0)
+                            {
+                                velocity.Y = -10.5f;
+                                jumpCounter++;
+                            }
+                        }
+
+                        if (applyGravity == true)
+                        {
+                            acceleration.Y = 0.3f;
+                        }
+                        else
+                        {
+                            acceleration.Y = 0.0f;
+                        }
+                        if (objectBelow == false)
+                        {
+                            applyGravity = true;
+
+                        }
+                        if (position.Y > LevelVariables.HEIGHT * 64)
+                        {
+                            position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
+                        }
+                    }
+                    break;
+                case EnemyType.Flying:
+                    if (onScreen)
+                    {
+                        if (applyGravity == true)
+                        {
+                            acceleration.Y = 0.3f;
+                        }
+                        else
+                        {
+                            acceleration.Y = 0.0f;
+                        }
+                        if (objectBelow == false)
+                        {
+                            applyGravity = true;
+
+                        }
+                        // Have the enemy flap semi-randomly.
+                        if (counter >= 10)
+                        {
+                            int roll = rand.Next(0,9);
+                            if (roll > 2)
+                            {
+                                velocity.Y = -2.5f;
+                            }
+                        }
+                        // Catch the enemy if it falls out of the level.
+                        if (position.Y > LevelVariables.HEIGHT * 64)
+                        {
+                            Destroy();
+                        }
+                        // Since this guy flys let him have a glide.
+                        if (velocity.Y > FLYING_VELOCITY_MAX)
+                        {
+                            velocity.Y = FLYING_VELOCITY_MAX;
+                        }
+
+
+
+                    }
+                    break;
+
+
+            }
+
+            position += velocity;
+            velocity += acceleration;
+            UpdateCollisionBox();
+            #endregion
+            if (counter >= 10)
+            {
+                counter = 0;
+            }
+            if (ghostCounter >= 120)
+            {
+                ghostCounter = 0;
+            }
+            counter++;
+            ghostCounter++;
+            
+
         }
 
         /// <summary>
@@ -98,8 +255,68 @@ namespace ProjectGreco.GameObjects
             vertices[1].Position.X = drawRec.X + 100;
             vertices[1].Position.Y = drawRec.Y;
 
-            
+
             Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
+        }
+
+        public override void C_OnCollision(GameObject determineEvent)
+        {
+            if (determineEvent.ObjectType == "EdgeTile" && ai != EnemyType.Ghost)
+            {
+                OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
+                if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X
+                    && ((OldPosition.Y + Height >= determineEvent.Position.Y &&
+                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height
+                    && OldPosition.Y >= determineEvent.Position.Y)))
+                {
+                    velocity.X = 0;
+                    position.X = determineEvent.Position.X - Width;
+                    acceleration.X = 0;
+                }
+                else if (OldPosition.X >= determineEvent.Position.X + determineEvent.Width
+                    && ((OldPosition.Y + Height >= determineEvent.Position.Y &&
+                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height
+                    && OldPosition.Y >= determineEvent.Position.Y)))
+                {
+                    velocity.X = 0;
+                    position.X = determineEvent.Position.X + determineEvent.Width;
+                    acceleration.X = 0;
+                }
+                else if (Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
+                    && ((OldPosition.X + Width >= determineEvent.Position.X
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    applyGravity = false;
+                    jumpCounter = 0;
+                    velocity.Y = 0;
+                    acceleration.Y = 0;
+                    position.Y = determineEvent.Position.Y - Height;
+                }
+                else if (Math.Floor(OldPosition.Y) > determineEvent.Position.Y + determineEvent.Height
+                    && position.Y < determineEvent.Position.Y + determineEvent.Height
+                    && ((OldPosition.X + Width >= determineEvent.Position.X
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    position.Y = determineEvent.Position.Y + determineEvent.Height;
+                    velocity.Y = 0;
+
+                }
+            }
+        }
+
+        public override void C_NoCollisions()
+        {
+
         }
     }
 }

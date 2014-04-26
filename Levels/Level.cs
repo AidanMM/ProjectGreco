@@ -37,6 +37,9 @@ namespace ProjectGreco.Levels
         private Texture2D mainEdge;
         private Texture2D secondaryEdge;
 
+        private Random myRandom;
+
+
         public string MainTexture { get { return mainTexture; } }
         public string SecondaryTexture { get { return secondaryTexture; } }
         public Texture2D MainEdge { get { return mainEdge; } }
@@ -48,6 +51,8 @@ namespace ProjectGreco.Levels
         public Map MyMap { get { return myMap; } }
         public Spawner MySpawner { get { return mySpawner; } }
 
+        public Random MyRandom { get { return myRandom; } }
+
         /// <summary>
         /// Creates a level based on the leveltype supplied
         /// </summary>
@@ -55,12 +60,16 @@ namespace ProjectGreco.Levels
         /// <param name="renderBackground">Bool that determines whether or not we create background blocks</param>
         public Level(LevelName levelType, bool renderBackground = true) : base()
         {
+            myRandom = new Random();
+
             this.renderBackground = renderBackground;
             this.levelType = levelType;
 
             ChooseTextures();
             CreateMap();
             SetupLevel();
+
+            
         }
 
         /// <summary>
@@ -188,10 +197,10 @@ namespace ProjectGreco.Levels
                 switch (myEnemy.movementType)
                 {
                     case EnemyType.Flying:
-                        enemyType = "Frappy";
+                        enemyType = "FlyingEnemy";
                         break;
                     case EnemyType.Ghost:
-                        enemyType = "cursorTest";
+                        enemyType = "GhostEnemy";
                         break;
                     case EnemyType.Ground:
                         enemyType = "Onion";
@@ -202,15 +211,18 @@ namespace ProjectGreco.Levels
                 {
                     case EnemySize.Large:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
-                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64)));
+                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
+                            myRandom));
                         break;
                     case EnemySize.Medium:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
-                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64)));
+                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
+                            myRandom));
                         break;
                     case EnemySize.Small:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
-                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64)));
+                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
+                            myRandom));
                         break;
 
                 }
