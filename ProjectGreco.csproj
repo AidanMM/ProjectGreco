@@ -133,6 +133,12 @@
     <Content Include="Content\dirtEdge.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Entities\FlyingEnemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\GhostEnemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Entities\Onion.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

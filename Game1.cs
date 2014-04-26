@@ -204,6 +204,8 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
             ANIMATION_DICTIONARY.Add("tempGround", A_CreateAnimation("TempGround"));
             ANIMATION_DICTIONARY.Add("Onion", A_CreateAnimation("Entities\\Onion"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemy", A_CreateAnimation("Entities\\FlyingEnemy"));
+            ANIMATION_DICTIONARY.Add("GhostEnemy", A_CreateAnimation("Entities\\GhostEnemy"));
 
             //Character Animations
             ANIMATION_DICTIONARY.Add("WalkRight", A_CreateAnimation("Entities\\PaladinWalking1", "Entities\\PaladinWalking2", "Entities\\PaladinWalking3", "Entities\\PaladinWalking4", "Entities\\PaladinWalking5",
