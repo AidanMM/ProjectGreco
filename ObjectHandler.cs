@@ -135,7 +135,7 @@ namespace ProjectGreco
                         float distanceY = objectDictionary[collisionCheckList[x]].CollisionBox.Y - objectDictionary[onScreenList[y]].CollisionBox.Y;
                         Vector2 distanceBetweenObjects = new Vector2(objectDictionary[collisionCheckList[x]].CollisionBox.X - objectDictionary[onScreenList[y]].CollisionBox.X, Math.Abs(distanceY));
 
-                        if ((distanceBetweenObjects.X >= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[onScreenList[y]].CollisionBox.Width) || (distanceBetweenObjects.X <= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[onScreenList[x]].CollisionBox.Width))
+                        if ((distanceBetweenObjects.X >= 0 && distanceBetweenObjects.X < objectDictionary[onScreenList[y]].CollisionBox.Width) || (distanceBetweenObjects.X <= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[onScreenList[x]].CollisionBox.Width))
                         {
                             if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
                             {

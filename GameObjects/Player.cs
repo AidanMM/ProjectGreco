@@ -440,9 +440,10 @@ namespace ProjectGreco.GameObjects
             if (determineEvent.ObjectType == "EdgeTile")
             {
                 OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
+                
                 if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X 
-                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y &&
-                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y
+                    && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
                     || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
                     && OldPosition.Y >= determineEvent.Position.Y)))
                 {
@@ -451,8 +452,8 @@ namespace ProjectGreco.GameObjects
                     acceleration.X = 0;
                 }
                 else if (OldPosition.X >= determineEvent.Position.X + determineEvent.Width
-                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y &&
-                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    && ( (OldPosition.Y + Height >= determineEvent.Position.Y
+                    && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
                     || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
                     && OldPosition.Y >= determineEvent.Position.Y)))
                 {
@@ -485,8 +486,14 @@ namespace ProjectGreco.GameObjects
                 {
                     position.Y = determineEvent.Position.Y + determineEvent.Height;
                     velocity.Y = 0;
-                    
+
                 }
+                else
+                {
+                    position.X -= velocity.X;
+                    velocity.X = 0;
+                }
+                
                 
 
                 

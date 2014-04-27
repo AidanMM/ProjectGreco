@@ -169,7 +169,7 @@ namespace ProjectGreco.Levels
                             Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[secondaryTexture])), edgeTiles);
                         edgeTiles++;
                     }
-
+                   // renderBackground = false;
                     if (renderBackground)
                     {
                         // Main Background Tiles
