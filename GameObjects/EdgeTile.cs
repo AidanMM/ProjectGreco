@@ -82,7 +82,8 @@ namespace ProjectGreco.GameObjects
 
         public override void Update()
         {
-
+            
+            OnScreenCheck();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -94,7 +95,7 @@ namespace ProjectGreco.GameObjects
             // Now do edge detection.
             // Start by checking the left and right sides.  We want these drawn
             // the furthest back.
-            
+
 
 
             // Left side, check for air and then draw

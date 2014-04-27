@@ -543,5 +543,20 @@ namespace ProjectGreco
             Game1.OBJECT_HANDLER.escapeBool = true;
             
         }
+        /// <summary>
+        /// Checks to see if the object is on screen or not, if it is then it will draw, otherwise it won't.
+        /// </summary>
+        public void OnScreenCheck()
+        {
+            if (collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < -200 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1500
+                || collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height < -400 || collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 820)
+            {
+                onScreen = false;
+            }
+            else
+            {
+                onScreen = true;
+            }
+        }
     }
 }

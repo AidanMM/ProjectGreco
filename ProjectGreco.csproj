@@ -49,6 +49,7 @@
     <Compile Include="GameObjects\Pipe.cs" />
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameObjects\Projectile.cs" />
+    <Compile Include="GameObjects\StartButton.cs" />
     <Compile Include="Levels\Algorithms\CaveGeneration.cs" />
     <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />

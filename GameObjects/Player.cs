@@ -441,7 +441,7 @@ namespace ProjectGreco.GameObjects
             {
                 OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
                 
-                if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X 
+                if (Math.Floor(OldPosition.X) <= determineEvent.Position.X 
                     && ( (OldPosition.Y + Height >= determineEvent.Position.Y
                     && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
                     || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
@@ -488,11 +488,7 @@ namespace ProjectGreco.GameObjects
                     velocity.Y = 0;
 
                 }
-                else
-                {
-                    position.X -= velocity.X;
-                    velocity.X = 0;
-                }
+                
                 
                 
 

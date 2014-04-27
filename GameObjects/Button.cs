@@ -45,11 +45,16 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         /// <param name="determineEvent"></param>
         public override void C_OnCollision(GameObject determineEvent)
-        {
-            if (determineEvent.ObjectType == "Cursor")
+        {            
+            if (determineEvent.ObjectType == "Cursor" && (determineEvent as Cursor).MouseClicked == false)
             {
                 
             }
+        }
+
+        public virtual void DoThisOnClick()
+        {
+
         }
     }
 }
