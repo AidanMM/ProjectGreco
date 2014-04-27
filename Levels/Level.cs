@@ -39,6 +39,8 @@ namespace ProjectGreco.Levels
 
         private Random myRandom;
 
+        private Player myPlayer;
+
 
         public string MainTexture { get { return mainTexture; } }
         public string SecondaryTexture { get { return secondaryTexture; } }
@@ -52,6 +54,8 @@ namespace ProjectGreco.Levels
         public Spawner MySpawner { get { return mySpawner; } }
 
         public Random MyRandom { get { return myRandom; } }
+
+        public Player MyPlayer { get { return myPlayer; } }
 
         /// <summary>
         /// Creates a level based on the leveltype supplied
@@ -139,8 +143,9 @@ namespace ProjectGreco.Levels
         /// </summary>
         public void SetupLevel()
         {
+            myPlayer = new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["WalkRight"], Game1.ANIMATION_DICTIONARY["WalkLeft"]));
             // Create the player
-            AddObjectToHandler("Player", new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["WalkRight"], Game1.ANIMATION_DICTIONARY["WalkLeft"])));
+            AddObjectToHandler("Player", myPlayer);
             // Create the cursor
             AddObjectToHandler("Cursor", new Cursor(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.IMAGE_DICTIONARY["cursor"]));
 
@@ -212,17 +217,17 @@ namespace ProjectGreco.Levels
                     case EnemySize.Large:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom));
+                            myRandom, myPlayer));
                         break;
                     case EnemySize.Medium:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom));
+                            myRandom, myPlayer));
                         break;
                     case EnemySize.Small:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom));
+                            myRandom, myPlayer));
                         break;
 
                 }

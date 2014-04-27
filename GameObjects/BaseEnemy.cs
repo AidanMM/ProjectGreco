@@ -21,6 +21,11 @@ namespace ProjectGreco.GameObjects
         public Random rand;
         public int counter = 0;
         public int ghostCounter = 0;
+        public int ghostDashTimer = 0;
+        public bool chasing = false;
+        public bool overshoot = false;
+        public int chaseDistance = 64 * 7; // The 64 is for the width of a block, enemies should start pursuing at a distance of about seven blocks for now.
+        public Player myPlayer;
 
         private const float FLYING_VELOCITY_MAX = .4f;
 
@@ -67,7 +72,7 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         /// <param name="animationList">The animations for the enemy</param>
         /// <param name="pos">The position to spawn the enemy at</param>
-        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos, EnemyType ai, Random rand)
+        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos, EnemyType ai, Random rand, Player myPlayer)
             : base(animationList, pos, "enemy")
         {
             this.rand = rand;
@@ -81,13 +86,14 @@ namespace ProjectGreco.GameObjects
             vertices[1].Position = new Vector3(pos.X, pos.Y, 0);
             vertices[1].Color = Color.Green;
             this.ai = ai;
-            
+            this.myPlayer = myPlayer;
+
 
             CheckForCollisions = true;
 
             currentHealth = maxHealth;
 
-            
+
         }
 
         /// <summary>
@@ -108,40 +114,122 @@ namespace ProjectGreco.GameObjects
                 currentHealth--;
             }
 
+
+
             #region Artificial Intelligence Update
-            switch (ai)
+            if (onScreen)
             {
-                case EnemyType.Ghost:
-                    if (onScreen)
-                    {
-                        // Let's make the ghost hover around
-                        if (velocity.X >= -speedLimit && velocity.X <= speedLimit)
+                double distanceToPlayer = Math.Pow(
+                    Math.Pow(position.X - myPlayer.Position.X, 2) +
+                    Math.Pow(position.Y - myPlayer.Position.Y, 2),
+                    .5);
+
+                if (distanceToPlayer > Math.Abs(velocity.X) *64)
+                {
+                    overshoot = false;
+                }
+                if (distanceToPlayer < 32)
+                {
+                    overshoot = true;
+                }
+                if (distanceToPlayer < chaseDistance)
+                {
+                    chasing = true;
+                }
+                else
+                {
+                    chasing = false;
+                    ghostDashTimer = 0;
+                }
+
+                switch (ai)
+                {
+                    #region Ghost
+                    case EnemyType.Ghost:
+
+                        // Overshoot will make it so the enemy goes past the player instead of hovering ontop of them.
+                        if (!overshoot)
                         {
-                            if (ghostCounter <= 60)
+
+                            if (!chasing)
                             {
-                                velocity.X = -0.2f;
+                                // Let's make the ghost hover around
+
+                                if (ghostCounter <= 60)
+                                {
+                                    velocity.X = -0.2f;
+                                }
+                                else if (ghostCounter <= 120)
+                                {
+                                    velocity.X = 0.2f;
+                                }
+                                if (ghostCounter <= 30 || ghostCounter > 90)
+                                {
+                                    velocity.Y = -0.2f;
+                                }
+                                else if (ghostCounter > 30 || ghostCounter <= 90)
+                                {
+                                    velocity.Y = 0.2f;
+                                }
+
                             }
-                            else if (ghostCounter <= 120)
+                            if (chasing)
                             {
-                                velocity.X = 0.2f;
+                                float totalVelocity = 3.1f;
+                                float xPercent = (myPlayer.Position.X - position.X) / (float)distanceToPlayer;
+                                float yPercent = (myPlayer.Position.Y - position.Y) / (float)distanceToPlayer;
+
+                                velocity.X = totalVelocity * xPercent;
+                                velocity.Y = totalVelocity * yPercent;
+
+                                if (ghostCounter == 0 || ghostCounter == 30 || ghostCounter == 60 || ghostCounter == 90)
+                                {
+                                    int guess = rand.Next(0, 10);
+
+                                    if (guess == 0)
+                                    {
+                                        ghostDashTimer = 60;
+                                    }
+                                    
+                                }
+
+                                if (ghostDashTimer > 0)
+                                {
+                                    velocity.X = totalVelocity * xPercent * 1.5f;
+                                    velocity.Y = totalVelocity * yPercent * 1.5f;
+                                    ghostDashTimer--;
+                                }
+
                             }
-                            if (ghostCounter <= 30 || ghostCounter > 90)
+
+
+                            if (velocity.X >= 6.0f)
                             {
-                                velocity.Y = -0.2f;
+                                velocity.X = 6.0f;
                             }
-                            else if (ghostCounter > 30 || ghostCounter <= 90)
+                            if (velocity.X <= -6.0f)
                             {
-                                velocity.Y = 0.2f;
+                                velocity.X = 6.0f;
                             }
+                            if (velocity.Y >= 6.0f)
+                            {
+                                velocity.Y = 6.0f;
+                            }
+                            if (velocity.Y <= -6.0f)
+                            {
+                                velocity.Y = 6.0f;
+                            }
+
                         }
 
-                    }
 
 
-                    break;
-                case EnemyType.Ground:
-                    if (onScreen)
-                    {
+
+                        break;
+
+                    #endregion
+                    case EnemyType.Ground:
+
                         // Ground enemies should occasionally hop to mix up movement a bit.
                         if (counter >= 10)
                         {
@@ -170,11 +258,10 @@ namespace ProjectGreco.GameObjects
                         {
                             position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
                         }
-                    }
-                    break;
-                case EnemyType.Flying:
-                    if (onScreen)
-                    {
+
+                        break;
+                    case EnemyType.Flying:
+
                         if (applyGravity == true)
                         {
                             acceleration.Y = 0.3f;
@@ -191,7 +278,7 @@ namespace ProjectGreco.GameObjects
                         // Have the enemy flap semi-randomly.
                         if (counter >= 10)
                         {
-                            int roll = rand.Next(0,9);
+                            int roll = rand.Next(0, 9);
                             if (roll > 2)
                             {
                                 velocity.Y = -2.5f;
@@ -210,12 +297,12 @@ namespace ProjectGreco.GameObjects
 
 
 
-                    }
-                    break;
+
+                        break;
 
 
+                }
             }
-
             position += velocity;
             velocity += acceleration;
             UpdateCollisionBox();
@@ -230,7 +317,7 @@ namespace ProjectGreco.GameObjects
             }
             counter++;
             ghostCounter++;
-            
+
 
         }
 
