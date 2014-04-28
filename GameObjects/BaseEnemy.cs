@@ -14,18 +14,25 @@ namespace ProjectGreco.GameObjects
 
     class BaseEnemy : GameObject
     {
+        public int health = 2;
+
         public float speed = .5f;
         public float speedLimit = 7.5f;
         public bool applyGravity = true;
         public int jumpCounter = 0;
         public Random rand;
+
         public int counter = 0;
         public int ghostCounter = 0;
         public int ghostDashTimer = 0;
+
         public bool chasing = false;
         public bool overshoot = false;
         public int chaseDistance = 64 * 7; // The 64 is for the width of a block, enemies should start pursuing at a distance of about seven blocks for now.
+
         public Player myPlayer;
+        public List<int> projectiles;
+        public bool destroy = false;
 
         private const float FLYING_VELOCITY_MAX = .4f;
 
@@ -88,6 +95,7 @@ namespace ProjectGreco.GameObjects
             this.ai = ai;
             this.myPlayer = myPlayer;
 
+            this.projectiles = new List<int>();
 
             CheckForCollisions = true;
 
@@ -124,7 +132,7 @@ namespace ProjectGreco.GameObjects
                     Math.Pow(position.Y - myPlayer.Position.Y, 2),
                     .5);
 
-                if (distanceToPlayer > Math.Abs(velocity.X) *64)
+                if (distanceToPlayer > Math.Abs(velocity.X) * 64)
                 {
                     overshoot = false;
                 }
@@ -190,7 +198,7 @@ namespace ProjectGreco.GameObjects
                                     {
                                         ghostDashTimer = 60;
                                     }
-                                    
+
                                 }
 
                                 if (ghostDashTimer > 0)
@@ -302,22 +310,29 @@ namespace ProjectGreco.GameObjects
 
 
                 }
+                position += velocity;
+                velocity += acceleration;
+                UpdateCollisionBox();
+                if (counter >= 10)
+                {
+                    counter = 0;
+                }
+                if (ghostCounter >= 120)
+                {
+                    ghostCounter = 0;
+                }
+                counter++;
+                ghostCounter++;
             }
-            position += velocity;
-            velocity += acceleration;
-            UpdateCollisionBox();
+            
+            
             #endregion
-            if (counter >= 10)
-            {
-                counter = 0;
-            }
-            if (ghostCounter >= 120)
-            {
-                ghostCounter = 0;
-            }
-            counter++;
-            ghostCounter++;
+            
 
+            if (destroy)
+            {
+                Destroy();
+            }
 
         }
 
@@ -348,6 +363,24 @@ namespace ProjectGreco.GameObjects
 
         public override void C_OnCollision(GameObject determineEvent)
         {
+            // If the enemy gets hit by an arrow
+            if (determineEvent.ObjectType == "Arrow")
+            {
+                // Check out the arrow's id
+                Arrow myArrow = determineEvent as Arrow;
+                if (!projectiles.Contains(myArrow.id))
+                {
+                    // Add the projectile to a blacklist so one arrow does not hit an enemy infinity times.
+                    projectiles.Add(myArrow.id);
+                    health--;
+                    //myArrow.Destroy = true;
+                    if (health <= 0)
+                    {
+                        destroy = true;
+                    }
+                }
+            }
+
             if (determineEvent.ObjectType == "EdgeTile" && ai != EnemyType.Ghost)
             {
                 OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);

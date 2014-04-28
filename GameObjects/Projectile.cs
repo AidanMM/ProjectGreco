@@ -24,6 +24,8 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         protected float angle = 0.0f;
 
+        public bool Destroy { set { destroy = value; } }
+
         /// <summary>
         /// Constructor for the projectile base class to set a few key details for the object
         /// </summary>

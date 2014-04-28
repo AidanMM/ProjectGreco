@@ -12,12 +12,19 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.GameObjects
 {
+    
+
     class Arrow : Projectile
     {
+        public static int count = 0;
+        public int id;
+
         public Arrow(Vector2 vel, Vector2 pos, string name) : 
             base(vel, pos, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), name, 0)
         {
             acceleration.Y = 0.2f;
+            id = count;
+            count++;
         }
 
         public override void Update()
