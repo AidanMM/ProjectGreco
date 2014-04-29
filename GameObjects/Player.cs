@@ -363,14 +363,26 @@ namespace ProjectGreco.GameObjects
                 float angle = (float)Math.Atan(toMouse.Y / toMouse.X);
                 toMouse *= 10;
                 //toMouse += velocity;
-                Vector2 arrowVel = new Vector2(dir.X * toMouse.Length()/200 , dir.Y * toMouse.Length()/200);
-                if (toMouse.X > 0)
+                Vector2 arrowVel = new Vector2(0, 0);
+                if (toMouse.Length() / 200 > 20)
                 {
-                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow");
+                    arrowVel = new Vector2(dir.X * 20, dir.Y * 20);
+                }
+                else if (toMouse.Length() / 200 < 10)
+                {
+                    arrowVel = new Vector2(dir.X * 10, dir.Y * 10);
+                }
+                else
+                    arrowVel = new Vector2(dir.X * toMouse.Length() / 200, dir.Y * toMouse.Length() / 200);
+                
+                
+                if (toMouse.X > 0) 
+                {
+                    Projectile temp = new Arrow(arrowVel, this.position + new Vector2(Width /2, Height/2), "Arrow");
                 }
                 else
                 {
-                    Projectile temp = new Arrow(arrowVel, this.position, "Arrow");
+                    Projectile temp = new Arrow(arrowVel, this.position + new Vector2(Width / 2, Height / 2), "Arrow");
                 }
             }
 

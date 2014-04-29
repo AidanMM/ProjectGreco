@@ -298,6 +298,7 @@ namespace ProjectGreco
             {
                 //spriteBatch.DrawString(spFont1, commandString, new Vector2(0, 0), Color.White);
                 spriteBatch.DrawString(DEFUALT_SPRITEFONT, debugPrompt.commandString, new Vector2(0, 0), Color.Black);
+                
             }
 
             spriteBatch.End();

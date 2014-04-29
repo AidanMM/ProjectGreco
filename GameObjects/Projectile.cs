@@ -14,17 +14,12 @@ namespace ProjectGreco.GameObjects
 {
     class Projectile : GameObject
     {
-        /// <summary>
-        /// Set this bool to true to have the object be destroyed in the next ran update cycle
-        /// </summary>
-        protected bool destroy = false;
 
         /// <summary>
         /// The angle that the object will be rotated
         /// </summary>
         protected float angle = 0.0f;
 
-        public bool Destroy { set { destroy = value; } }
 
         /// <summary>
         /// Constructor for the projectile base class to set a few key details for the object
@@ -46,10 +41,6 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
             base.Update();
-            if (destroy == true)
-            {
-                Destroy();
-            }
             if (onScreen == false)
             {
                 Destroy();
@@ -80,7 +71,7 @@ namespace ProjectGreco.GameObjects
 
             if (determineEvent.ObjectType == "EdgeTile")
             {
-                destroy = true;
+                destroyThis = true;
             }
         }
         

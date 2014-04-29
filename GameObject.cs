@@ -242,6 +242,19 @@ namespace ProjectGreco
             set { hFlip = value; }
         }
 
+        /// <summary>
+        /// If this bool is set to true than this object will be destroyed during the next update loop for this object
+        /// </summary>
+        protected bool destroyThis = false;
+        /// <summary>
+        /// If this bool is set to true than this object will be destroyed during the next update loop for this object
+        /// </summary>
+        public bool DestroyThis
+        {
+            get{return destroyThis;}
+            set { destroyThis = value; }
+        }
+
         
 
 
@@ -331,7 +344,6 @@ namespace ProjectGreco
         {
             oldPosition = new Vector2(position.X, position.Y);
 
-           
             position += velocity;
             velocity += acceleration;
 
@@ -346,20 +358,15 @@ namespace ProjectGreco
                 else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
                     A_StopAnimating();
 
-                
             }
 
             //Check to see if an object is on screen.
-            //onScreenVector = new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y);
-            if (collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + collisionBox.Width < -200 || collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X > 1500
-                || collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height < -400 || collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y > 820)
-            {
-                onScreen = false;
-            }
-            else
-            {
-                onScreen = true;
-            }
+             OnScreenCheck();
+
+             if (destroyThis == true)
+             {
+                 Destroy();
+             }
 
         }
 
@@ -533,7 +540,7 @@ namespace ProjectGreco
 
         /// <summary>
         /// Call this function to remove the object from the game, it will no longer be in the object dictionary or the collision list
-        /// and therefore will not be drawn, or updated.  
+        /// and therefore will not be drawn, or updated.  Only call this function in the update loop. Otherwise, flip the destroy this bool to true.
         /// </summary>
         public void Destroy()
         {

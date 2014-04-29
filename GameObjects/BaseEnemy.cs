@@ -358,7 +358,7 @@ namespace ProjectGreco.GameObjects
             vertices[1].Position.Y = drawRec.Y;
 
 
-            Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
+            //Game1.graphics.GraphicsDevice.DrawUserPrimitives(PrimitiveType.LineList, vertices, 0, 1);
         }
 
         public override void C_OnCollision(GameObject determineEvent)
