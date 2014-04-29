@@ -84,15 +84,10 @@ namespace ProjectGreco.GameObjects
         /// Determined for the time being that button does not need collision. Correct in the future if needed.
         /// </summary>
         /// <param name="determineEvent"></param>
-       /* public override void C_OnCollision(GameObject determineEvent)
+        public override void C_OnCollision(GameObject determineEvent)
         {
-            if (determineEvent.ObjectType == "Button")
-            {
-
-            }
-
             Game1.TITLE_STRING = determineEvent.dictionaryName;
         }
-        */
+        
     }
 }

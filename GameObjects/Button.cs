@@ -16,16 +16,19 @@ namespace ProjectGreco.GameObjects
     {
         int buttonState;    // controls button state: 0- base 1- over 2- down
         List<List<Texture2D>> buttonList;
-        Cursor cO;
+        private bool clickable;
+        private string buttonText;
 
-        public Button(Vector2 startPos, List<List<Texture2D>> aList)
+        public Button(Vector2 startPos, List<List<Texture2D>> aList, string bTxt, bool click)
             : base(aList, startPos, "Button")
         {
             checkForCollisions = true;
             buttonList = aList;
             position = startPos;
             onScreen = true;
+            clickable = click;
             buttonState = 0;
+            buttonText = "";
             zOrder = 20;            
         }
 
@@ -37,7 +40,14 @@ namespace ProjectGreco.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationList[0][buttonState], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
+            if (clickable == true)
+            {
+                spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
+            }
+            else if (clickable == false)
+            {
+                spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
+            }
         }
         
         /// <summary>
@@ -45,16 +55,35 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         /// <param name="determineEvent"></param>
         public override void C_OnCollision(GameObject determineEvent)
-        {            
-            if (determineEvent.ObjectType == "Cursor" && (determineEvent as Cursor).MouseClicked == false)
+        {
+            if (determineEvent.ObjectType == "Cursor")
             {
-                
+
+                if (clickable == true)
+                {
+                    if ((determineEvent as Cursor).MouseClicked == false)
+                    {
+                        A_GoToFrameIndex(1);
+                    }
+                    else if ((determineEvent as Cursor).MouseClicked == true)
+                    {
+                        A_GoToFrameIndex(2);
+                        DoThisOnClick();
+                    }
+                    else
+                    {
+                        //A_GoToFrameIndex(0);
+                    }
+                }
+                else
+                {
+                    //  buttonState = 0;
+                }
             }
         }
 
         public virtual void DoThisOnClick()
         {
-
         }
     }
 }
