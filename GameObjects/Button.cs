@@ -29,25 +29,26 @@ namespace ProjectGreco.GameObjects
             clickable = click;
             buttonState = 0;
             buttonText = "";
-            zOrder = 20;            
+            zOrder = 9;            
         }
 
         public override void Update()
         {
-            UpdateCollisionBox();            
-            //base.Update();
+            //UpdateCollisionBox();            
+            base.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (clickable == true)
-            {
-                spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
-            }
-            else if (clickable == false)
-            {
-                spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
-            }
+			base.Draw(spriteBatch);
+			//if (clickable == true)
+			//{
+			//	spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
+			//}
+			//else if (clickable == false)
+			//{
+			//	spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
+			//}
         }
         
         /// <summary>
@@ -72,15 +73,18 @@ namespace ProjectGreco.GameObjects
                     }
                     else
                     {
-                        //A_GoToFrameIndex(0);
+                        A_GoToFrameIndex(0);
                     }
                 }
-                else
-                {
-                    //  buttonState = 0;
-                }
+                
             }
+			
         }
+
+		public override void C_NoCollisions()
+		{
+			A_GoToFrameIndex(0);
+		}
 
         public virtual void DoThisOnClick()
         {

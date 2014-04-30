@@ -36,6 +36,7 @@ namespace ProjectGreco.GameObjects
             Game1.OBJECT_HANDLER.currentState.AddObjectToHandler("Name", this);
             checkForCollisions = true;
             angle = angleToSet;
+			zOrder = -10;
         }
 
         public override void Update()

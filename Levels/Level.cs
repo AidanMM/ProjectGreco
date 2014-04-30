@@ -92,7 +92,7 @@ namespace ProjectGreco.Levels
                     break;
 
                 case LevelName.Forest:
-                    this.mainTexture = "forestDirtBlock";
+                    this.mainTexture = "forestdirtBlock";
                     this.secondaryTexture = "caveFillerBlock";
                     this.mainEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
                     this.secondaryEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];

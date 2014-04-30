@@ -224,8 +224,8 @@ namespace ProjectGreco
             #endregion
             #endregion
 
-            OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
-            //OBJECT_HANDLER.ChangeState(new HomeWorld());
+            //OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
+            OBJECT_HANDLER.ChangeState(new HomeWorld());
 
             
 

@@ -36,6 +36,7 @@ namespace ProjectGreco.GameObjects
         public int dashTimeLength = 10;
         public int jumpCounter = 0;
         private int maximumJumps;
+		
 
         public int MaximumJumps
         {
@@ -451,7 +452,7 @@ namespace ProjectGreco.GameObjects
          
             if (determineEvent.ObjectType == "EdgeTile")
             {
-                OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
+                OldPosition = new Vector2(OldPosition.X , OldPosition.Y - velocity.Y);
                 
                 if (Math.Floor(OldPosition.X) <= determineEvent.Position.X 
                     && ( (OldPosition.Y + Height >= determineEvent.Position.Y
