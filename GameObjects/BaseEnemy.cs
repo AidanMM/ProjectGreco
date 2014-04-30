@@ -21,6 +21,7 @@ namespace ProjectGreco.GameObjects
         public bool applyGravity = true;
         public int jumpCounter = 0;
         public Random rand;
+        public int rotation = 0;
 
         public int counter = 0;
         public int ghostCounter = 0;
@@ -34,7 +35,7 @@ namespace ProjectGreco.GameObjects
         public List<int> projectiles;
         public bool destroy = false;
 
-        private const float FLYING_VELOCITY_MAX = .4f;
+        private const float FLYING_VELOCITY_MAX = .8f;
 
 
         /// <summary>
@@ -114,7 +115,24 @@ namespace ProjectGreco.GameObjects
             vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
 
             vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)), vertices[0].Position.Y, 0);
-            base.Update();
+
+            // Needed to remove the velocity and acceleration parts for the enemies to function correctly
+            #region Base Update
+            OldPosition = new Vector2(position.X, position.Y);
+
+            UpdateCollisionBox();
+
+            if (animating == true)
+            {
+                if (Game1.TIMER % (60 / framesPerSecond) == 0)
+                    frameIndex++;
+                if (frameIndex >= animationList[animationListIndex].Count && looping == true)
+                    frameIndex = 0;
+                else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
+                    A_StopAnimating();
+
+            }
+            #endregion
             // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
 
             if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
@@ -122,7 +140,15 @@ namespace ProjectGreco.GameObjects
                 currentHealth--;
             }
 
+            
 
+            //Check to see if an object is on screen.
+            OnScreenCheck();
+
+            if (destroyThis == true)
+            {
+                Destroy();
+            }
 
             #region Artificial Intelligence Update
             if (onScreen)
@@ -165,25 +191,25 @@ namespace ProjectGreco.GameObjects
 
                                 if (ghostCounter <= 60)
                                 {
-                                    velocity.X = -0.2f;
+                                    velocity.X = -0.4f;
                                 }
                                 else if (ghostCounter <= 120)
                                 {
-                                    velocity.X = 0.2f;
+                                    velocity.X = 0.4f;
                                 }
                                 if (ghostCounter <= 30 || ghostCounter > 90)
                                 {
-                                    velocity.Y = -0.2f;
+                                    velocity.Y = -0.4f;
                                 }
                                 else if (ghostCounter > 30 || ghostCounter <= 90)
                                 {
-                                    velocity.Y = 0.2f;
+                                    velocity.Y = 0.4f;
                                 }
 
                             }
                             if (chasing)
                             {
-                                float totalVelocity = 3.1f;
+                                float totalVelocity = 6.2f;
                                 float xPercent = (myPlayer.Position.X - position.X) / (float)distanceToPlayer;
                                 float yPercent = (myPlayer.Position.Y - position.Y) / (float)distanceToPlayer;
 
@@ -211,21 +237,21 @@ namespace ProjectGreco.GameObjects
                             }
 
 
-                            if (velocity.X >= 6.0f)
+                            if (velocity.X >= 12.0f)
                             {
-                                velocity.X = 6.0f;
+                                velocity.X = 12.0f;
                             }
-                            if (velocity.X <= -6.0f)
+                            if (velocity.X <= -12.0f)
                             {
-                                velocity.X = 6.0f;
+                                velocity.X = 12.0f;
                             }
-                            if (velocity.Y >= 6.0f)
+                            if (velocity.Y >= 12.0f)
                             {
-                                velocity.Y = 6.0f;
+                                velocity.Y = 12.0f;
                             }
-                            if (velocity.Y <= -6.0f)
+                            if (velocity.Y <= -12.0f)
                             {
-                                velocity.Y = 6.0f;
+                                velocity.Y = 12.0f;
                             }
 
                         }
@@ -244,14 +270,14 @@ namespace ProjectGreco.GameObjects
                             int roll = rand.Next(0, 20);
                             if (roll == 0 && jumpCounter == 0)
                             {
-                                velocity.Y = -10.5f;
+                                velocity.Y = -20.5f;
                                 jumpCounter++;
                             }
                         }
 
                         if (applyGravity == true)
                         {
-                            acceleration.Y = 0.3f;
+                            acceleration.Y = 0.6f;
                         }
                         else
                         {
@@ -267,12 +293,14 @@ namespace ProjectGreco.GameObjects
                             position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
                         }
 
+                        acceleration.X = .1f;
+
                         break;
                     case EnemyType.Flying:
 
                         if (applyGravity == true)
                         {
-                            acceleration.Y = 0.3f;
+                            acceleration.Y = 0.6f;
                         }
                         else
                         {
@@ -289,7 +317,7 @@ namespace ProjectGreco.GameObjects
                             int roll = rand.Next(0, 9);
                             if (roll > 2)
                             {
-                                velocity.Y = -2.5f;
+                                velocity.Y = -2.7f;
                             }
                         }
                         // Catch the enemy if it falls out of the level.
@@ -348,7 +376,27 @@ namespace ProjectGreco.GameObjects
 
             Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
                 collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.White);
+
+            rotation += (int)velocity.X;
+            rotation = rotation % 360;
+
+
+            if (ai == EnemyType.Ground)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
+                    drawRec.X + collisionBox.Width / 2,
+                    drawRec.Y + collisionBox.Height / 2,
+                    drawRec.Width,
+                    drawRec.Height)
+                    , null, Color.White, (float)(rotation * Math.PI / 180),
+                    new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+            }
+                
+            else
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.White);
+            }
+            
 
             vertices[0].Position.X = drawRec.X;
             vertices[0].Position.Y = drawRec.Y;
@@ -373,7 +421,7 @@ namespace ProjectGreco.GameObjects
                     // Add the projectile to a blacklist so one arrow does not hit an enemy infinity times.
                     projectiles.Add(myArrow.id);
                     health--;
-                    //myArrow.Destroy = true;
+                    myArrow.DestroyThis = true;
                     if (health <= 0)
                     {
                         destroy = true;
