@@ -216,6 +216,8 @@ namespace ProjectGreco
             //Button States
             ANIMATION_DICTIONARY.Add("ButtonStates", A_CreateAnimation("buttonstatic", "buttonover", "buttondown"));
 
+            ANIMATION_DICTIONARY.Add("Swords", A_CreateAnimation("TempSword"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));

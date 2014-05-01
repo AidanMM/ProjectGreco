@@ -33,7 +33,7 @@ namespace ProjectGreco.GameObjects
         {
             velocity = vel;
             position = pos;
-            Game1.OBJECT_HANDLER.currentState.AddObjectToHandler("Name", this);
+            Game1.OBJECT_HANDLER.currentState.AddObjectToHandler("Arrow", this);
             checkForCollisions = true;
             angle = angleToSet;
 			zOrder = -10;

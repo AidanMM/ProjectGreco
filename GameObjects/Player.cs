@@ -389,6 +389,13 @@ namespace ProjectGreco.GameObjects
 
             #endregion
 
+            #region Sword
+            if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released)
+            {
+                new Sword(this);
+            }
+            #endregion
+
             #region Other Events
             if (Game1.KBState.IsKeyDown(Keys.B))
             {

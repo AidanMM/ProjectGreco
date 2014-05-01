@@ -429,6 +429,15 @@ namespace ProjectGreco.GameObjects
                 }
             }
 
+            if (determineEvent.ObjectType == "Sword")
+            {
+                health--;
+                if (health <= 0)
+                {
+                    destroy = true;
+                }
+            }
+
             if (determineEvent.ObjectType == "EdgeTile" && ai != EnemyType.Ghost)
             {
                 OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
