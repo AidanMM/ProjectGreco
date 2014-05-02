@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProjectGreco.Levels
 {
     // Simple algorithms have classes; they affect the entire map
-    enum AlgorithmType
+    public enum AlgorithmType
     {
         Hills,
         Desert,
@@ -15,7 +15,7 @@ namespace ProjectGreco.Levels
         Cave
     }
 
-    static class LevelVariables
+    public static class LevelVariables
     {
         /// <summary>
         /// Width of the total terrain in a level.

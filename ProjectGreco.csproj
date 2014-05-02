@@ -66,6 +66,7 @@
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\Spawner.cs" />
     <Compile Include="ObjectHandler.cs" />
+    <Compile Include="PlayerStats.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skills\ChaoticReset.cs" />
@@ -147,7 +148,25 @@
     <Content Include="Content\Entities\FlyingEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Entities\FlyingEnemyLarge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\FlyingEnemySmall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Entities\GhostEnemy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\GhostEnemyLarge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\GhostEnemySmall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\GroundEnemyLarge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\GroundEnemySmall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Entities\Onion.png">

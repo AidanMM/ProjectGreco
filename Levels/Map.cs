@@ -11,7 +11,7 @@ namespace ProjectGreco.Levels
     /// Author: Luna Meier
     /// Purpose: Contains code for creating a terrain and then randomly creating differences in it.
     /// </summary>
-    class Map
+    public class Map
     {
         //
         // Fields

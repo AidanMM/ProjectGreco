@@ -13,7 +13,7 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.Levels
 {
-    enum LevelName
+    public enum LevelName
     {
         Forest,
         Hills,
@@ -24,7 +24,7 @@ namespace ProjectGreco.Levels
     /// <summary>
     /// Creates a level when information is put in.
     /// </summary>
-    class Level : BaseState
+    public class Level : BaseState
     {
         private bool renderBackground;
         private LevelName levelType;
@@ -233,22 +233,26 @@ namespace ProjectGreco.Levels
                     case EnemySize.Large:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom, myPlayer));
+                            myRandom, myPlayer, EnemySize.Large));
                         break;
                     case EnemySize.Medium:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom, myPlayer));
+                            myRandom, myPlayer, EnemySize.Medium));
                         break;
                     case EnemySize.Small:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
                             new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
-                            myRandom, myPlayer));
+                            myRandom, myPlayer, EnemySize.Small));
                         break;
 
                 }
+
+                
             }
 
+            AddObjectToHandler("Homeworld", new LevelPortal(new Vector2((LevelVariables.WIDTH - 4) * 64, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 1) * 64),
+                    Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), new HomeWorld(myPlayer), (LevelObjectDictionary["Player"] as Player)));
             //Sort all of the objects by their zOrder
             SortByZorder();
         }

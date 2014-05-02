@@ -20,6 +20,7 @@ namespace ProjectGreco.GameObjects
 
 		protected Player playerToSend;
 
+
 		public Player PlayerToSend
 		{
 			get { return playerToSend; }
@@ -47,7 +48,9 @@ namespace ProjectGreco.GameObjects
 			{
                 
 				Game1.OBJECT_HANDLER.ChangeState(levelToSend);
-                (levelToSend as Level).PositionPlayer();
+                if (levelToSend is Level)
+                    (levelToSend as Level).PositionPlayer();
+                
 			}
 		}
 

@@ -14,7 +14,6 @@ namespace ProjectGreco.GameObjects
 
     class BaseEnemy : GameObject
     {
-        public int health = 2;
 
         public float speed = .5f;
         public float speedLimit = 7.5f;
@@ -32,6 +31,9 @@ namespace ProjectGreco.GameObjects
         public int chaseDistance = 64 * 8; // The 64 is for the width of a block, enemies should start pursuing at a distance of about seven blocks for now.
         public int overshootBeginDistance = 32;
         public int overshootEndDistance = 64;
+        private float baseSpeed = 1.0f;
+        public float speedModifier = 1.0f;
+        public EnemySize mySize;
 
         public Player myPlayer;
         public List<int> projectiles;
@@ -82,7 +84,7 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         /// <param name="animationList">The animations for the enemy</param>
         /// <param name="pos">The position to spawn the enemy at</param>
-        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos, EnemyType ai, Random rand, Player myPlayer)
+        public BaseEnemy(List<List<Texture2D>> animationList, Vector2 pos, EnemyType ai, Random rand, Player myPlayer, EnemySize size)
             : base(animationList, pos, "enemy")
         {
             this.rand = rand;
@@ -97,6 +99,7 @@ namespace ProjectGreco.GameObjects
             vertices[1].Color = Color.Green;
             this.ai = ai;
             this.myPlayer = myPlayer;
+            this.mySize = size;
 
             this.projectiles = new List<int>();
 
@@ -107,6 +110,27 @@ namespace ProjectGreco.GameObjects
             if (ai == EnemyType.Flying)
             {
                 overshootEndDistance = 16;
+            }
+
+            if (mySize == EnemySize.Small)
+            {
+                maxHealth = 1;
+                currentHealth = 1;
+                baseSpeed = 2.0f;
+            }
+
+            if (mySize == EnemySize.Medium)
+            {
+                maxHealth = 3;
+                currentHealth = 3;
+                baseSpeed = 1.0f;
+            }
+
+            if (mySize == EnemySize.Large)
+            {
+                maxHealth = 10;
+                currentHealth = 10;
+                baseSpeed = 0.5f;
             }
 
         }
@@ -220,7 +244,7 @@ namespace ProjectGreco.GameObjects
                             }
                             if (chasing)
                             {
-                                float totalVelocity = 6.2f;
+                                float totalVelocity = 6.2f * baseSpeed * speedModifier;
                                 float xPercent = (myPlayer.Position.X - position.X) / (float)distanceToPlayer;
                                 float yPercent = (myPlayer.Position.Y - position.Y) / (float)distanceToPlayer;
 
@@ -248,28 +272,24 @@ namespace ProjectGreco.GameObjects
                             }
 
 
-                            if (velocity.X >= 12.0f)
+                            if (velocity.X >= 12.0f * baseSpeed * speedModifier)
                             {
-                                velocity.X = 12.0f;
+                                velocity.X = 12.0f * baseSpeed * speedModifier;
                             }
-                            if (velocity.X <= -12.0f)
+                            if (velocity.X <= -12.0f * baseSpeed * speedModifier)
                             {
-                                velocity.X = 12.0f;
+                                velocity.X = 12.0f * baseSpeed * speedModifier;
                             }
-                            if (velocity.Y >= 12.0f)
+                            if (velocity.Y >= 12.0f * baseSpeed * speedModifier)
                             {
-                                velocity.Y = 12.0f;
+                                velocity.Y = 12.0f * baseSpeed * speedModifier;
                             }
-                            if (velocity.Y <= -12.0f)
+                            if (velocity.Y <= -12.0f * baseSpeed * speedModifier)
                             {
-                                velocity.Y = 12.0f;
+                                velocity.Y = 12.0f * baseSpeed * speedModifier;
                             }
 
                         }
-
-
-
-
                         break;
 
                     #endregion
@@ -310,12 +330,12 @@ namespace ProjectGreco.GameObjects
                             // Go towards the player
                             if (myPlayer.Position.X > position.X)
                             {
-                                acceleration.X = 0.1f;
+                                acceleration.X = 0.1f * baseSpeed * speedModifier;
                             }
                             // In either direction
                             if (myPlayer.Position.X < position.X)
                             {
-                                acceleration.X = -0.1f;
+                                acceleration.X = -0.1f * baseSpeed * speedModifier;
                             }
 
                             // Hop if the player is higher
@@ -336,6 +356,7 @@ namespace ProjectGreco.GameObjects
                         }
                         break;
                     #endregion
+                    #region Flying
                     case EnemyType.Flying:
                         
                         if (applyGravity == true)
@@ -380,11 +401,11 @@ namespace ProjectGreco.GameObjects
                             {
                                 if (myPlayer.Position.X > position.X)
                                 {
-                                    acceleration.X = 0.3f;
+                                    acceleration.X = 0.3f * baseSpeed * speedModifier;
                                 }
                                 if (myPlayer.Position.X < position.X)
                                 {
-                                    acceleration.X = -0.3f;
+                                    acceleration.X = -0.3f * baseSpeed * speedModifier;
                                 }
                             }
 
@@ -401,19 +422,16 @@ namespace ProjectGreco.GameObjects
                         {
                             velocity.X = 0;
                         }
-                        if (velocity.X > 9.0f)
+                        if (velocity.X > 9.0f * baseSpeed * speedModifier)
                         {
-                            velocity.X = 9.0f;
+                            velocity.X = 9.0f * baseSpeed * speedModifier;
                         }
-                        if (velocity.X < -9.0f)
+                        if (velocity.X < -9.0f * baseSpeed * speedModifier)
                         {
-                            velocity.X = -9.0f;
+                            velocity.X = -9.0f * baseSpeed * speedModifier;
                         }
-
-
                         break;
-
-
+                    #endregion
                 }
                 position += velocity;
                 velocity += acceleration;
@@ -436,6 +454,13 @@ namespace ProjectGreco.GameObjects
 
             if (destroy)
             {
+                if (mySize == EnemySize.Large)
+                    PlayerStats.mula += 4;
+                if (mySize == EnemySize.Medium)
+                    PlayerStats.mula += 2;
+                if (mySize == EnemySize.Small)
+                    PlayerStats.mula += 1;
+
                 Destroy();
             }
 
@@ -497,9 +522,10 @@ namespace ProjectGreco.GameObjects
                 {
                     // Add the projectile to a blacklist so one arrow does not hit an enemy infinity times.
                     projectiles.Add(myArrow.id);
-                    health--;
-                    myArrow.DestroyThis = true;
-                    if (health <= 0)
+                    currentHealth--;
+                    if (!myArrow.piercing)
+                        myArrow.DestroyThis = true;
+                    if (currentHealth <= 0)
                     {
                         destroy = true;
                     }
@@ -508,8 +534,8 @@ namespace ProjectGreco.GameObjects
 
             if (determineEvent.ObjectType == "Sword")
             {
-                health--;
-                if (health <= 0)
+                currentHealth--;
+                if (currentHealth <= 0)
                 {
                     destroy = true;
                 }

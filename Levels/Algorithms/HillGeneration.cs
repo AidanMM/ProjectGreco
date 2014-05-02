@@ -428,8 +428,14 @@ namespace ProjectGreco.Levels.Algorithms
         public void CreatePeak()
         {
             // We'll set the index to any random one that isn't an endpoint.
-            peakIndex = myAlgorithm.Rand.Next(1, points.Length - 1);
-
+            if (points.Length <= 1)
+            {
+                peakIndex = 0;
+            }
+            else
+            {
+                peakIndex = myAlgorithm.Rand.Next(1, points.Length - 1);
+            }
             // The height of a peak lies somewhere between the given minheight and maxheight.
             int peakHeight = myAlgorithm.Ground_Height + myAlgorithm.Rand.Next(myAlgorithm.Hill_Min_Height, myAlgorithm.Hill_Max_Height);
 
@@ -443,6 +449,9 @@ namespace ProjectGreco.Levels.Algorithms
         public void SmoothSector()
         {
             // Find the average variation between points.
+            if (peakIndex == 0)
+                return;
+
             int differencePrePeak = (points[peakIndex][1] - points[0][1]) / peakIndex;
             int differencePostPeak = (points[peakIndex][1] - points[points.Length - 1][1]) / (points.Length - peakIndex);
 

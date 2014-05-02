@@ -34,7 +34,7 @@ namespace ProjectGreco.Levels
     /// Author: Luna Meier
     /// Purpose: Figures out where to create enemies and what basic kind of enemy is needed at the location.
     /// </summary>
-    class Spawner
+    public class Spawner
     {
         /// <summary>
         /// Contains the basic shape and information about the terrain.
@@ -363,7 +363,7 @@ namespace ProjectGreco.Levels
 
     }
 
-    struct TemporaryEnemy
+    public struct TemporaryEnemy
     {
         /// <summary>
         /// X position of the enemy.
@@ -393,7 +393,7 @@ namespace ProjectGreco.Levels
 
     }
 
-    struct Sector
+    public struct Sector
     {
         public int xPos;
         public int yPos;
@@ -409,7 +409,7 @@ namespace ProjectGreco.Levels
         }
     }
 
-    struct Position
+    public struct Position
     {
         public int xPos;
         public int yPos;

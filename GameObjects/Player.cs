@@ -11,7 +11,7 @@ using ProjectGreco.Skills;
 
 namespace ProjectGreco.GameObjects
 {
-    enum ActionSkills
+    public enum ActionSkills
     {
         ChaoticReset,
         ConfuseRay,
@@ -24,7 +24,7 @@ namespace ProjectGreco.GameObjects
         ShadowPush
     }
 
-    class Player : GameObject
+    public class Player : GameObject
     {
         public float speed = .5f;
         public float dashVelocity = 30.0f;
