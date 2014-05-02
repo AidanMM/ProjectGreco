@@ -29,7 +29,9 @@ namespace ProjectGreco.GameObjects
 
         public bool chasing = false;
         public bool overshoot = false;
-        public int chaseDistance = 64 * 7; // The 64 is for the width of a block, enemies should start pursuing at a distance of about seven blocks for now.
+        public int chaseDistance = 64 * 8; // The 64 is for the width of a block, enemies should start pursuing at a distance of about seven blocks for now.
+        public int overshootBeginDistance = 32;
+        public int overshootEndDistance = 64;
 
         public Player myPlayer;
         public List<int> projectiles;
@@ -102,6 +104,10 @@ namespace ProjectGreco.GameObjects
 
             currentHealth = maxHealth;
 
+            if (ai == EnemyType.Flying)
+            {
+                overshootEndDistance = 16;
+            }
 
         }
 
@@ -158,11 +164,16 @@ namespace ProjectGreco.GameObjects
                     Math.Pow(position.Y - myPlayer.Position.Y, 2),
                     .5);
 
-                if (distanceToPlayer > Math.Abs(velocity.X) * 64)
+                if (distanceToPlayer > Math.Abs(velocity.X) * overshootEndDistance)
                 {
                     overshoot = false;
                 }
-                if (distanceToPlayer < 32)
+
+                if (distanceToPlayer < overshootBeginDistance && ai == EnemyType.Ghost)
+                {
+                    overshoot = true;
+                }
+                if ((Math.Abs(position.X - myPlayer.Position.X)) < overshootBeginDistance && ai == EnemyType.Flying)
                 {
                     overshoot = true;
                 }
@@ -262,6 +273,7 @@ namespace ProjectGreco.GameObjects
                         break;
 
                     #endregion
+                    #region Ground
                     case EnemyType.Ground:
 
                         // Ground enemies should occasionally hop to mix up movement a bit.
@@ -293,11 +305,39 @@ namespace ProjectGreco.GameObjects
                             position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
                         }
 
-                        acceleration.X = .1f;
+                        if (chasing)
+                        {
+                            // Go towards the player
+                            if (myPlayer.Position.X > position.X)
+                            {
+                                acceleration.X = 0.1f;
+                            }
+                            // In either direction
+                            if (myPlayer.Position.X < position.X)
+                            {
+                                acceleration.X = -0.1f;
+                            }
 
+                            // Hop if the player is higher
+                            if (myPlayer.Position.Y + collisionBox.Height < position.Y && jumpCounter == 0)
+                            {
+                                velocity.Y = -10.5f;
+                                jumpCounter++;
+                            }
+
+                            // If your velocity is zero do a cute hop, more importantly can navigate uneven terrain
+                            if (velocity.X == 0 && jumpCounter == 0)
+                            {
+                                velocity.Y = -10.5f;
+                                jumpCounter++;
+                            }
+                            
+
+                        }
                         break;
+                    #endregion
                     case EnemyType.Flying:
-
+                        
                         if (applyGravity == true)
                         {
                             acceleration.Y = 0.6f;
@@ -311,13 +351,16 @@ namespace ProjectGreco.GameObjects
                             applyGravity = true;
 
                         }
-                        // Have the enemy flap semi-randomly.
-                        if (counter >= 10)
+                        if (!chasing)
                         {
-                            int roll = rand.Next(0, 9);
-                            if (roll > 2)
+                            // Have the enemy flap semi-randomly.
+                            if (counter >= 10)
                             {
-                                velocity.Y = -2.7f;
+                                int roll = rand.Next(0, 9);
+                                if (roll > 2)
+                                {
+                                    velocity.Y = -2.7f;
+                                }
                             }
                         }
                         // Catch the enemy if it falls out of the level.
@@ -331,7 +374,41 @@ namespace ProjectGreco.GameObjects
                             velocity.Y = FLYING_VELOCITY_MAX;
                         }
 
+                        if (chasing)
+                        {
+                            if (!overshoot)
+                            {
+                                if (myPlayer.Position.X > position.X)
+                                {
+                                    acceleration.X = 0.3f;
+                                }
+                                if (myPlayer.Position.X < position.X)
+                                {
+                                    acceleration.X = -0.3f;
+                                }
+                            }
 
+                            if (counter >= 10 & myPlayer.Position.Y < position.Y)
+                            {
+                                int roll = rand.Next(0, 9);
+                                if (roll > 2)
+                                {
+                                    velocity.Y = -7.7f;
+                                }
+                            }
+                        }
+                        if (!chasing)
+                        {
+                            velocity.X = 0;
+                        }
+                        if (velocity.X > 9.0f)
+                        {
+                            velocity.X = 9.0f;
+                        }
+                        if (velocity.X < -9.0f)
+                        {
+                            velocity.X = -9.0f;
+                        }
 
 
                         break;
@@ -377,10 +454,10 @@ namespace ProjectGreco.GameObjects
             Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
                 collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
 
-            rotation += (int)velocity.X;
+            rotation += (int)(acceleration.X*10*Math.Abs(velocity.X));
             rotation = rotation % 360;
 
-
+            // Deal with onion rotations
             if (ai == EnemyType.Ground)
             {
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
