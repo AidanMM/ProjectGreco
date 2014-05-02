@@ -176,11 +176,12 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("caveWall", Content.Load<Texture2D>("caveWall"));
             IMAGE_DICTIONARY.Add("desertFloor", Content.Load<Texture2D>("desertFloor"));
             IMAGE_DICTIONARY.Add("floodedcaveFloorBlock", Content.Load<Texture2D>("floodedcaveFloorBlock"));
-            IMAGE_DICTIONARY.Add("forestBlock", Content.Load<Texture2D>("forestBlock"));
             IMAGE_DICTIONARY.Add("hillsBlock", Content.Load<Texture2D>("hillsBlock"));
             IMAGE_DICTIONARY.Add("iceFloor", Content.Load<Texture2D>("iceFloor"));
             IMAGE_DICTIONARY.Add("iceEdge", Content.Load<Texture2D>("iceEdge"));
             IMAGE_DICTIONARY.Add("moonBlock", Content.Load<Texture2D>("moonBlock"));
+            IMAGE_DICTIONARY.Add("forestEdge", Content.Load<Texture2D>("forestEdge"));
+            IMAGE_DICTIONARY.Add("desertEdge", Content.Load<Texture2D>("desertEdge"));
 
 
             #endregion
@@ -199,7 +200,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("caveWall", A_CreateAnimation("caveWall"));
             ANIMATION_DICTIONARY.Add("desertFiller", A_CreateAnimation("desertFiller"));
             ANIMATION_DICTIONARY.Add("floodedcaveFillerBlock", A_CreateAnimation("floodedcaveFillerBlock"));
-            ANIMATION_DICTIONARY.Add("forestdirtBlock", A_CreateAnimation("forestdirtBlock"));
+            ANIMATION_DICTIONARY.Add("forestDirtBlock", A_CreateAnimation("forestDirtBlock"));
             ANIMATION_DICTIONARY.Add("iceFiller", A_CreateAnimation("iceFiller"));
             ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
             ANIMATION_DICTIONARY.Add("tempGround", A_CreateAnimation("TempGround"));

@@ -62,12 +62,13 @@ namespace ProjectGreco.Levels
         /// </summary>
         /// <param name="levelType">The LevelType you want to create</param>
         /// <param name="renderBackground">Bool that determines whether or not we create background blocks</param>
-        public Level(LevelName levelType, bool renderBackground = true) : base()
+        public Level(LevelName levelType, Player myPlayer = null, bool renderBackground = true) : base()
         {
             myRandom = new Random();
 
             this.renderBackground = renderBackground;
             this.levelType = levelType;
+            this.myPlayer = myPlayer;
 
             ChooseTextures();
             CreateMap();
@@ -87,15 +88,15 @@ namespace ProjectGreco.Levels
                 case LevelName.Desert:
                     this.mainTexture = "desertFiller";
                     this.secondaryTexture = "caveFillerBlock";
-                    this.mainEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
+                    this.mainEdge = Game1.IMAGE_DICTIONARY["desertEdge"];
                     this.secondaryEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
                     break;
 
                 case LevelName.Forest:
-                    this.mainTexture = "forestdirtBlock";
+                    this.mainTexture = "forestDirtBlock";
                     this.secondaryTexture = "caveFillerBlock";
-                    this.mainEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
-                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["defaultEdge"];
+                    this.mainEdge = Game1.IMAGE_DICTIONARY["forestEdge"];
+                    this.secondaryEdge = Game1.IMAGE_DICTIONARY["caveEdge"];
                     break;
 
                 case LevelName.Hills:
@@ -139,11 +140,24 @@ namespace ProjectGreco.Levels
         }
 
         /// <summary>
+        /// Positions the player to the correct starting location.
+        /// </summary>
+        public void PositionPlayer()
+        {
+            myPlayer.Acceleration = new Vector2(0, 0);
+            myPlayer.Velocity = new Vector2(0, 0);
+            myPlayer.Position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
+        }
+
+        /// <summary>
         /// Creates the level based on the information supplied.
         /// </summary>
         public void SetupLevel()
         {
-            myPlayer = new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["WalkRight"], Game1.ANIMATION_DICTIONARY["WalkLeft"]));
+            if (myPlayer == null)
+            {
+                myPlayer = new Player(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["WalkRight"], Game1.ANIMATION_DICTIONARY["WalkLeft"]));
+            }
             // Create the player
             AddObjectToHandler("Player", myPlayer);
             // Create the cursor

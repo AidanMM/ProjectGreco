@@ -16,7 +16,7 @@ namespace ProjectGreco.GameObjects
 		/// <summary>
 		/// The level that this portal will send the player to
 		/// </summary>
-		protected Level levelToSend;
+		protected BaseState levelToSend;
 
 		protected Player playerToSend;
 
@@ -27,7 +27,7 @@ namespace ProjectGreco.GameObjects
 
 		protected bool changeState = false;
 		
-		public LevelPortal(Vector2 startPos, List<List<Texture2D>> aList, Level goLevel, Player toPass)
+		public LevelPortal(Vector2 startPos, List<List<Texture2D>> aList, BaseState goLevel, Player toPass)
             : base(aList, startPos, "LevelPortal")
         {
             checkForCollisions = true;
@@ -45,7 +45,9 @@ namespace ProjectGreco.GameObjects
 
 			if (changeState == true)
 			{
+                
 				Game1.OBJECT_HANDLER.ChangeState(levelToSend);
+                (levelToSend as Level).PositionPlayer();
 			}
 		}
 
