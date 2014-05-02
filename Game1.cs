@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
 using ProjectGreco.Levels;
 #endregion
@@ -103,6 +105,16 @@ namespace ProjectGreco
         /// The previous mouse state of the last frame
         /// </summary>
         public static MouseState prevMouseState;
+
+        /// <summary>
+        /// The song library for the game, must load in mp3 files
+        /// </summary>
+        public static Dictionary<string, Song> SONG_LIBRARY;
+
+        /// <summary>
+        /// The sound effect library for the game.  This uses wav files
+        /// </summary>
+        public static Dictionary<string, SoundEffect> SOUND_LIBRARY;
         
 
         public Game1()
@@ -146,6 +158,10 @@ namespace ProjectGreco
             debugPrompt = new CommandInput();
 
             TIMER = 0;
+
+            SONG_LIBRARY = new Dictionary<string, Song>();
+
+            SOUND_LIBRARY = new Dictionary<string, SoundEffect>();
             
 
             base.Initialize();
@@ -228,6 +244,15 @@ namespace ProjectGreco
 
             #endregion
             #endregion
+
+
+            #region LoadSongs
+            SONG_LIBRARY.Add("StartMusic", Content.Load<Song>("Music\\Song1wav.wav"));
+            SONG_LIBRARY.Add("HomeWorldMusic", Content.Load<Song>("Music\\Song2wav.wav"));
+            
+            
+            #endregion
+
 
             //OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
             OBJECT_HANDLER.ChangeState(new HomeWorld());
