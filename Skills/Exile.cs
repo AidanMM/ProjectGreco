@@ -18,7 +18,16 @@ namespace ProjectGreco.Skills
     {
         public Exile(Player myPlayer)
         {
-            
+            try
+            {
+                (Game1.OBJECT_HANDLER.objectDictionary[Game1.TITLE_STRING] as BaseEnemy).Exile(60);
+            }
+            catch
+            {
+
+            }
         }
+
+       
     }
 }

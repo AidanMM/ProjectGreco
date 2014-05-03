@@ -125,6 +125,7 @@ namespace ProjectGreco.GameObjects
             A_BeginAnimation();
             SkillLightJump = true;
             SkillShadowDagger = true;
+            SkillExile = true;
             #region Skill Setup
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;

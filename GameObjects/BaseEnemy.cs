@@ -39,7 +39,38 @@ namespace ProjectGreco.GameObjects
         public List<int> projectiles;
         public bool destroy = false;
 
+        /// <summary>
+        /// This bool will tell whether or not this object can be exiled.  If it can be, then the exile spell will work on it.
+        /// </summary>
+        protected bool exileable = true;
+
+        /// <summary>
+        /// The status of whether or not the object is currently in the exiled state
+        /// </summary>
+        protected bool exiled = false;
+
+        /// <summary>
+        /// The position for this enemy to return to after it has been exiled
+        /// </summary>
+        protected Vector2 exileReturnPosition;
+
+        /// <summary>
+        /// The ammount of time until the current effect should end
+        /// </summary>
+        protected int endTime;
+
+        /// <summary>
+        /// The timer for the enemy to use to time things.
+        /// </summary>
+        protected int timer = 0;
+
+
+
+
         private const float FLYING_VELOCITY_MAX = .8f;
+
+
+
 
 
         /// <summary>
@@ -141,328 +172,337 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
 
-
-            vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
-
-            vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)), vertices[0].Position.Y, 0);
-
-            // Needed to remove the velocity and acceleration parts for the enemies to function correctly
-            #region Base Update
-            OldPosition = new Vector2(position.X, position.Y);
-
-            UpdateCollisionBox();
-
-            if (animating == true)
+            if (exiled == false)
             {
-                if (Game1.TIMER % (60 / framesPerSecond) == 0)
-                    frameIndex++;
-                if (frameIndex >= animationList[animationListIndex].Count && looping == true)
-                    frameIndex = 0;
-                else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
-                    A_StopAnimating();
+                vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
 
-            }
-            #endregion
-            // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
+                vertices[1].Position = new Vector3(collisionBox.X + (float)(this.collisionBox.Width * (float)((float)currentHealth / (float)maxHealth)), vertices[0].Position.Y, 0);
 
-            if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
-            {
-                currentHealth--;
-            }
+                // Needed to remove the velocity and acceleration parts for the enemies to function correctly
+                #region Base Update
+                OldPosition = new Vector2(position.X, position.Y);
 
-            
+                UpdateCollisionBox();
 
-            //Check to see if an object is on screen.
-            OnScreenCheck();
-
-            if (destroyThis == true)
-            {
-                Destroy();
-            }
-
-            #region Artificial Intelligence Update
-            if (onScreen)
-            {
-                double distanceToPlayer = Math.Pow(
-                    Math.Pow(position.X - myPlayer.Position.X, 2) +
-                    Math.Pow(position.Y - myPlayer.Position.Y, 2),
-                    .5);
-
-                if (distanceToPlayer > Math.Abs(velocity.X) * overshootEndDistance)
+                if (animating == true)
                 {
-                    overshoot = false;
+                    if (Game1.TIMER % (60 / framesPerSecond) == 0)
+                        frameIndex++;
+                    if (frameIndex >= animationList[animationListIndex].Count && looping == true)
+                        frameIndex = 0;
+                    else if (frameIndex >= animationList[animationListIndex].Count && looping == false)
+                        A_StopAnimating();
+
+                }
+                #endregion
+                // vertices[0].Position = new Vector3(position.X - (int)Game1.CAMERA_DISPLACEMENT.X - 400, collisionBox.Y - collisionBox.Height / 10 - (int)Game1.CAMERA_DISPLACEMENT.Y, 0);
+
+                if (Game1.KBState.IsKeyDown(Keys.D1) && Game1.oldKBstate.IsKeyUp(Keys.D1) && Game1.KBState.IsKeyDown(Keys.LeftAlt))
+                {
+                    currentHealth--;
                 }
 
-                if (distanceToPlayer < overshootBeginDistance && ai == EnemyType.Ghost)
+                if (destroyThis == true)
                 {
-                    overshoot = true;
-                }
-                if ((Math.Abs(position.X - myPlayer.Position.X)) < overshootBeginDistance && ai == EnemyType.Flying)
-                {
-                    overshoot = true;
-                }
-                if (distanceToPlayer < chaseDistance)
-                {
-                    chasing = true;
-                }
-                else
-                {
-                    chasing = false;
-                    ghostDashTimer = 0;
+                    Destroy();
                 }
 
-                switch (ai)
+                #region Artificial Intelligence Update
+                if (onScreen)
                 {
-                    #region Ghost
-                    case EnemyType.Ghost:
+                    double distanceToPlayer = Math.Pow(
+                        Math.Pow(position.X - myPlayer.Position.X, 2) +
+                        Math.Pow(position.Y - myPlayer.Position.Y, 2),
+                        .5);
 
-                        // Overshoot will make it so the enemy goes past the player instead of hovering ontop of them.
-                        if (!overshoot)
-                        {
+                    if (distanceToPlayer > Math.Abs(velocity.X) * overshootEndDistance)
+                    {
+                        overshoot = false;
+                    }
 
-                            if (!chasing)
+                    if (distanceToPlayer < overshootBeginDistance && ai == EnemyType.Ghost)
+                    {
+                        overshoot = true;
+                    }
+                    if ((Math.Abs(position.X - myPlayer.Position.X)) < overshootBeginDistance && ai == EnemyType.Flying)
+                    {
+                        overshoot = true;
+                    }
+                    if (distanceToPlayer < chaseDistance)
+                    {
+                        chasing = true;
+                    }
+                    else
+                    {
+                        chasing = false;
+                        ghostDashTimer = 0;
+                    }
+
+                    switch (ai)
+                    {
+                        #region Ghost
+                        case EnemyType.Ghost:
+
+                            // Overshoot will make it so the enemy goes past the player instead of hovering ontop of them.
+                            if (!overshoot)
                             {
-                                // Let's make the ghost hover around
 
-                                if (ghostCounter <= 60)
+                                if (!chasing)
                                 {
-                                    velocity.X = -0.4f;
-                                }
-                                else if (ghostCounter <= 120)
-                                {
-                                    velocity.X = 0.4f;
-                                }
-                                if (ghostCounter <= 30 || ghostCounter > 90)
-                                {
-                                    velocity.Y = -0.4f;
-                                }
-                                else if (ghostCounter > 30 || ghostCounter <= 90)
-                                {
-                                    velocity.Y = 0.4f;
-                                }
+                                    // Let's make the ghost hover around
 
-                            }
-                            if (chasing)
-                            {
-                                float totalVelocity = 6.2f * baseSpeed * speedModifier;
-                                float xPercent = (myPlayer.Position.X - position.X) / (float)distanceToPlayer;
-                                float yPercent = (myPlayer.Position.Y - position.Y) / (float)distanceToPlayer;
-
-                                velocity.X = totalVelocity * xPercent;
-                                velocity.Y = totalVelocity * yPercent;
-
-                                if (ghostCounter == 0 || ghostCounter == 30 || ghostCounter == 60 || ghostCounter == 90)
-                                {
-                                    int guess = rand.Next(0, 10);
-
-                                    if (guess == 0)
+                                    if (ghostCounter <= 60)
                                     {
-                                        ghostDashTimer = 60;
+                                        velocity.X = -0.4f;
+                                    }
+                                    else if (ghostCounter <= 120)
+                                    {
+                                        velocity.X = 0.4f;
+                                    }
+                                    if (ghostCounter <= 30 || ghostCounter > 90)
+                                    {
+                                        velocity.Y = -0.4f;
+                                    }
+                                    else if (ghostCounter > 30 || ghostCounter <= 90)
+                                    {
+                                        velocity.Y = 0.4f;
+                                    }
+
+                                }
+                                if (chasing)
+                                {
+                                    float totalVelocity = 6.2f * baseSpeed * speedModifier;
+                                    float xPercent = (myPlayer.Position.X - position.X) / (float)distanceToPlayer;
+                                    float yPercent = (myPlayer.Position.Y - position.Y) / (float)distanceToPlayer;
+
+                                    velocity.X = totalVelocity * xPercent;
+                                    velocity.Y = totalVelocity * yPercent;
+
+                                    if (ghostCounter == 0 || ghostCounter == 30 || ghostCounter == 60 || ghostCounter == 90)
+                                    {
+                                        int guess = rand.Next(0, 10);
+
+                                        if (guess == 0)
+                                        {
+                                            ghostDashTimer = 60;
+                                        }
+
+                                    }
+
+                                    if (ghostDashTimer > 0)
+                                    {
+                                        velocity.X = totalVelocity * xPercent * 1.5f;
+                                        velocity.Y = totalVelocity * yPercent * 1.5f;
+                                        ghostDashTimer--;
                                     }
 
                                 }
 
-                                if (ghostDashTimer > 0)
+
+                                if (velocity.X >= 12.0f * baseSpeed * speedModifier)
                                 {
-                                    velocity.X = totalVelocity * xPercent * 1.5f;
-                                    velocity.Y = totalVelocity * yPercent * 1.5f;
-                                    ghostDashTimer--;
+                                    velocity.X = 12.0f * baseSpeed * speedModifier;
+                                }
+                                if (velocity.X <= -12.0f * baseSpeed * speedModifier)
+                                {
+                                    velocity.X = 12.0f * baseSpeed * speedModifier;
+                                }
+                                if (velocity.Y >= 12.0f * baseSpeed * speedModifier)
+                                {
+                                    velocity.Y = 12.0f * baseSpeed * speedModifier;
+                                }
+                                if (velocity.Y <= -12.0f * baseSpeed * speedModifier)
+                                {
+                                    velocity.Y = 12.0f * baseSpeed * speedModifier;
                                 }
 
                             }
+                            break;
 
+                        #endregion
+                        #region Ground
+                        case EnemyType.Ground:
 
-                            if (velocity.X >= 12.0f * baseSpeed * speedModifier)
-                            {
-                                velocity.X = 12.0f * baseSpeed * speedModifier;
-                            }
-                            if (velocity.X <= -12.0f * baseSpeed * speedModifier)
-                            {
-                                velocity.X = 12.0f * baseSpeed * speedModifier;
-                            }
-                            if (velocity.Y >= 12.0f * baseSpeed * speedModifier)
-                            {
-                                velocity.Y = 12.0f * baseSpeed * speedModifier;
-                            }
-                            if (velocity.Y <= -12.0f * baseSpeed * speedModifier)
-                            {
-                                velocity.Y = 12.0f * baseSpeed * speedModifier;
-                            }
-
-                        }
-                        break;
-
-                    #endregion
-                    #region Ground
-                    case EnemyType.Ground:
-
-                        // Ground enemies should occasionally hop to mix up movement a bit.
-                        if (counter >= 10)
-                        {
-                            int roll = rand.Next(0, 20);
-                            if (roll == 0 && jumpCounter == 0)
-                            {
-                                velocity.Y = -20.5f;
-                                jumpCounter++;
-                            }
-                        }
-
-                        if (applyGravity == true)
-                        {
-                            acceleration.Y = 0.6f;
-                        }
-                        else
-                        {
-                            acceleration.Y = 0.0f;
-                        }
-                        if (objectBelow == false)
-                        {
-                            applyGravity = true;
-
-                        }
-                        if (position.Y > LevelVariables.HEIGHT * 64)
-                        {
-                            position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
-                        }
-
-                        if (chasing)
-                        {
-                            // Go towards the player
-                            if (myPlayer.Position.X > position.X)
-                            {
-                                acceleration.X = 0.1f * baseSpeed * speedModifier;
-                            }
-                            // In either direction
-                            if (myPlayer.Position.X < position.X)
-                            {
-                                acceleration.X = -0.1f * baseSpeed * speedModifier;
-                            }
-
-                            // Hop if the player is higher
-                            if (myPlayer.Position.Y + collisionBox.Height < position.Y && jumpCounter == 0)
-                            {
-                                velocity.Y = -10.5f;
-                                jumpCounter++;
-                            }
-
-                            // If your velocity is zero do a cute hop, more importantly can navigate uneven terrain
-                            if (velocity.X == 0 && jumpCounter == 0)
-                            {
-                                velocity.Y = -10.5f;
-                                jumpCounter++;
-                            }
-                            
-
-                        }
-                        break;
-                    #endregion
-                    #region Flying
-                    case EnemyType.Flying:
-                        
-                        if (applyGravity == true)
-                        {
-                            acceleration.Y = 0.6f;
-                        }
-                        else
-                        {
-                            acceleration.Y = 0.0f;
-                        }
-                        if (objectBelow == false)
-                        {
-                            applyGravity = true;
-
-                        }
-                        if (!chasing)
-                        {
-                            // Have the enemy flap semi-randomly.
+                            // Ground enemies should occasionally hop to mix up movement a bit.
                             if (counter >= 10)
                             {
-                                int roll = rand.Next(0, 9);
-                                if (roll > 2)
+                                int roll = rand.Next(0, 20);
+                                if (roll == 0 && jumpCounter == 0)
                                 {
-                                    velocity.Y = -2.7f;
+                                    velocity.Y = -20.5f;
+                                    jumpCounter++;
                                 }
                             }
-                        }
-                        // Catch the enemy if it falls out of the level.
-                        if (position.Y > LevelVariables.HEIGHT * 64)
-                        {
-                            Destroy();
-                        }
-                        // Since this guy flys let him have a glide.
-                        if (velocity.Y > FLYING_VELOCITY_MAX)
-                        {
-                            velocity.Y = FLYING_VELOCITY_MAX;
-                        }
 
-                        if (chasing)
-                        {
-                            if (!overshoot)
+                            if (applyGravity == true)
                             {
+                                acceleration.Y = 0.6f;
+                            }
+                            else
+                            {
+                                acceleration.Y = 0.0f;
+                            }
+                            if (objectBelow == false)
+                            {
+                                applyGravity = true;
+
+                            }
+                            if (position.Y > LevelVariables.HEIGHT * 64)
+                            {
+                                position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
+                            }
+
+                            if (chasing)
+                            {
+                                // Go towards the player
                                 if (myPlayer.Position.X > position.X)
                                 {
-                                    acceleration.X = 0.3f * baseSpeed * speedModifier;
+                                    acceleration.X = 0.1f * baseSpeed * speedModifier;
                                 }
+                                // In either direction
                                 if (myPlayer.Position.X < position.X)
                                 {
-                                    acceleration.X = -0.3f * baseSpeed * speedModifier;
+                                    acceleration.X = -0.1f * baseSpeed * speedModifier;
                                 }
-                            }
 
-                            if (counter >= 10 & myPlayer.Position.Y < position.Y)
-                            {
-                                int roll = rand.Next(0, 9);
-                                if (roll > 2)
+                                // Hop if the player is higher
+                                if (myPlayer.Position.Y + collisionBox.Height < position.Y && jumpCounter == 0)
                                 {
-                                    velocity.Y = -7.7f;
+                                    velocity.Y = -10.5f;
+                                    jumpCounter++;
+                                }
+
+                                // If your velocity is zero do a cute hop, more importantly can navigate uneven terrain
+                                if (velocity.X == 0 && jumpCounter == 0)
+                                {
+                                    velocity.Y = -10.5f;
+                                    jumpCounter++;
+                                }
+
+
+                            }
+                            break;
+                        #endregion
+                        #region Flying
+                        case EnemyType.Flying:
+
+                            if (applyGravity == true)
+                            {
+                                acceleration.Y = 0.6f;
+                            }
+                            else
+                            {
+                                acceleration.Y = 0.0f;
+                            }
+                            if (objectBelow == false)
+                            {
+                                applyGravity = true;
+
+                            }
+                            if (!chasing)
+                            {
+                                // Have the enemy flap semi-randomly.
+                                if (counter >= 10)
+                                {
+                                    int roll = rand.Next(0, 9);
+                                    if (roll > 2)
+                                    {
+                                        velocity.Y = -2.7f;
+                                    }
                                 }
                             }
-                        }
-                        if (!chasing)
-                        {
-                            velocity.X = 0;
-                        }
-                        if (velocity.X > 9.0f * baseSpeed * speedModifier)
-                        {
-                            velocity.X = 9.0f * baseSpeed * speedModifier;
-                        }
-                        if (velocity.X < -9.0f * baseSpeed * speedModifier)
-                        {
-                            velocity.X = -9.0f * baseSpeed * speedModifier;
-                        }
-                        break;
-                    #endregion
-                }
-                position += velocity;
-                velocity += acceleration;
-                UpdateCollisionBox();
-                if (counter >= 10)
-                {
-                    counter = 0;
-                }
-                if (ghostCounter >= 120)
-                {
-                    ghostCounter = 0;
-                }
-                counter++;
-                ghostCounter++;
-            }
-            
-            
-            #endregion
-            
+                            // Catch the enemy if it falls out of the level.
+                            if (position.Y > LevelVariables.HEIGHT * 64)
+                            {
+                                Destroy();
+                            }
+                            // Since this guy flys let him have a glide.
+                            if (velocity.Y > FLYING_VELOCITY_MAX)
+                            {
+                                velocity.Y = FLYING_VELOCITY_MAX;
+                            }
 
-            if (destroy)
+                            if (chasing)
+                            {
+                                if (!overshoot)
+                                {
+                                    if (myPlayer.Position.X > position.X)
+                                    {
+                                        acceleration.X = 0.3f * baseSpeed * speedModifier;
+                                    }
+                                    if (myPlayer.Position.X < position.X)
+                                    {
+                                        acceleration.X = -0.3f * baseSpeed * speedModifier;
+                                    }
+                                }
+
+                                if (counter >= 10 & myPlayer.Position.Y < position.Y)
+                                {
+                                    int roll = rand.Next(0, 9);
+                                    if (roll > 2)
+                                    {
+                                        velocity.Y = -7.7f;
+                                    }
+                                }
+                            }
+                            if (!chasing)
+                            {
+                                velocity.X = 0;
+                            }
+                            if (velocity.X > 9.0f * baseSpeed * speedModifier)
+                            {
+                                velocity.X = 9.0f * baseSpeed * speedModifier;
+                            }
+                            if (velocity.X < -9.0f * baseSpeed * speedModifier)
+                            {
+                                velocity.X = -9.0f * baseSpeed * speedModifier;
+                            }
+                            break;
+                        #endregion
+                    }
+                    position += velocity;
+                    velocity += acceleration;
+                    UpdateCollisionBox();
+                    if (counter >= 10)
+                    {
+                        counter = 0;
+                    }
+                    if (ghostCounter >= 120)
+                    {
+                        ghostCounter = 0;
+                    }
+                    counter++;
+                    ghostCounter++;
+                }
+
+
+                #endregion
+
+
+                if (destroy)
+                {
+                    if (mySize == EnemySize.Large)
+                        PlayerStats.mula += 4;
+                    if (mySize == EnemySize.Medium)
+                        PlayerStats.mula += 2;
+                    if (mySize == EnemySize.Small)
+                        PlayerStats.mula += 1;
+
+                    Destroy();
+                }
+            }
+            else
             {
-                if (mySize == EnemySize.Large)
-                    PlayerStats.mula += 4;
-                if (mySize == EnemySize.Medium)
-                    PlayerStats.mula += 2;
-                if (mySize == EnemySize.Small)
-                    PlayerStats.mula += 1;
-
-                Destroy();
+                timer++;
+                if (timer >= endTime)
+                {
+                    ReturnFromExile();
+                }
             }
+
+            //Check to see if an object is on screen.
+            OnScreenCheck();
+            
 
         }
 
@@ -597,6 +637,28 @@ namespace ProjectGreco.GameObjects
         public override void C_NoCollisions()
         {
 
+        }
+
+        /// <summary>
+        /// This function will exile this enemy, removing it from its current position, and then returning it back after some ammount of time.
+        /// </summary>
+        public void Exile(int timeTillReturn)
+        {
+            if (exileable == true)
+            {
+                exileReturnPosition = position;
+                position = new Vector2(-1000, -1000);
+                exiled = true;
+                UpdateCollisionBox();
+                endTime = timeTillReturn;
+            }
+        }
+
+        public void ReturnFromExile()
+        {
+            position = new Vector2(exileReturnPosition.X, exileReturnPosition.Y);
+            exiled = false;
+            timer = 0;
         }
     }
 }

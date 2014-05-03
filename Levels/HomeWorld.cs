@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.Levels
@@ -14,7 +16,6 @@ namespace ProjectGreco.Levels
     {
         public HomeWorld(Player myPlayer = null)
         {
-
             if (PlayerStats.firstTime)
             {
                 PlayerStats.firstTime = false;
@@ -42,22 +43,26 @@ namespace ProjectGreco.Levels
             if (!PlayerStats.forestComplete)
                 AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(1200, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
+            //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)
             {
-                // Create closed portal here.
+                (LevelObjectDictionary["PortalHills"] as LevelPortal).Closed = true;
             }
             if (PlayerStats.snowComplete)
             {
-                // Create closed portal here.
+                (LevelObjectDictionary["PortalIce"] as LevelPortal).Closed = true;
             }
             if (PlayerStats.desertComplete)
             {
-                // Create closed portal here.
+                (LevelObjectDictionary["PortalDesert"] as LevelPortal).Closed = true;
             }
             if (PlayerStats.forestComplete)
             {
-                // Create closed portal here.
+                (LevelObjectDictionary["PortalForest"] as LevelPortal).Closed = true;
             }
+
+
+            MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
 
 
 			SortByZorder();

@@ -27,6 +27,14 @@ namespace ProjectGreco.GameObjects
 		}
 
 		protected bool changeState = false;
+
+        protected bool closed = false;
+
+        public bool Closed
+        {
+            get { return closed; }
+            set { closed = value; }
+        }
 		
 		public LevelPortal(Vector2 startPos, List<List<Texture2D>> aList, BaseState goLevel, Player toPass)
             : base(aList, startPos, "LevelPortal")
@@ -44,12 +52,16 @@ namespace ProjectGreco.GameObjects
 		{
 			base.Update();
 
-			if (changeState == true)
+			if (changeState == true && closed == false)
 			{
                 
-				Game1.OBJECT_HANDLER.ChangeState(levelToSend);
+				//Check to see if the level being sent to is an platforming stage
                 if (levelToSend is Level)
                     (levelToSend as Level).PositionPlayer();
+                //Check to see if the level being sent to is the homeworld stage
+                if (levelToSend is HomeWorld)
+                    Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 50);
+                Game1.OBJECT_HANDLER.ChangeState(levelToSend);
                 
 			}
 		}
