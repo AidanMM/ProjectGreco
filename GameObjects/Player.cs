@@ -35,9 +35,21 @@ namespace ProjectGreco.GameObjects
         public int dashTimer = 0;
         public int dashTimeLength = 10;
         public int jumpCounter = 0;
+
+        /// <summary>
+        /// This bool is used to manage the ghosting state of the player
+        /// </summary>
+        protected bool ghosting = false;
+
+        protected int ghostTimer = 0;
+
+        protected int ghostLimit = 10;
+        
+        /// <summary>
+        /// The maximum jumps that the player has
+        /// </summary>
         private int maximumJumps;
 		
-
         public int MaximumJumps
         {
             get { return maximumJumps; }
@@ -129,6 +141,8 @@ namespace ProjectGreco.GameObjects
             SkillChaoticReset = true;
             SkillShadowPush = true;
             SkillShadowHold = true;
+            SkillGhost = true;
+            SkillLightWall = true;
             #region Skill Setup
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;
@@ -396,6 +410,7 @@ namespace ProjectGreco.GameObjects
                 {
                     Projectile temp = new Arrow(arrowVel, this.position + new Vector2(Width / 2, Height / 2), "Arrow");
                 }
+                EndGhost();
             }
 
             #endregion
@@ -404,6 +419,7 @@ namespace ProjectGreco.GameObjects
             if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released)
             {
                 new Sword(this);
+                EndGhost();
             }
             #endregion
 
@@ -445,6 +461,15 @@ namespace ProjectGreco.GameObjects
             {
                 position = new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64);
             }
+            if (ghosting == true)
+            {
+                ghostTimer++;
+                if (ghostTimer >= ghostLimit)
+                {
+                    ghostTimer = 0;
+                    ghosting = false;
+                }
+            }
 
             #region General Updates
 
@@ -458,8 +483,14 @@ namespace ProjectGreco.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
-            //spriteBatch.Draw(animationList[animationListIndex][frameIndex], Game1.CAMERA_DISPLACEMENT, Color.White);
+            if (ghosting == false)
+            {
+                base.Draw(spriteBatch);
+            }
+            else if(ghosting == true)
+            {
+                base.Draw(spriteBatch, Color.Black);
+            }
         }
 
         /// <summary>
@@ -539,6 +570,13 @@ namespace ProjectGreco.GameObjects
                     position.Y = determineEvent.Position.Y - Height;
                 }
             }
+
+            //Do the collision code for checking against enemies here. We don't have any yet, but do it inside of the ghosting check
+            if (ghosting == false)
+            {
+
+            }
+
             
         }
 
@@ -590,6 +628,19 @@ namespace ProjectGreco.GameObjects
                 default:
                     break;
             }
+        }
+
+        public void Ghost(int timeToGhost)
+        {
+            ghosting = true;
+            ghostLimit = timeToGhost;
+            
+        }
+
+        public void EndGhost()
+        {
+            ghosting = false;
+            ghostTimer = 0;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ProjectGreco.Skills
     {
         public Ghost(Player myPlayer)
         {
-            
+            myPlayer.Ghost(45);
         }
     }
 }

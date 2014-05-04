@@ -234,6 +234,9 @@ namespace ProjectGreco
             set { scale = value; }
         }
 
+        /// <summary>
+        /// This bool will tell the draw function whether or not to flip the image of this object.
+        /// </summary>
         protected bool hFlip = false;
 
         public bool HFlip
@@ -254,10 +257,6 @@ namespace ProjectGreco
             get{return destroyThis;}
             set { destroyThis = value; }
         }
-
-        
-
-
 
         /// <summary>
         /// Default constructor, simply initializes a base texture and a base position
@@ -369,7 +368,11 @@ namespace ProjectGreco
              }
 
         }
-
+        /// <summary>
+        /// The base draw function for every game object.  Includes everything necasary to draw the object.  Sets default overlay color to white,
+        /// which means no overlay color.
+        /// </summary>
+        /// <param name="spriteBatch">the base spriteBatch for the game</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (hFlip == false)
@@ -390,6 +393,38 @@ namespace ProjectGreco
                     new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
                     new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
                     Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.FlipHorizontally,
+                    1);
+            }
+        }
+        /// <summary>
+        /// A paramterized draw function that includes the color that you want to overlay onto the image
+        /// </summary>
+        /// <param name="spriteBatch">The default game's spritbatch</param>
+        /// <param name="overLayColor">The color you wish to overlay</param>
+        public virtual void Draw(SpriteBatch spriteBatch, Color overLayColor)
+        {
+            if (hFlip == false)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    overLayColor,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.None,
+                    1);
+            }
+            else if (hFlip == true)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    overLayColor,
                     angle,
                     new Vector2(Width / 2, Height / 2),
                     scale,

@@ -18,7 +18,7 @@ namespace ProjectGreco.Skills
     {
         public LightWall(Player myPlayer)
         {
-            
+            new TemporaryWall(120, myPlayer);
         }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="GameObjects\Buttons\StartButton.cs" />
     <Compile Include="GameObjects\ShadowThrowingDagger.cs" />
     <Compile Include="GameObjects\Sword.cs" />
+    <Compile Include="GameObjects\TemporaryWall.cs" />
     <Compile Include="GameObjects\ThrowingDagger.cs" />
     <Compile Include="Levels\Algorithms\CaveGeneration.cs" />
     <Compile Include="Levels\Algorithms\GenerationAlgorithm.cs" />
@@ -290,6 +291,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TempSword.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\TempVertical.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\THEHERO.png">
