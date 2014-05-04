@@ -18,6 +18,22 @@ namespace ProjectGreco.Skills
     {
         public ShadowPush(Player myPlayer)
         {
+            try
+            {
+                BaseEnemy toPush = (Game1.OBJECT_HANDLER.objectDictionary[Game1.TITLE_STRING] as BaseEnemy);
+
+                Vector2 pushDir = new Vector2(myPlayer.Position.X + myPlayer.Width / 2 - toPush.Position.X, myPlayer.Position.Y + myPlayer.Height / 2 - toPush.Position.Y);
+
+                pushDir.Normalize();
+
+                pushDir *= -20;
+
+                toPush.Velocity = pushDir;
+            }
+            catch
+            {
+
+            }
             
         }
     }

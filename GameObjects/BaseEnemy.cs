@@ -50,6 +50,11 @@ namespace ProjectGreco.GameObjects
         protected bool exiled = false;
 
         /// <summary>
+        /// The status of whether or not the object is currently in the held state
+        /// </summary>
+        protected bool held = false;
+
+        /// <summary>
         /// The position for this enemy to return to after it has been exiled
         /// </summary>
         protected Vector2 exileReturnPosition;
@@ -172,7 +177,7 @@ namespace ProjectGreco.GameObjects
         public override void Update()
         {
 
-            if (exiled == false)
+            if (exiled == false && held == false)
             {
                 vertices[0].Position = new Vector3(position.X - 200, position.Y - 100, 0);
 
@@ -496,7 +501,12 @@ namespace ProjectGreco.GameObjects
                 timer++;
                 if (timer >= endTime)
                 {
-                    ReturnFromExile();
+                    if(exiled == true)
+                        ReturnFromExile();
+                    if (held == true)
+                    {
+                        held = false;
+                    }
                 }
             }
 
@@ -654,11 +664,26 @@ namespace ProjectGreco.GameObjects
             }
         }
 
+        /// <summary>
+        /// This function will return an object which is exiled from exile.
+        /// </summary>
         public void ReturnFromExile()
         {
             position = new Vector2(exileReturnPosition.X, exileReturnPosition.Y);
             exiled = false;
             timer = 0;
+        }
+
+        /// <summary>
+        /// Puts an object into a stationary held state, also zeroes out their velocity, and acceleration.
+        /// </summary>
+        /// <param name="lengthOfHold"></param>
+        public void ShadowHold(int lengthOfHold)
+        {
+            endTime = lengthOfHold;
+            held = true;
+            velocity = new Vector2(0, 0);
+            acceleration = new Vector2(0, 0);
         }
     }
 }

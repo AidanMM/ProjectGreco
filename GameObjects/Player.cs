@@ -127,6 +127,8 @@ namespace ProjectGreco.GameObjects
             SkillShadowDagger = true;
             SkillExile = true;
             SkillChaoticReset = true;
+            SkillShadowPush = true;
+            SkillShadowHold = true;
             #region Skill Setup
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;

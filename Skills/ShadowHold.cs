@@ -18,7 +18,14 @@ namespace ProjectGreco.Skills
     {
         public ShadowHold(Player myPlayer)
         {
-            
+            try
+            {
+                (Game1.OBJECT_HANDLER.objectDictionary[Game1.TITLE_STRING] as BaseEnemy).ShadowHold(90);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
