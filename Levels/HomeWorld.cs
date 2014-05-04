@@ -16,6 +16,8 @@ namespace ProjectGreco.Levels
     {
         public HomeWorld(Player myPlayer = null)
         {
+            levelType = LevelName.Home;
+
             if (PlayerStats.firstTime)
             {
                 PlayerStats.firstTime = false;
@@ -34,14 +36,14 @@ namespace ProjectGreco.Levels
             AddObjectToHandler("Button", new Button(new Vector2(200, 200), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "clickable test", true));
             AddObjectToHandler("NoButton", new Button(new Vector2(200, 300), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "unclickable test", false));
             // Don't spawn the portal if the level is complete.
-            if (!PlayerStats.hillComplete)
-			    AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(600, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
-			if (!PlayerStats.snowComplete)
-                AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(800, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
-			if (!PlayerStats.desertComplete)
-                AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1000, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
-            if (!PlayerStats.forestComplete)
-                AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(1200, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
+
+            AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(600, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
+
+            AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(800, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
+
+            AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1000, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
+
+            AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(1200, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
             //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)

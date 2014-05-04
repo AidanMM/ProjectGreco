@@ -15,13 +15,7 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.Levels
 {
-    public enum LevelName
-    {
-        Forest,
-        Hills,
-        Desert,
-        Ice
-    }
+    
 
     /// <summary>
     /// Creates a level when information is put in.
@@ -29,7 +23,7 @@ namespace ProjectGreco.Levels
     public class Level : BaseState
     {
         private bool renderBackground;
-        private LevelName levelType;
+        
 
         public bool RenderBackground { get { return renderBackground; } }
         public LevelName LevelType { get { return levelType; } }
@@ -59,6 +53,8 @@ namespace ProjectGreco.Levels
 
         public Player MyPlayer { get { return myPlayer; } }
 
+        
+
         /// <summary>
         /// Creates a level based on the leveltype supplied
         /// </summary>
@@ -66,11 +62,14 @@ namespace ProjectGreco.Levels
         /// <param name="renderBackground">Bool that determines whether or not we create background blocks</param>
         public Level(LevelName levelType, Player myPlayer = null, bool renderBackground = true) : base()
         {
+            
+
             myRandom = new Random();
 
             this.renderBackground = renderBackground;
             this.levelType = levelType;
             this.myPlayer = myPlayer;
+            currLevel = levelType;
 
             ChooseTextures();
             CreateMap();

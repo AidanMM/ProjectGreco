@@ -19,6 +19,18 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.Levels
 {
+
+    public enum LevelName
+    {
+        Default,
+        Forest,
+        Hills,
+        Desert,
+        Ice,
+        Home
+    }
+
+
     public class BaseState
     {
         /// <summary>
@@ -37,6 +49,23 @@ namespace ProjectGreco.Levels
         /// and also be handed back into the change state method
         /// </summary>
         public List<string> collisionList;
+
+
+        /// <summary>
+        /// The current level type of the level the player currently resides in.
+        /// </summary>
+        public static LevelName currLevel;
+
+        /// <summary>
+        /// The leveltype of this instantiation of the base state.
+        /// Only used if you decide to use it.  This defaults to Default in the levelname enum
+        /// </summary>
+        protected LevelName levelType;
+
+        public LevelName LevelType
+        {
+            get { return levelType; }
+        }
 
         public BaseState()
         {

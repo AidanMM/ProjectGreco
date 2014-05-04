@@ -249,6 +249,7 @@ namespace ProjectGreco
             collisionList = currentState.collisionList;
             Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);
             escapeBool = true;
+            BaseState.currLevel = level.LevelType;
         }
 
         /// <summary>

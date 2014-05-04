@@ -18,7 +18,12 @@ namespace ProjectGreco.Skills
     {
         public ChaoticReset(Player myPlayer)
         {
-            
+            if (BaseState.currLevel != LevelName.Home)
+            {
+                Level levelToSet = new Level(BaseState.currLevel, myPlayer, true);
+                (levelToSet as Level).PositionPlayer();
+                Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+            }
         }
     }
 }
