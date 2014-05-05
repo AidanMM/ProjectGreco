@@ -535,18 +535,34 @@ namespace ProjectGreco.GameObjects
             // Deal with onion rotations
             if (ai == EnemyType.Ground)
             {
-                spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
-                    drawRec.X + collisionBox.Width / 2,
-                    drawRec.Y + collisionBox.Height / 2,
-                    drawRec.Width,
-                    drawRec.Height)
-                    , null, Color.White, (float)(rotation * Math.PI / 180),
-                    new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+                if (held == false)
+                {
+                    spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
+                        drawRec.X + collisionBox.Width / 2,
+                        drawRec.Y + collisionBox.Height / 2,
+                        drawRec.Width,
+                        drawRec.Height)
+                        , null, Color.White, (float)(rotation * Math.PI / 180),
+                        new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+                }
+                else
+                {
+                    spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
+                        drawRec.X + collisionBox.Width / 2,
+                        drawRec.Y + collisionBox.Height / 2,
+                        drawRec.Width,
+                        drawRec.Height)
+                        , null, Color.Black, (float)(rotation * Math.PI / 180),
+                        new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+                }
             }
                 
             else
             {
-                spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.White);
+                if(held == false)
+                    spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.White);
+                else
+                    spriteBatch.Draw(animationList[animationListIndex][frameIndex], drawRec, Color.Black);
             }
             
 
@@ -684,6 +700,7 @@ namespace ProjectGreco.GameObjects
             held = true;
             velocity = new Vector2(0, 0);
             acceleration = new Vector2(0, 0);
+            timer = 0;
         }
     }
 }

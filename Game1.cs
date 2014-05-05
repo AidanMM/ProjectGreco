@@ -239,6 +239,8 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("LightWallBlock", A_CreateAnimation("TempVertical"));
 
+            ANIMATION_DICTIONARY.Add("SkillBox", A_CreateAnimation("SkillBox\\CR","SkillBox\\CRay","SkillBox\\E","SkillBox\\Ghost","SkillBox\\LJ","SkillBox\\LW","SkillBox\\SD","SkillBox\\SH","SkillBox\\SP"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));

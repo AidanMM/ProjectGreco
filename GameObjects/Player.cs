@@ -59,6 +59,10 @@ namespace ProjectGreco.GameObjects
         Vector2 startingPositon;
         public List<ActionSkills> availableSkills = new List<ActionSkills>();
 
+        protected List<List<Texture2D>> skillBox = Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["SkillBox"]);
+
+        protected int skillFrame = 0;
+
         // A // means the skill has yet to actually be implemented yet
         #region SKILLS
         public bool SkillChaoticReset = false;//
@@ -354,6 +358,42 @@ namespace ProjectGreco.GameObjects
                 {
                     activeSkillIndex++;
                 }
+                if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
+                {
+                    skillFrame = 0;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.ConfuseRay)
+                {
+                    skillFrame = 1;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.Exile)
+                {
+                    skillFrame = 2;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.Ghost)
+                {
+                    skillFrame = 3;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.LightJump)
+                {
+                    skillFrame = 4;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.LightWall)
+                {
+                    skillFrame = 5;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowDagger)
+                {
+                    skillFrame = 6;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowHold)
+                {
+                    skillFrame = 7;
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowPush)
+                {
+                    skillFrame = 8;
+                }
             }
             else if (Game1.KBState.IsKeyDown(Keys.Q) && !Game1.oldKBstate.IsKeyDown(Keys.Q))
             {
@@ -365,6 +405,42 @@ namespace ProjectGreco.GameObjects
                 {
                     activeSkillIndex--;
                 }
+                 if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
+                 {
+                     skillFrame = 0;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.ConfuseRay)
+                 {
+                     skillFrame = 1;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.Exile)
+                 {
+                     skillFrame = 2;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.Ghost)
+                 {
+                     skillFrame = 3;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.LightJump)
+                 {
+                     skillFrame = 4;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.LightWall)
+                 {
+                     skillFrame = 5;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowDagger)
+                 {
+                     skillFrame = 6;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowHold)
+                 {
+                     skillFrame = 7;
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowPush)
+                 {
+                     skillFrame = 8;
+                 }
             }
 
             #endregion
@@ -491,6 +567,7 @@ namespace ProjectGreco.GameObjects
             {
                 base.Draw(spriteBatch, Color.Black);
             }
+            spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 0), Color.White);
         }
 
         /// <summary>
