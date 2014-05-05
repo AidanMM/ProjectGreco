@@ -223,6 +223,12 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("Onion", A_CreateAnimation("Entities\\Onion"));
             ANIMATION_DICTIONARY.Add("FlyingEnemy", A_CreateAnimation("Entities\\FlyingEnemy"));
             ANIMATION_DICTIONARY.Add("GhostEnemy", A_CreateAnimation("Entities\\GhostEnemy"));
+            ANIMATION_DICTIONARY.Add("GhostEnemyLarge", A_CreateAnimation("Entities\\GhostEnemyLarge"));
+            ANIMATION_DICTIONARY.Add("GhostEnemySmall", A_CreateAnimation("Entities\\GhostEnemySmall"));
+            ANIMATION_DICTIONARY.Add("GroundEnemyLarge", A_CreateAnimation("Entities\\GroundEnemyLarge"));
+            ANIMATION_DICTIONARY.Add("GroundEnemySmall", A_CreateAnimation("Entities\\GroundEnemySmall"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemyLarge", A_CreateAnimation("Entities\\FlyingEnemyLarge"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall"));
 
             //Character Animations
             ANIMATION_DICTIONARY.Add("WalkRight", A_CreateAnimation("Entities\\PaladinWalking1", "Entities\\PaladinWalking2", "Entities\\PaladinWalking3", "Entities\\PaladinWalking4", "Entities\\PaladinWalking5",

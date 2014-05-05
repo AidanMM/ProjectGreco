@@ -218,16 +218,50 @@ namespace ProjectGreco.Levels
             foreach (TemporaryEnemy myEnemy in mySpawner.EnemyData)
             {
                 string enemyType = "";
+                // Figure out which enemy type to use, searching by movement type and size.
                 switch (myEnemy.movementType)
                 {
                     case EnemyType.Flying:
-                        enemyType = "FlyingEnemy";
+                        if (myEnemy.size == EnemySize.Large)
+                        {
+                            enemyType = "FlyingEnemyLarge";
+                        }
+                        if (myEnemy.size == EnemySize.Medium)
+                        {
+                            enemyType = "FlyingEnemy";
+                        }
+                        if (myEnemy.size == EnemySize.Small)
+                        {
+                            enemyType = "FlyingEnemySmall";
+                        }
                         break;
                     case EnemyType.Ghost:
-                        enemyType = "GhostEnemy";
+                        if (myEnemy.size == EnemySize.Large)
+                        {
+                            enemyType = "GhostEnemyLarge";
+                        }
+                        if (myEnemy.size == EnemySize.Medium)
+                        {
+                            enemyType = "GhostEnemy";
+                        }
+                        if (myEnemy.size == EnemySize.Small)
+                        {
+                            enemyType = "GhostEnemySmall";
+                        }
                         break;
                     case EnemyType.Ground:
-                        enemyType = "Onion";
+                        if (myEnemy.size == EnemySize.Large)
+                        {
+                            enemyType = "GroundEnemyLarge";
+                        }
+                        if (myEnemy.size == EnemySize.Medium)
+                        {
+                            enemyType = "Onion";
+                        }
+                        if (myEnemy.size == EnemySize.Small)
+                        {
+                            enemyType = "GroundEnemySmall";
+                        }
                         break;
                 }
 
