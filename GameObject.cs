@@ -55,6 +55,12 @@ namespace ProjectGreco
         /// </summary>
         protected int framesPerSecond = 12;
 
+        public int FramesPerSecond
+        {
+            get { return framesPerSecond; }
+            set { framesPerSecond = value; }
+        }
+
         /// <summary>
         /// A bool to control whether or not the game object is animating
         /// Deafult value is false

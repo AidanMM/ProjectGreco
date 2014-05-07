@@ -21,7 +21,15 @@ namespace ProjectGreco.GameObjects
         LightWall,
         ShadowDagger,
         ShadowHold,
-        ShadowPush
+        ShadowPush,
+        Dash,
+        AirMelee,
+        AirRanged,
+        FastFall,
+        JumpHeight,
+        JumpPlus,
+        Speed,
+        Wings
     }
 
     public class Player : GameObject
@@ -35,6 +43,10 @@ namespace ProjectGreco.GameObjects
         public int dashTimer = 0;
         public int dashTimeLength = 10;
         public int jumpCounter = 0;
+        public float strengthOfGravity = .3f;
+        public float jumpHeight = 10.5f;
+
+        
 
         /// <summary>
         /// This bool is used to manage the ghosting state of the player
@@ -44,6 +56,10 @@ namespace ProjectGreco.GameObjects
         protected int ghostTimer = 0;
 
         protected int ghostLimit = 10;
+
+        public bool airMelee = false;
+
+        public bool airRanged = false;
         
         /// <summary>
         /// The maximum jumps that the player has
@@ -67,8 +83,8 @@ namespace ProjectGreco.GameObjects
         #region SKILLS
         public bool SkillChaoticReset = false;//
         public bool SkillConfuseRay = false;//
-        public bool SkillDash = true;
-        public bool SkillDoubleJump = true;
+        public bool SkillDash = false;
+        public bool SkillDoubleJump = false;
         public bool SkillExile = false;//
         public bool SkillFastFall = false;//
         public bool SkillGhost = false;//
@@ -82,7 +98,7 @@ namespace ProjectGreco.GameObjects
         public bool SkillShadowPush = false;//
         public bool SkillSpeed = false;//
         public bool SkillTripleJump = false;
-        public bool SkillWings = true;
+        public bool SkillWings = false;
         #endregion
 
         
@@ -139,14 +155,14 @@ namespace ProjectGreco.GameObjects
             onScreen = true;
             zOrder = 1;
             A_BeginAnimation();
-            SkillLightJump = true;
-            SkillShadowDagger = true;
-            SkillExile = true;
-            SkillChaoticReset = true;
-            SkillShadowPush = true;
-            SkillShadowHold = true;
-            SkillGhost = true;
-            SkillLightWall = true;
+            //SkillLightJump = true;
+            //SkillShadowDagger = true;
+            //SkillExile = true;
+            //SkillChaoticReset = true;
+            //SkillShadowPush = true;
+            //SkillShadowHold = true;
+            //SkillGhost = true;
+            //SkillLightWall = true;
             #region Skill Setup
             // Setup the player's ability to jump multiple times
             maximumJumps = 1;
@@ -268,7 +284,7 @@ namespace ProjectGreco.GameObjects
             
             if (Game1.KBState.IsKeyDown(Keys.W) && !Game1.oldKBstate.IsKeyDown(Keys.W) && jumpCounter < maximumJumps)
             {
-                velocity.Y = -10.5f;
+                velocity.Y = -jumpHeight;
                 applyGravity = true;
                 jumpCounter++;
             }
@@ -358,7 +374,11 @@ namespace ProjectGreco.GameObjects
                 {
                     activeSkillIndex++;
                 }
-                if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
+                if (availableSkills.Count == 0)
+                {
+
+                }
+                else if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
                 {
                     skillFrame = 0;
                 }
@@ -405,7 +425,11 @@ namespace ProjectGreco.GameObjects
                 {
                     activeSkillIndex--;
                 }
-                 if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
+                 if (availableSkills.Count == 0)
+                 {
+
+                 }
+                 else if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
                  {
                      skillFrame = 0;
                  }
@@ -454,11 +478,11 @@ namespace ProjectGreco.GameObjects
             #endregion
 
             #region Shooting
-            if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.prevMouseState.LeftButton == ButtonState.Released)
+            if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.prevMouseState.LeftButton == ButtonState.Released && (applyGravity == false || airRanged == true))
             {
                 Vector2 toMouse = new Vector2(
-                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X,
-                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y);
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X + Width / 2,
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y + Height / 2);
                 Vector2 dir = toMouse;
                 
                 dir.Normalize();
@@ -492,7 +516,7 @@ namespace ProjectGreco.GameObjects
             #endregion
 
             #region Sword
-            if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released)
+            if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released && (applyGravity != true || airMelee == true))
             {
                 new Sword(this);
                 EndGhost();
@@ -509,7 +533,7 @@ namespace ProjectGreco.GameObjects
             
             if (applyGravity == true)
             {
-               acceleration.Y = 0.3f;
+                acceleration.Y = strengthOfGravity;
             }
             else
             {
@@ -567,7 +591,48 @@ namespace ProjectGreco.GameObjects
             {
                 base.Draw(spriteBatch, Color.Black);
             }
+            if(availableSkills.Count > 0)
             spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 0), Color.White);
+            if (availableSkills.Count == 0)
+            {
+
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
+            {
+                skillFrame = 0;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.ConfuseRay)
+            {
+                skillFrame = 1;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.Exile)
+            {
+                skillFrame = 2;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.Ghost)
+            {
+                skillFrame = 3;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.LightJump)
+            {
+                skillFrame = 4;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.LightWall)
+            {
+                skillFrame = 5;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowDagger)
+            {
+                skillFrame = 6;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowHold)
+            {
+                skillFrame = 7;
+            }
+            else if (availableSkills[activeSkillIndex] == ActionSkills.ShadowPush)
+            {
+                skillFrame = 8;
+            }
         }
 
         /// <summary>
@@ -668,7 +733,7 @@ namespace ProjectGreco.GameObjects
             {
                 return;
             }
-            if (skillIndex > availableSkills.Count)
+            if (skillIndex >= availableSkills.Count)
             {
                 skillIndex = availableSkills.Count - 1;
             }
@@ -719,5 +784,7 @@ namespace ProjectGreco.GameObjects
             ghosting = false;
             ghostTimer = 0;
         }
+
+        
     }
 }

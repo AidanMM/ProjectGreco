@@ -42,6 +42,7 @@
     <Compile Include="GameObjects\BackgroundTile.cs" />
     <Compile Include="GameObjects\BaseEnemy.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\Buttons\SkillButton.cs" />
     <Compile Include="GameObjects\Cursor.cs" />
     <Compile Include="GameObjects\EdgeTile.cs" />
     <Compile Include="GameObjects\EndPipe.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="GameObjects\Projectile.cs" />
     <Compile Include="GameObjects\Buttons\StartButton.cs" />
     <Compile Include="GameObjects\ShadowThrowingDagger.cs" />
+    <Compile Include="GameObjects\SkillTree.cs" />
     <Compile Include="GameObjects\Sword.cs" />
     <Compile Include="GameObjects\TemporaryWall.cs" />
     <Compile Include="GameObjects\ThrowingDagger.cs" />
@@ -299,6 +301,12 @@
     <Content Include="Content\RedBeat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\SkillBox\AM.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SkillBox\AR.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SkillBox\CR.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -311,13 +319,25 @@
     <Content Include="Content\SkillBox\E.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\SkillBox\FF.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SkillBox\Ghost.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SkillBox\JH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SkillBox\JPlus.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SkillBox\LJ.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SkillBox\LW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SkillBox\S.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SkillBox\SD.png">
@@ -327,6 +347,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\SkillBox\SP.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\SkillBox\W.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\TempGround.png">

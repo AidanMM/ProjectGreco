@@ -9,11 +9,13 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
+using ProjectGreco.GameObjects.Buttons;
 
 namespace ProjectGreco.Levels
 {
     class HomeWorld : BaseState
     {
+        public static SkillTree skillTree;
         public HomeWorld(Player myPlayer = null)
         {
             levelType = LevelName.Home;
@@ -33,6 +35,10 @@ namespace ProjectGreco.Levels
             AddObjectToHandler("Player", myPlayer);
             AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
             AddObjectToHandler("Ground", new GameObject(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["homeWorld"]), new Vector2(0, 500), "EdgeTile"));
+            AddObjectToHandler("Grass", new GameObject(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Grass"]), new Vector2(0, 485), "Grass"));
+            LevelObjectDictionary["Grass"].FramesPerSecond = 2;
+            LevelObjectDictionary["Grass"].A_BeginAnimation();
+            LevelObjectDictionary["Grass"].ZOrder = 3;
             AddObjectToHandler("Button", new Button(new Vector2(200, 200), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "clickable test", true));
             AddObjectToHandler("NoButton", new Button(new Vector2(200, 300), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "unclickable test", false));
             // Don't spawn the portal if the level is complete.
@@ -62,6 +68,9 @@ namespace ProjectGreco.Levels
             {
                 (LevelObjectDictionary["PortalForest"] as LevelPortal).Closed = true;
             }
+
+            skillTree = new SkillTree(new Vector2(1500, 400), LevelObjectDictionary["Player"] as Player, this);
+
 
 
             MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  

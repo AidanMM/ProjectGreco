@@ -246,7 +246,7 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("LightWallBlock", A_CreateAnimation("TempVertical"));
 
-            ANIMATION_DICTIONARY.Add("SkillBox", A_CreateAnimation("SkillBox\\CR","SkillBox\\CRay","SkillBox\\E","SkillBox\\Ghost","SkillBox\\LJ","SkillBox\\LW","SkillBox\\SD","SkillBox\\SH","SkillBox\\SP"));
+            ANIMATION_DICTIONARY.Add("SkillBox", A_CreateAnimation("SkillBox\\CR","SkillBox\\CRay","SkillBox\\E","SkillBox\\Ghost","SkillBox\\LJ","SkillBox\\LW","SkillBox\\SD","SkillBox\\SH","SkillBox\\SP","SkillBox\\Dash","SkillBox\\AM","SkillBox\\AR","SkillBox\\FF","SkillBox\\JH","SkillBox\\JPlus","SkillBox\\S","SkillBox\\W" ));
 
             // Grass
             ANIMATION_DICTIONARY.Add("Grass", A_CreateAnimation("grasssway0", "grasssway1", "grasssway2", "grasssway3"));
