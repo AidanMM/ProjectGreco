@@ -15,6 +15,9 @@ namespace ProjectGreco.Levels.Algorithms
         // Fields
         //
 
+        /// <summary>
+        /// List of points where caves will be spawned.
+        /// </summary>
         private List<int[]> points;
 
         #region constants
@@ -64,7 +67,6 @@ namespace ProjectGreco.Levels.Algorithms
 
 
         #endregion
-
 
         //
         // Properties
@@ -181,12 +183,55 @@ namespace ProjectGreco.Levels.Algorithms
         /// <summary>
         /// Carves tunnels into the landscape
         /// </summary>
-        public void Tunnel()
+        public void Tunnel(int radius)
         {
+            for (int i = 1; i < points.Count; i++)
+            {
+                int[] pointOne = points[i - 1];
+                int[] pointTwo = points[i];
 
+                // Figure out how much to go down
+                double slope = (pointTwo[1] - pointOne[1]) / (double)Math.Abs((pointTwo[0] - pointOne[0]));
 
+                double y = pointOne[1];
 
+                if (pointOne[0] < pointTwo[0]) // If we're going left to right
+                {
+                    for (int x = pointOne[0]; x <= pointTwo[0]; x++)
+                    {
+                        for (int relY = -radius; relY < radius; relY++)
+                        {
+                            if (y + relY < 0 || y + relY >= terrain[0].Length)
+                            {
+                                continue;
+                            }
+                            if (terrain[x][(int)y + relY] == 'O')
+                            {
+                                terrain[x][(int)y + relY] = 'C';
+                            }
+                        }
+                        y += slope;
+                    }
+                }
+                else // If we're going right to left
+                {
+                    for (int x = pointTwo[0]; x >= pointOne[0]; x++)
+                    {
+                        for (int relY = -radius; relY < radius; y++)
+                        {
+                            if (y + relY < 0 || y + relY >= terrain[0].Length)
+                            {
+                                continue;
+                            }
+                            if (terrain[x][(int)y + relY] == 'O')
+                            {
+                                terrain[x][(int)y + relY] = 'C';
+                            }
+                        }
+                        y += slope;
+                    }
+                }
+            }
         }
-
     }
 }

@@ -14,7 +14,7 @@ namespace ProjectGreco.Levels
         Flying,
         Ghost,
         Ground
-        
+
     }
     /// <summary>
     /// Information about the size of the enemy
@@ -77,14 +77,14 @@ namespace ProjectGreco.Levels
             SpawnEnemies();
 
         }
-        
+
         /// <summary>
         /// Creates all of the sectors needed for spawning enemies and also determines which ones are valid to spawn things in.
         /// </summary>
         public void CreateSectors()
         {
             // Create a bunch of sectors
-            for (int y = 0; y < terrain[0].Length; y += LevelVariables.SPAWNING_SECTOR_LENGTH)
+            for (int y = 8; y < terrain[0].Length - 8; y += LevelVariables.SPAWNING_SECTOR_LENGTH)
             {
                 for (int x = 8; x < terrain.Length - 8; x += LevelVariables.SPAWNING_SECTOR_LENGTH)
                 {
@@ -132,7 +132,7 @@ namespace ProjectGreco.Levels
         /// </summary>
         public void ValidateList()
         {
-            foreach(Sector i in sectors)
+            foreach (Sector i in sectors)
             {
                 if (i.spawnValid)
                 {
@@ -161,7 +161,7 @@ namespace ProjectGreco.Levels
                 // Purchase it
                 creditToSpend -= valueOfSector;
 
-                spawningSectors.Add(new Sector(addedSector.xPos, addedSector.yPos, true,  valueOfSector));
+                spawningSectors.Add(new Sector(addedSector.xPos, addedSector.yPos, true, valueOfSector));
             }
 
         }
@@ -170,13 +170,13 @@ namespace ProjectGreco.Levels
         /// </summary>
         public void SpawnEnemies()
         {
-            foreach(Sector mySector in spawningSectors)
+            foreach (Sector mySector in spawningSectors)
             {
                 int creditsToSpend = mySector.enemyCredit;
                 while (creditsToSpend > 0)
                 {
                     // Choose a random enemy size
-                    switch(rand.Next(0,3))
+                    switch (rand.Next(0, 3))
                     {
                         // Large enemy
                         case 0:
@@ -188,7 +188,7 @@ namespace ProjectGreco.Levels
                                 int validY = -1;
                                 List<int[]> possibleSpawns = new List<int[]>();
                                 // Create a list of the possible positions so we can be random
-                                for (int x = 0; x < (int)Math.Pow(LevelVariables.SPAWNING_SECTOR_LENGTH,2); x++)
+                                for (int x = 0; x < (int)Math.Pow(LevelVariables.SPAWNING_SECTOR_LENGTH, 2); x++)
                                 {
                                     possibleSpawns.Add(new int[2]);
                                     possibleSpawns[x][0] = mySector.xPos + x % LevelVariables.SPAWNING_SECTOR_LENGTH;
@@ -196,7 +196,7 @@ namespace ProjectGreco.Levels
                                 }
 
                                 // Check for specific success of a location, but make sure to not check forever.
-                                while(noValidPosition)
+                                while (noValidPosition)
                                 {
                                     if (possibleSpawns.Count == 0)
                                     {
@@ -220,7 +220,7 @@ namespace ProjectGreco.Levels
                                     goto case 1;
                                 }
                                 // Otherwise, make the enemy and subtract the credits.
-                                enemyData.Add(new TemporaryEnemy(validX, validY, (EnemyType)rand.Next(0,3), EnemySize.Large));
+                                enemyData.Add(new TemporaryEnemy(validX, validY, (EnemyType)rand.Next(0, 3), EnemySize.Large));
                                 creditsToSpend -= LevelVariables.LARGE_ENEMY_VALUE;
 
                                 break;
@@ -325,7 +325,7 @@ namespace ProjectGreco.Levels
                             else // If you don't even have enough credits for a small enemy then set the number of credits you have to 0; there's no reason to check anymore.
                             {
                                 creditsToSpend = 0;
-                                break; 
+                                break;
                             }
                     }
                 }
@@ -337,14 +337,14 @@ namespace ProjectGreco.Levels
         /// </summary>
         public bool SpaceCheck(EnemySize size, int xPos, int yPos)
         {
-            switch(size)
+            switch (size)
             {
                 // Large enemies take up a 2x2 space
                 case EnemySize.Large:
-                    if ((terrain[xPos][yPos] == ' ' ||  terrain[xPos][yPos] == 'C') &&
-                        (terrain[xPos + 1][yPos] == ' ' ||  terrain[xPos + 1][yPos] == 'C') &&
-                        (terrain[xPos][yPos + 1] == ' ' ||  terrain[xPos][yPos + 1] == 'C') &&
-                        (terrain[xPos + 1][yPos + 1] == ' ' ||  terrain[xPos + 1][yPos + 1] == 'C'))
+                    if ((terrain[xPos][yPos] == ' ' || terrain[xPos][yPos] == 'C') &&
+                        (terrain[xPos + 1][yPos] == ' ' || terrain[xPos + 1][yPos] == 'C') &&
+                        (terrain[xPos][yPos + 1] == ' ' || terrain[xPos][yPos + 1] == 'C') &&
+                        (terrain[xPos + 1][yPos + 1] == ' ' || terrain[xPos + 1][yPos + 1] == 'C'))
                     {
                         return true;
                     }
@@ -399,7 +399,7 @@ namespace ProjectGreco.Levels
         public int yPos;
         public bool spawnValid;
         public int enemyCredit;
-        
+
         public Sector(int xPos, int yPos, bool spawnValid = false, int enemyCredit = 0)
         {
             this.xPos = xPos;

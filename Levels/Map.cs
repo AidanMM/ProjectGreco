@@ -94,9 +94,38 @@ namespace ProjectGreco.Levels
                         hillGen.Initialize(); // Run the initialization code.
                         hillGen.Shape(); // Run the shaping code
                         this.terrain = hillGen.Terrain; // Save the terrain changes.
+
+                        // Here I would add the next algorithm if this was a complex algorithm type.
+                        int numberOfPoints = rand.Next(LevelVariables.CAVE_MIN_POINTS, LevelVariables.CAVE_MAX_POINTS);
+                        List<int[]> points = new List<int[]>();
+
+                        //for (int m = 0; m <= numberOfPoints; m++)
+                        //{
+                        //    // Create points for the caves to go in, but make sure that they don't leave the map.
+                        //    points.Add(new int[3]{
+                        //        rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.WIDTH - LevelVariables.CAVE_MAX_RADIUS),
+                        //        rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.HEIGHT - LevelVariables.CAVE_MAX_RADIUS),
+                        //        rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
+                        //}
+                        // Create the caves
+
+                        for (int m = 0; m <= numberOfPoints; m++)
+                        {
+                            // Create points for the tunnels.
+                            points.Add(new int[3]{
+                                (LevelVariables.WIDTH / numberOfPoints) * m,
+                                LevelVariables.GROUND_HEIGHT + rand.Next(-7, 7) + 10,
+                                0});
+                        }
+
+                        CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
+                            seed);
+                        //caveGen.Shape();
+                        caveGen.Tunnel(2);
                     }
-                    // Here I would add the next algorithm if this was a complex algorithm type.
                     break;
+
+
 
                 case AlgorithmType.Desert: // Use the case relevant to your algorithm type
                     if (true)
@@ -140,18 +169,29 @@ namespace ProjectGreco.Levels
                         int numberOfPoints = rand.Next(LevelVariables.CAVE_MIN_POINTS, LevelVariables.CAVE_MAX_POINTS);
                         List<int[]> points = new List<int[]>();
 
+                        //for (int m = 0; m <= numberOfPoints; m++)
+                        //{
+                        //    // Create points for the caves to go in, but make sure that they don't leave the map.
+                        //    points.Add(new int[3]{
+                        //        rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.WIDTH - LevelVariables.CAVE_MAX_RADIUS),
+                        //        rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.HEIGHT - LevelVariables.CAVE_MAX_RADIUS),
+                        //        rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
+                        //}
+                        // Create the caves
+
                         for (int m = 0; m <= numberOfPoints; m++)
                         {
-                            // Create points for the caves to go in, but make sure that they don't leave the map.
+                            // Create points for the tunnels.
                             points.Add(new int[3]{
-                                rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.WIDTH - LevelVariables.CAVE_MAX_RADIUS),
-                                rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.HEIGHT - LevelVariables.CAVE_MAX_RADIUS),
-                                rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
+                                (LevelVariables.WIDTH / numberOfPoints) * m,
+                                LevelVariables.GROUND_HEIGHT + rand.Next(-7, 7) + 10,
+                                0});
                         }
-                        // Create the caves
+
                         CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
                             seed);
-                        caveGen.Shape();
+                        //caveGen.Shape();
+                        caveGen.Tunnel(2);
 
 
                     }
@@ -177,9 +217,8 @@ namespace ProjectGreco.Levels
                             seed);
                         caveGen.Initialize();
                         caveGen.Shape();
+                        caveGen.Tunnel(2);
                     }
-
-
                     break;
             }
         }
