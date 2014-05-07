@@ -201,7 +201,12 @@ namespace ProjectGreco.GameObjects.Buttons
                     {
                         myPlayer.airRanged = true;
                     }
-                    myPlayer.availableSkills.Add(skillToSet);
+                    else if (skillToSet == ActionSkills.Dash)
+                    {
+                        myPlayer.SkillDash = true;
+                    }
+                    else
+                        myPlayer.availableSkills.Add(skillToSet);
                     
                 }
                 

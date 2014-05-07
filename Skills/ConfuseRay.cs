@@ -18,7 +18,15 @@ namespace ProjectGreco.Skills
     {
         public ConfuseRay(Player myPlayer)
         {
-            
+            try
+            {
+                (Game1.OBJECT_HANDLER.objectDictionary[Game1.TITLE_STRING] as BaseEnemy).Confuse(90);
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }

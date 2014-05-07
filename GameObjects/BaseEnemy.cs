@@ -40,6 +40,11 @@ namespace ProjectGreco.GameObjects
         public bool destroy = false;
 
         /// <summary>
+        /// This bool will control whether or not this enemy is confused.  When it is confused its speed modifier becomes -.5
+        /// </summary>
+        protected bool confused = false;
+
+        /// <summary>
         /// This bool will tell whether or not this object can be exiled.  If it can be, then the exile spell will work on it.
         /// </summary>
         protected bool exileable = true;
@@ -509,6 +514,17 @@ namespace ProjectGreco.GameObjects
                     }
                 }
             }
+            if (confused == true)
+            {
+                speedModifier = -.5f;
+                timer++;
+                if (timer >= endTime)
+                {
+                    speedModifier = 1.0f;
+                    timer = 0;
+                    confused = false;
+                }
+            }
 
             //Check to see if an object is on screen.
             OnScreenCheck();
@@ -701,6 +717,13 @@ namespace ProjectGreco.GameObjects
             velocity = new Vector2(0, 0);
             acceleration = new Vector2(0, 0);
             timer = 0;
+        }
+
+        public void Confuse(int lengthOfConfusion)
+        {
+            endTime = lengthOfConfusion;
+            timer = 0;
+            confused = true;
         }
     }
 }
