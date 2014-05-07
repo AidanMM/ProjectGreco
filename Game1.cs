@@ -229,6 +229,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("GroundEnemySmall", A_CreateAnimation("Entities\\GroundEnemySmall"));
             ANIMATION_DICTIONARY.Add("FlyingEnemyLarge", A_CreateAnimation("Entities\\FlyingEnemyLarge"));
             ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall"));
+            ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
 
             //Character Animations
             ANIMATION_DICTIONARY.Add("WalkRight", A_CreateAnimation("Entities\\PaladinWalking1", "Entities\\PaladinWalking2", "Entities\\PaladinWalking3", "Entities\\PaladinWalking4", "Entities\\PaladinWalking5",
@@ -246,6 +247,9 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("LightWallBlock", A_CreateAnimation("TempVertical"));
 
             ANIMATION_DICTIONARY.Add("SkillBox", A_CreateAnimation("SkillBox\\CR","SkillBox\\CRay","SkillBox\\E","SkillBox\\Ghost","SkillBox\\LJ","SkillBox\\LW","SkillBox\\SD","SkillBox\\SH","SkillBox\\SP"));
+
+            // Grass
+            ANIMATION_DICTIONARY.Add("Grass", A_CreateAnimation("grasssway0", "grasssway1", "grasssway2", "grasssway3"));
 
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
