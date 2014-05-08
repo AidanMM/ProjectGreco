@@ -237,6 +237,10 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("WalkLeft", A_CreateAnimation("Entities\\PaladinWalking1L", "Entities\\PaladinWalking2L", "Entities\\PaladinWalking3L", "Entities\\PaladinWalking4L", "Entities\\PaladinWalking5L",
                 "Entities\\PaladinWalking6L", "Entities\\PaladinWalking7L", "Entities\\PaladinWalking8L"));
 
+            // New Character Animation
+            ANIMATION_DICTIONARY.Add("PlayerAnimation", A_CreateAnimation("Entities\\playerSprite0", "Entities\\playerSprite1", "Entities\\playerSprite2",
+                "Entities\\playerSprite3", "Entities\\playerSprite4", "Entities\\playerSprite5", "Entities\\playerSprite6", "Entities\\playerSprite7"));
+
             //Button States
             ANIMATION_DICTIONARY.Add("ButtonStates", A_CreateAnimation("buttonstatic", "buttonover", "buttondown"));
 

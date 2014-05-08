@@ -23,7 +23,7 @@ namespace ProjectGreco.Levels
             if (PlayerStats.firstTime)
             {
                 PlayerStats.firstTime = false;
-                myPlayer = new Player(new Vector2(0, 0), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["WalkRight"], Game1.ANIMATION_DICTIONARY["WalkLeft"]));
+                myPlayer = new Player(new Vector2(0, 0), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["PlayerAnimation"]));
                 PlayerStats.hill = new Level(LevelName.Hills, myPlayer, true);
                 PlayerStats.snow = new Level(LevelName.Ice, myPlayer, true);
                 PlayerStats.desert = new Level(LevelName.Desert, myPlayer, true);
