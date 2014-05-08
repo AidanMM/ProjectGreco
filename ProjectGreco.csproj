@@ -42,6 +42,7 @@
     <Compile Include="GameObjects\BackgroundTile.cs" />
     <Compile Include="GameObjects\BaseEnemy.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\Buttons\RespecButton.cs" />
     <Compile Include="GameObjects\Buttons\SkillButton.cs" />
     <Compile Include="GameObjects\Cursor.cs" />
     <Compile Include="GameObjects\EdgeTile.cs" />

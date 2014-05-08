@@ -69,10 +69,11 @@ namespace ProjectGreco.Levels
                 (LevelObjectDictionary["PortalForest"] as LevelPortal).Closed = true;
             }
 
+            
             skillTree = new SkillTree(new Vector2(1500, 400), LevelObjectDictionary["Player"] as Player, this);
 
 
-
+            MediaPlayer.Volume = .5f;
             MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
 
 

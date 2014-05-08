@@ -46,6 +46,10 @@ namespace ProjectGreco.GameObjects
         public float strengthOfGravity = .3f;
         public float jumpHeight = 10.5f;
 
+
+        public int skillPoints = 0;
+        public int maxPoints = 8;
+
         
 
         /// <summary>
@@ -350,19 +354,19 @@ namespace ProjectGreco.GameObjects
                 
             }
             // Secondary Skill
-            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
-            {
-                int secondaryIndex;
-                if (activeSkillIndex + 1 == availableSkills.Count)
-                {
-                    secondaryIndex = 0;
-                }
-                else
-                    secondaryIndex = activeSkillIndex + 1;
+            //if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
+            //{
+            //    int secondaryIndex;
+            //    if (activeSkillIndex + 1 == availableSkills.Count)
+            //    {
+            //        secondaryIndex = 0;
+            //    }
+            //    else
+            //        secondaryIndex = activeSkillIndex + 1;
 
-                UseSkill(secondaryIndex);
+            //    UseSkill(secondaryIndex);
                 
-            }
+            //}
             // Change Skill
             if (Game1.KBState.IsKeyDown(Keys.E) && !Game1.oldKBstate.IsKeyDown(Keys.E))
             {
@@ -593,9 +597,13 @@ namespace ProjectGreco.GameObjects
             }
             if(availableSkills.Count > 0)
             spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 0), Color.White);
-            if (availableSkills.Count == 0)
+            if (activeSkillIndex >= availableSkills.Count)
             {
-
+                activeSkillIndex = availableSkills.Count - 1;
+                if (availableSkills.Count == 0)
+                {
+                    activeSkillIndex = 0;
+                }
             }
             else if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
             {

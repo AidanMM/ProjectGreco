@@ -27,7 +27,7 @@ namespace ProjectGreco.GameObjects.Buttons
         /// <summary>
         /// This bool controls the activated state of the button
         /// </summary>
-        protected bool active = false;
+        public bool active = false;
 
         /// <summary>
         /// The constructor for the button class, this takes the starting position, the player, and the Playskill that this object will activate
@@ -150,7 +150,7 @@ namespace ProjectGreco.GameObjects.Buttons
                     A_GoToFrameIndex(0);
                     break;
             }
-
+            zOrder = -5;
             level.AddObjectToHandler("SkillButton", this);
         }
 
@@ -169,7 +169,8 @@ namespace ProjectGreco.GameObjects.Buttons
             {
                 
                 if ((determineEvent as Cursor).MouseClicked == true && active == false
-                    && (parent == null || parent.active == true))
+                    && (parent == null || parent.active == true)
+                    && myPlayer.skillPoints < myPlayer.maxPoints)
                 {
                     active = true;
                     if (skillToSet == ActionSkills.Wings)
@@ -207,6 +208,8 @@ namespace ProjectGreco.GameObjects.Buttons
                     }
                     else
                         myPlayer.availableSkills.Add(skillToSet);
+
+                    myPlayer.skillPoints++;
                     
                 }
                 
@@ -215,6 +218,23 @@ namespace ProjectGreco.GameObjects.Buttons
 
         public override void C_NoCollisions()
         {
+            
+        }
+
+        public void ResetPlayer()
+        {
+            myPlayer.availableSkills.Clear();
+            myPlayer.SkillDash = false;
+            myPlayer.airRanged = false;
+            myPlayer.airMelee = false;
+            myPlayer.strengthOfGravity = .3f;
+            myPlayer.jumpHeight = 10.5f;
+            myPlayer.MaximumJumps = 1;
+            myPlayer.speed = .5f;
+            myPlayer.speedLimit = 7.5f;
+            myPlayer.SkillWings = false;
+            myPlayer.skillPoints = 0;
+
             
         }
 

@@ -61,7 +61,11 @@ namespace ProjectGreco.GameObjects
             AddSkillButton(ActionSkills.ChaoticReset, true, new Vector2(startPosition.X + 75 + 250, startPosition.Y - 275));
             rightTree[8].parent = rightTree[7];
 
+            
+            new RespecButton(new Vector2(startPosition.X + 80, startPosition.Y), this, currentLevel);
+
         }
+
         /// <summary>
         /// Create a skill button, with the given skill
         /// </summary>
@@ -77,6 +81,94 @@ namespace ProjectGreco.GameObjects
             {
                 rightTree.Add(new SkillButton(pos, toHold, toCreate, currentLevel)); 
             }
+        }
+
+        public void ShowActive()
+        {
+            if (toHold.airMelee == true)
+            {
+                rightTree[2].active = true;
+            }
+            if (toHold.airRanged == true)
+            {
+                leftTree[2].active = true;
+            }
+            if (toHold.MaximumJumps >= 2)
+            {
+                leftTree[0].active = true;
+            }
+            if (toHold.MaximumJumps >= 3)
+            {
+                leftTree[7].active = true;
+            }
+            if (toHold.jumpHeight > 10.5f)
+            {
+                leftTree[1].active = true;
+            }
+            if (toHold.strengthOfGravity > .31f)
+            {
+                leftTree[6].active = true;
+            }
+            if (toHold.SkillConfuseRay == true)
+            {
+                leftTree[8].active = true;
+            }
+            if (toHold.SkillDash == true)
+            {
+                rightTree[0].active = true;
+            }
+            if (toHold.speedLimit > 7.55f)
+            {
+                rightTree[1].active = true;
+            }
+            if (toHold.SkillExile == true)
+            {
+                rightTree[3].active = true;
+            }
+            if (toHold.SkillShadowPush == true)
+            {
+                rightTree[4].active = true;
+            }
+            if (toHold.SkillShadowHold == true)
+            {
+                rightTree[5].active = true;
+            }
+            if (toHold.SkillGhost == true)
+            {
+                rightTree[6].active = true;
+            }
+            if (toHold.SkillShadowDagger == true)
+            {
+                rightTree[7].active = true;
+            }
+            if (toHold.SkillChaoticReset == true)
+            {
+                rightTree[8].active = true;
+            }
+
+        }
+
+        public void ResetPlayer()
+        {
+            toHold.availableSkills.Clear();
+            toHold.SkillDash = false;
+            toHold.airRanged = false;
+            toHold.airMelee = false;
+            toHold.strengthOfGravity = .3f;
+            toHold.jumpHeight = 10.5f;
+            toHold.MaximumJumps = 1;
+            toHold.speed = .5f;
+            toHold.speedLimit = 7.5f;
+            toHold.SkillWings = false;
+            toHold.skillPoints = 0;
+
+            for (int i = 0; i < leftTree.Count; i++)
+            {
+                leftTree[i].active = false;
+                rightTree[i].active = false;
+            }
+
+
         }
     }
 }

@@ -243,6 +243,8 @@ namespace ProjectGreco
         /// <param name="level"></param>
         public void ChangeState(BaseState level)
         {
+            if(currentState != null)
+                currentState.LevelObjectDictionary = objectDictionary;
             currentState = level;
             objectDictionary = currentState.LevelObjectDictionary;
 			onScreenList = new List<string>();
@@ -250,6 +252,7 @@ namespace ProjectGreco
             Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);
             escapeBool = true;
             BaseState.currLevel = level.LevelType;
+          
         }
 
         /// <summary>
