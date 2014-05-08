@@ -27,7 +27,7 @@ namespace ProjectGreco.GameObjects.Buttons
         /// <summary>
         /// This bool controls the activated state of the button
         /// </summary>
-        public bool active = false;
+        public bool active;
 
         /// <summary>
         /// The constructor for the button class, this takes the starting position, the player, and the Playskill that this object will activate
@@ -42,6 +42,7 @@ namespace ProjectGreco.GameObjects.Buttons
             skillToSet = playerSkill;
             myPlayer = toSet;
             parent = null;
+            active = false;
 
             switch (skillToSet)
             {
@@ -92,6 +93,7 @@ namespace ProjectGreco.GameObjects.Buttons
             skillToSet = playerSkill;
             myPlayer = toSet;
             parent = null;
+            active = false;
 
             switch (skillToSet)
             {

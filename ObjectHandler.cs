@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using System.Threading;
 using System.Linq;
 using ProjectGreco.Levels;
+using ProjectGreco.GameObjects;
+using ProjectGreco.GameObjects.Buttons;
 
 //------------------------------------------------------------------------------ +
 //Author: Aidan                                                                 |
@@ -243,8 +245,7 @@ namespace ProjectGreco
         /// <param name="level"></param>
         public void ChangeState(BaseState level)
         {
-            if(currentState != null)
-                currentState.LevelObjectDictionary = objectDictionary;
+            
             currentState = level;
             objectDictionary = currentState.LevelObjectDictionary;
 			onScreenList = new List<string>();

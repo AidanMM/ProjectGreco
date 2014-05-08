@@ -63,7 +63,6 @@ namespace ProjectGreco.GameObjects
                 {
                     Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 200);
                     Game1.OBJECT_HANDLER.objectDictionary["Player"].Velocity = new Vector2(0, 0);
-                    HomeWorld.skillTree.ShowActive();
                 }
                 Game1.OBJECT_HANDLER.ChangeState(levelToSend);
                 

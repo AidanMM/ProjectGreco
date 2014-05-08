@@ -12,7 +12,7 @@ using ProjectGreco.GameObjects.Buttons;
 
 namespace ProjectGreco.GameObjects
 {
-    class SkillTree
+    public class SkillTree
     {
         List<SkillButton> leftTree;
         List<SkillButton> rightTree;
@@ -63,6 +63,8 @@ namespace ProjectGreco.GameObjects
 
             
             new RespecButton(new Vector2(startPosition.X + 80, startPosition.Y), this, currentLevel);
+
+            ShowActive();
 
         }
 

@@ -13,9 +13,9 @@ using ProjectGreco.GameObjects.Buttons;
 
 namespace ProjectGreco.Levels
 {
-    class HomeWorld : BaseState
+    public class HomeWorld : BaseState
     {
-        public static SkillTree skillTree;
+        public SkillTree skillTree;
         public HomeWorld(Player myPlayer = null)
         {
             levelType = LevelName.Home;
@@ -69,7 +69,7 @@ namespace ProjectGreco.Levels
                 (LevelObjectDictionary["PortalForest"] as LevelPortal).Closed = true;
             }
 
-            
+           
             skillTree = new SkillTree(new Vector2(1500, 400), LevelObjectDictionary["Player"] as Player, this);
 
 
