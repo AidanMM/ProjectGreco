@@ -136,7 +136,7 @@ namespace ProjectGreco.Levels
                     myMap = new Map(AlgorithmType.Hills);
                     break;
                 case LevelName.Ice:
-                    myMap = new Map(AlgorithmType.HillsDesert);
+                    myMap = new Map(AlgorithmType.Cave);
                     break;
             }
             

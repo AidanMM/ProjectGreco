@@ -203,8 +203,12 @@ namespace ProjectGreco.Levels
                     {
                         int numberOfPoints = rand.Next(LevelVariables.CAVE_MIN_POINTS, LevelVariables.CAVE_MAX_POINTS);
                         List<int[]> points = new List<int[]>();
-
-                        for (int m = 0; m <= numberOfPoints; m++)
+                        int safeRadius = rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS);
+                        points.Add(new int[3]{
+                            5,
+                            LevelVariables.GROUND_HEIGHT,
+                            safeRadius});
+                        for (int m = 1; m < numberOfPoints; m++)
                         {
                             // Create points for the caves to go in, but make sure that they don't leave the map.
                             points.Add(new int[3]{
@@ -212,12 +216,24 @@ namespace ProjectGreco.Levels
                                 rand.Next(LevelVariables.CAVE_MAX_RADIUS + 1, LevelVariables.HEIGHT - LevelVariables.CAVE_MAX_RADIUS),
                                 rand.Next(LevelVariables.CAVE_MIN_RADIUS, LevelVariables.CAVE_MAX_RADIUS)});
                         }
+                        points.Add(new int[3]{
+                            LevelVariables.WIDTH - 8,
+                            LevelVariables.GROUND_HEIGHT,
+                            safeRadius});
                         // Create the caves
                         CaveGeneration caveGen = new CaveGeneration(terrain, points, LevelVariables.WIDTH, LevelVariables.HEIGHT, LevelVariables.GROUND_HEIGHT, LevelVariables.SAFE_ZONE_WIDTH,
                             seed);
                         caveGen.Initialize();
                         caveGen.Shape();
+                        // Create a safe spawning zone
+                        caveGen.Initialize(0, 5 + safeRadius, 0, LevelVariables.GROUND_HEIGHT - 2);
+                        caveGen.Initialize(LevelVariables.WIDTH - (8 + safeRadius), LevelVariables.WIDTH, 0, LevelVariables.GROUND_HEIGHT);
+
+
                         caveGen.Tunnel(2);
+
+                        caveGen.Initialize(0, 1, 0, LevelVariables.HEIGHT);
+                        caveGen.Initialize(LevelVariables.WIDTH - 2, LevelVariables.WIDTH - 1, 0, LevelVariables.HEIGHT);
                     }
                     break;
             }

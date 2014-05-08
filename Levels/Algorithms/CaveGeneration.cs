@@ -26,7 +26,6 @@ namespace ProjectGreco.Levels.Algorithms
         // Fields
         //
 
-
         /// <summary>
         /// Width of the total terrain in a level.
         /// </summary>
@@ -193,10 +192,11 @@ namespace ProjectGreco.Levels.Algorithms
                 // Figure out how much to go down
                 double slope = (pointTwo[1] - pointOne[1]) / (double)Math.Abs((pointTwo[0] - pointOne[0]));
 
-                double y = pointOne[1];
+
 
                 if (pointOne[0] < pointTwo[0]) // If we're going left to right
                 {
+                    double y = pointOne[1];
                     for (int x = pointOne[0]; x <= pointTwo[0]; x++)
                     {
                         for (int relY = -radius; relY < radius; relY++)
@@ -215,9 +215,10 @@ namespace ProjectGreco.Levels.Algorithms
                 }
                 else // If we're going right to left
                 {
-                    for (int x = pointTwo[0]; x >= pointOne[0]; x++)
+                    double y = pointTwo[1];
+                    for (int x = pointTwo[0]; x <= pointOne[0]; x++)
                     {
-                        for (int relY = -radius; relY < radius; y++)
+                        for (int relY = -radius; relY < radius; relY++)
                         {
                             if (y + relY < 0 || y + relY >= terrain[0].Length)
                             {
@@ -228,7 +229,7 @@ namespace ProjectGreco.Levels.Algorithms
                                 terrain[x][(int)y + relY] = 'C';
                             }
                         }
-                        y += slope;
+                        y -= slope;
                     }
                 }
             }
