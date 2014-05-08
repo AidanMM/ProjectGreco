@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Media;
 
 using ProjectGreco.Levels;
 
@@ -57,14 +58,19 @@ namespace ProjectGreco.GameObjects
                 
 				//Check to see if the level being sent to is an platforming stage
                 if (levelToSend is Level)
+                {
                     (levelToSend as Level).PositionPlayer();
+                    MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);
+                }
                 //Check to see if the level being sent to is the homeworld stage
                 if (levelToSend is HomeWorld)
                 {
                     Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 200);
                     Game1.OBJECT_HANDLER.objectDictionary["Player"].Velocity = new Vector2(0, 0);
+                    MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);
                 }
                 Game1.OBJECT_HANDLER.ChangeState(levelToSend);
+                MediaPlayer.Volume = .2f;
                 
 			}
 		}

@@ -657,7 +657,7 @@ namespace ProjectGreco.GameObjects
                 if (Math.Floor(OldPosition.X) <= determineEvent.Position.X 
                     && ( (OldPosition.Y + Height >= determineEvent.Position.Y
                     && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
-                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height 
+                    || (OldPosition.Y < determineEvent.Position.Y + determineEvent.Height 
                     && OldPosition.Y >= determineEvent.Position.Y)))
                 {
                     velocity.X = 0;
@@ -677,7 +677,7 @@ namespace ProjectGreco.GameObjects
                 else if(Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
                     && ( (OldPosition.X + Width - 1 > determineEvent.Position.X  
                     && OldPosition.X + Width  <= determineEvent.Position.X + determineEvent.Width)
-                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width 
+                    || (OldPosition.X < determineEvent.Position.X + determineEvent.Width 
                     && OldPosition.X >= determineEvent.Position.X )
                     || (OldPosition.X < determineEvent.Position.X
                     && OldPosition.X + Width  > determineEvent.Position.X + determineEvent.Width)))
@@ -692,12 +692,12 @@ namespace ProjectGreco.GameObjects
                     && position.Y < determineEvent.Position.Y + determineEvent.Height
                     && ((OldPosition.X + Width - 1 > determineEvent.Position.X
                     && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
-                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    || (OldPosition.X < determineEvent.Position.X + determineEvent.Width
                     && OldPosition.X >= determineEvent.Position.X)
                     || (OldPosition.X < determineEvent.Position.X
                     && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
                 {
-                    position.Y = determineEvent.Position.Y + determineEvent.Height;
+                    position.Y = determineEvent.Position.Y + determineEvent.Height + 5;
                     velocity.Y = 0;
 
                 }
