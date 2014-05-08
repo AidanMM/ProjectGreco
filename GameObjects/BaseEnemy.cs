@@ -623,13 +623,15 @@ namespace ProjectGreco.GameObjects
                 }
             }
 
-            if (determineEvent.ObjectType == "EdgeTile" && ai != EnemyType.Ghost)
+
+            if (determineEvent.ObjectType == "EdgeTile")
             {
-                OldPosition = new Vector2(OldPosition.X - velocity.X, OldPosition.Y - velocity.Y);
-                if (Math.Floor(OldPosition.X + Width) <= determineEvent.Position.X
-                    && ((OldPosition.Y + Height >= determineEvent.Position.Y &&
-                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
-                    || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height
+                OldPosition = new Vector2(OldPosition.X, OldPosition.Y - velocity.Y);
+
+                if (Math.Floor(OldPosition.X) <= determineEvent.Position.X
+                    && ((OldPosition.Y + Height >= determineEvent.Position.Y
+                    && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    || (OldPosition.Y < determineEvent.Position.Y + determineEvent.Height
                     && OldPosition.Y >= determineEvent.Position.Y)))
                 {
                     velocity.X = 0;
@@ -637,8 +639,8 @@ namespace ProjectGreco.GameObjects
                     acceleration.X = 0;
                 }
                 else if (OldPosition.X >= determineEvent.Position.X + determineEvent.Width
-                    && ((OldPosition.Y + Height >= determineEvent.Position.Y &&
-                    OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
+                    && ((OldPosition.Y + Height >= determineEvent.Position.Y
+                    && OldPosition.Y + Height <= determineEvent.Position.Y + determineEvent.Height)
                     || (OldPosition.Y <= determineEvent.Position.Y + determineEvent.Height
                     && OldPosition.Y >= determineEvent.Position.Y)))
                 {
@@ -647,9 +649,9 @@ namespace ProjectGreco.GameObjects
                     acceleration.X = 0;
                 }
                 else if (Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
-                    && ((OldPosition.X + Width >= determineEvent.Position.X
+                    && ((OldPosition.X + Width - 1 > determineEvent.Position.X
                     && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
-                    || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
+                    || (OldPosition.X < determineEvent.Position.X + determineEvent.Width
                     && OldPosition.X >= determineEvent.Position.X)
                     || (OldPosition.X < determineEvent.Position.X
                     && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
@@ -662,16 +664,34 @@ namespace ProjectGreco.GameObjects
                 }
                 else if (Math.Floor(OldPosition.Y) > determineEvent.Position.Y + determineEvent.Height
                     && position.Y < determineEvent.Position.Y + determineEvent.Height
-                    && ((OldPosition.X + Width >= determineEvent.Position.X
+                    && ((OldPosition.X + Width - 1 > determineEvent.Position.X
+                    && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
+                    || (OldPosition.X < determineEvent.Position.X + determineEvent.Width
+                    && OldPosition.X >= determineEvent.Position.X)
+                    || (OldPosition.X < determineEvent.Position.X
+                    && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
+                {
+                    position.Y = determineEvent.Position.Y + determineEvent.Height + 5;
+                    velocity.Y = 0;
+
+                }
+
+            }
+            if (determineEvent.ObjectType == "OneWayBlock")
+            {
+                if (Math.Floor(OldPosition.Y + Height) <= determineEvent.Position.Y
+                    && ((OldPosition.X + Width - 1 > determineEvent.Position.X
                     && OldPosition.X + Width <= determineEvent.Position.X + determineEvent.Width)
                     || (OldPosition.X <= determineEvent.Position.X + determineEvent.Width
                     && OldPosition.X >= determineEvent.Position.X)
                     || (OldPosition.X < determineEvent.Position.X
                     && OldPosition.X + Width > determineEvent.Position.X + determineEvent.Width)))
                 {
-                    position.Y = determineEvent.Position.Y + determineEvent.Height;
+                    applyGravity = false;
+                    jumpCounter = 0;
                     velocity.Y = 0;
-
+                    acceleration.Y = 0;
+                    position.Y = determineEvent.Position.Y - Height;
                 }
             }
         }
