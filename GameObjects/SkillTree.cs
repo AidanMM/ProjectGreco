@@ -38,7 +38,7 @@ namespace ProjectGreco.GameObjects
             leftTree[5].parent = leftTree[4];
             AddSkillButton(ActionSkills.FastFall, false, new Vector2(startPosition.X + 75, startPosition.Y - 165));
             leftTree[6].parent = leftTree[2];
-            AddSkillButton(ActionSkills.JumpPlus, false, new Vector2(startPosition.X + 75, startPosition.Y - 220));
+            AddSkillButton(ActionSkills.JumpTriple, false, new Vector2(startPosition.X + 75, startPosition.Y - 220));
             leftTree[7].parent = leftTree[6];
             AddSkillButton(ActionSkills.ConfuseRay, false, new Vector2(startPosition.X + 75, startPosition.Y - 275));
             leftTree[8].parent = leftTree[7];

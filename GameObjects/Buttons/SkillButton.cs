@@ -142,6 +142,9 @@ namespace ProjectGreco.GameObjects.Buttons
                 case ActionSkills.JumpPlus:
                     A_GoToFrameIndex(14);
                     break;
+                case ActionSkills.JumpTriple:
+                    A_GoToFrameIndex(14);
+                    break;
                 case ActionSkills.Speed:
                     A_GoToFrameIndex(15);
                     break;
@@ -154,11 +157,13 @@ namespace ProjectGreco.GameObjects.Buttons
             }
             zOrder = -5;
             level.AddObjectToHandler("SkillButton", this);
+            ShowActive();
         }
 
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            ShowActive();
             if (active == false)
                 base.Draw(spriteBatch, Color.Gray);
             else
@@ -188,7 +193,7 @@ namespace ProjectGreco.GameObjects.Buttons
                     {
                         myPlayer.MaximumJumps += 1;
                     }
-                    else if (skillToSet == ActionSkills.JumpHeight)
+                    else if (skillToSet == ActionSkills.JumpHeight || skillToSet == ActionSkills.JumpTriple)
                     {
                         myPlayer.jumpHeight = 15.0f;
                     }
@@ -238,6 +243,70 @@ namespace ProjectGreco.GameObjects.Buttons
             myPlayer.skillPoints = 0;
 
             
+        }
+
+        public void ShowActive()
+        {
+            if (myPlayer.airMelee == true && skillToSet == ActionSkills.AirMelee)
+            {
+                active = true;
+            }
+            if (myPlayer.airRanged == true && skillToSet == ActionSkills.AirRanged)
+            {
+                active = true;
+            }
+            if (myPlayer.MaximumJumps >= 2 && skillToSet == ActionSkills.JumpPlus)
+            {
+                active = true;
+            }
+            if (myPlayer.MaximumJumps >= 3 && skillToSet == ActionSkills.JumpTriple)
+            {
+                active = true;
+            }
+            if (myPlayer.jumpHeight > 10.5f && skillToSet == ActionSkills.JumpHeight)
+            {
+                active = true;
+            }
+            if (myPlayer.strengthOfGravity > .31f && skillToSet == ActionSkills.FastFall)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillConfuseRay == true && skillToSet == ActionSkills.ConfuseRay)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillDash == true && skillToSet == ActionSkills.Dash)
+            {
+                active = true;
+            }
+            if (myPlayer.speedLimit > 7.55f && skillToSet == ActionSkills.Speed)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillExile == true && skillToSet == ActionSkills.Exile)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillShadowPush == true && skillToSet == ActionSkills.ShadowPush)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillShadowHold == true && skillToSet == ActionSkills.ShadowHold)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillGhost == true && skillToSet == ActionSkills.Ghost)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillShadowDagger == true && skillToSet == ActionSkills.ShadowDagger)
+            {
+                active = true;
+            }
+            if (myPlayer.SkillChaoticReset == true && skillToSet == ActionSkills.ChaoticReset)
+            {
+                active = true;
+            }
         }
 
         

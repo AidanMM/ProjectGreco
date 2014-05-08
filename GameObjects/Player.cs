@@ -28,6 +28,7 @@ namespace ProjectGreco.GameObjects
         FastFall,
         JumpHeight,
         JumpPlus,
+        JumpTriple,
         Speed,
         Wings
     }

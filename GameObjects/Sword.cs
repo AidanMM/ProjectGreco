@@ -46,8 +46,6 @@ namespace ProjectGreco.GameObjects
             {
                 destroyThis = true;
             }
-            
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
