@@ -40,6 +40,7 @@ namespace ProjectGreco.GameObjects
 		public LevelPortal(Vector2 startPos, List<List<Texture2D>> aList, BaseState goLevel, Player toPass)
             : base(aList, startPos, "LevelPortal")
         {
+            zOrder = 5;
             checkForCollisions = true;
             animationList = aList;
             position = startPos;

@@ -624,7 +624,7 @@ namespace ProjectGreco.GameObjects
             }
 
 
-            if (determineEvent.ObjectType == "EdgeTile")
+            if (determineEvent.ObjectType == "EdgeTile" && ai != EnemyType.Ghost)
             {
                 OldPosition = new Vector2(OldPosition.X, OldPosition.Y - velocity.Y);
 
