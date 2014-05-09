@@ -43,13 +43,13 @@ namespace ProjectGreco.Levels
             AddObjectToHandler("NoButton", new Button(new Vector2(200, 300), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "unclickable test", false));
             // Don't spawn the portal if the level is complete.
 
-            AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(600, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(1500, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(800, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(1700, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1000, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1900, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(1200, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
             //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)
@@ -70,7 +70,7 @@ namespace ProjectGreco.Levels
             }
 
            
-            skillTree = new SkillTree(new Vector2(1500, 400), LevelObjectDictionary["Player"] as Player, this);
+            skillTree = new SkillTree(new Vector2(800, 400), LevelObjectDictionary["Player"] as Player, this);
 
 
             MediaPlayer.Volume = .5f;
