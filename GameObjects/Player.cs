@@ -47,9 +47,10 @@ namespace ProjectGreco.GameObjects
         public float strengthOfGravity = .3f;
         public float jumpHeight = 10.5f;
 
-
         public int skillPoints = 0;
         public int maxPoints = 8;
+
+        public int health = 3;
 
         
 
@@ -535,6 +536,11 @@ namespace ProjectGreco.GameObjects
                 velocity.Y = 0;
                 
             }
+
+            if (flashCounter > 0)
+            {
+                flashCounter--;
+            }
             
             if (applyGravity == true)
             {
@@ -581,6 +587,9 @@ namespace ProjectGreco.GameObjects
             position += velocity;
             velocity += acceleration;
             UpdateCollisionBox();
+
+            if (destroyThis)
+                Destroy();
             #endregion
             Game1.CAMERA_DISPLACEMENT = this.position - startingPositon;
             #endregion
@@ -720,6 +729,19 @@ namespace ProjectGreco.GameObjects
                     acceleration.Y = 0;
                     position.Y = determineEvent.Position.Y - Height;
                 }
+            }
+
+            if (determineEvent.ObjectType == "enemy" && flashCounter == 0)
+            {
+                flashCounter = 60;
+                BaseEnemy myEnemy = (determineEvent as BaseEnemy);
+                health--;
+                
+                if (health == 0)
+                {
+                    destroyThis = true;
+                }
+                
             }
 
             //Do the collision code for checking against enemies here. We don't have any yet, but do it inside of the ghosting check

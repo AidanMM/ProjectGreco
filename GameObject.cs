@@ -265,6 +265,19 @@ namespace ProjectGreco
         }
 
         /// <summary>
+        /// If this is greater than zero, then the object will not draw.
+        /// </summary>
+        protected int flashCounter = 0;
+        /// <summary>
+        /// If this is greater than zero, then the object will not draw.
+        /// </summary>
+        public int FlashCounter
+        {
+            get { return flashCounter; }
+            set { flashCounter = value; }
+        }
+        
+        /// <summary>
         /// Default constructor, simply initializes a base texture and a base position
         /// </summary>
         public GameObject()
@@ -354,6 +367,11 @@ namespace ProjectGreco
 
             UpdateCollisionBox();
 
+            if (flashCounter > 0)
+            {
+                flashCounter--;
+            }
+
             if (animating == true)
             {
                 if(Game1.TIMER % (60 / framesPerSecond) == 0)
@@ -381,7 +399,7 @@ namespace ProjectGreco
         /// <param name="spriteBatch">the base spriteBatch for the game</param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (hFlip == false)
+            if (hFlip == false && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
             {
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
                     new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
@@ -393,7 +411,7 @@ namespace ProjectGreco
                     SpriteEffects.None,
                     1);
             }
-            else if (hFlip == true)
+            else if (hFlip == true && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
             {
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
                     new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
@@ -405,6 +423,7 @@ namespace ProjectGreco
                     SpriteEffects.FlipHorizontally,
                     1);
             }
+            
         }
         /// <summary>
         /// A paramterized draw function that includes the color that you want to overlay onto the image
@@ -413,7 +432,7 @@ namespace ProjectGreco
         /// <param name="overLayColor">The color you wish to overlay</param>
         public virtual void Draw(SpriteBatch spriteBatch, Color overLayColor)
         {
-            if (hFlip == false)
+            if (hFlip == false && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
             {
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
                     new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
@@ -425,7 +444,7 @@ namespace ProjectGreco
                     SpriteEffects.None,
                     1);
             }
-            else if (hFlip == true)
+            else if (hFlip == true && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
             {
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
                     new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
