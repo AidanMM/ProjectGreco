@@ -231,6 +231,11 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall"));
             ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
 
+            // Boss Animations
+            ANIMATION_DICTIONARY.Add("BossMain", A_CreateAnimation("Entities\\BossMain"));
+            ANIMATION_DICTIONARY.Add("BossLeftHand", A_CreateAnimation("Entities\\BossLeftHand"));
+            ANIMATION_DICTIONARY.Add("BossRightHand", A_CreateAnimation("Entities\\BossRightHand"));
+
             //Character Animations
             ANIMATION_DICTIONARY.Add("WalkRight", A_CreateAnimation("Entities\\PaladinWalking1", "Entities\\PaladinWalking2", "Entities\\PaladinWalking3", "Entities\\PaladinWalking4", "Entities\\PaladinWalking5",
                 "Entities\\PaladinWalking6", "Entities\\PaladinWalking7", "Entities\\PaladinWalking8"));
