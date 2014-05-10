@@ -581,6 +581,7 @@ namespace ProjectGreco.GameObjects
                     ghosting = false;
                 }
             }
+            
 
             #region General Updates
 

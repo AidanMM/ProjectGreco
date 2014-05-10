@@ -115,6 +115,8 @@ namespace ProjectGreco
         /// The sound effect library for the game.  This uses wav files
         /// </summary>
         public static Dictionary<string, SoundEffect> SOUND_LIBRARY;
+
+        public static DialougeBox DIALOUGE_BOX;
         
 
         public Game1()
@@ -162,6 +164,8 @@ namespace ProjectGreco
             SONG_LIBRARY = new Dictionary<string, Song>();
 
             SOUND_LIBRARY = new Dictionary<string, SoundEffect>();
+
+            DIALOUGE_BOX = new DialougeBox();
             
 
             base.Initialize();
@@ -260,6 +264,10 @@ namespace ProjectGreco
             // Grass
             ANIMATION_DICTIONARY.Add("Grass", A_CreateAnimation("grasssway0", "grasssway1", "grasssway2", "grasssway3"));
 
+
+            //Dialouge box
+            ANIMATION_DICTIONARY.Add("DialougeBox", A_CreateAnimation("DialougeBox"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
@@ -326,6 +334,8 @@ namespace ProjectGreco
                     debugMode = true;
             }
 
+            DIALOUGE_BOX.Update();
+
             oldKBstate = KBState;
             prevMouseState = mouseState;
 
@@ -340,7 +350,6 @@ namespace ProjectGreco
         {
             GraphicsDevice.Clear(Color.SkyBlue);
 
-            // TODO: Add your drawing code here
             spriteBatch.Begin();
 
 
@@ -354,6 +363,7 @@ namespace ProjectGreco
                 spriteBatch.DrawString(DEFUALT_SPRITEFONT, debugPrompt.commandString, new Vector2(0, 0), Color.Black);
                 
             }
+            DIALOUGE_BOX.Draw(spriteBatch, DEFUALT_SPRITEFONT, new Vector2(0, 400));
 
             spriteBatch.End();
 
