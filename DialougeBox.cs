@@ -56,9 +56,13 @@ namespace ProjectGreco
 
         public bool waitForInput;
 
+        public bool scaleUpBox = true;
+
         string[] dialouges;
 
         public List<Event> eventList;
+
+        Vector2 scale;
 
         public DialougeBox()
         {
@@ -79,41 +83,45 @@ namespace ProjectGreco
 
             eventList = new List<Event>();
             eventList.Add(new SkillTreeEvent(3));
+            scale = new Vector2(0, 0);
         }
 
         public void Update()
         {
             if (showText == true)
             {
-
-                if (waitForInput == false)
+                if (scaleUpBox == false)
                 {
-                    displayText += dialougeText[dialougeTextIndex];
-                    charsPerLine++;
-                    dialougeTextIndex++;
-                    if (dialougeTextIndex >= dialougeText.Length)
+
+                    if (waitForInput == false)
                     {
-                        waitForInput = true;
-                    }
-                    if (charsPerLine > charLimit)
-                    {
-                        displayText += "\n";
-                        charsPerLine = 0;
-                        curLines++;
-                        if (curLines == lineLimit)
+                        displayText += dialougeText[dialougeTextIndex];
+                        charsPerLine++;
+                        dialougeTextIndex++;
+                        if (dialougeTextIndex >= dialougeText.Length)
                         {
-                            waitForInput = true;   
+                            waitForInput = true;
+                        }
+                        if (charsPerLine > charLimit)
+                        {
+                            displayText += "\n";
+                            charsPerLine = 0;
+                            curLines++;
+                            if (curLines == lineLimit)
+                            {
+                                waitForInput = true;
+                            }
                         }
                     }
-                }
-                else if (Game1.KBState.IsKeyDown(Keys.Space))
-                {
-                    if (dialougeTextIndex >= dialougeText.Length)
+                    else if (Game1.KBState.IsKeyDown(Keys.Space))
                     {
-                        HideTextBox();
+                        if (dialougeTextIndex >= dialougeText.Length)
+                        {
+                            HideTextBox();
+                        }
+                        else
+                            MoveToNextChunk();
                     }
-                    else
-                        MoveToNextChunk();   
                 }
 
             }
@@ -132,8 +140,40 @@ namespace ProjectGreco
         {
             if (showText == true)
             {
-                spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["DialougeBox"][0], pos, Color.White);
-                spriteBatch.DrawString(spriteFont, displayText, new Vector2(pos.X + 20, pos.Y + 20), Color.White);
+                if (scaleUpBox == false)
+                {
+                    spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["DialougeBox"][0], pos, Color.White);
+                    spriteBatch.DrawString(spriteFont, displayText, new Vector2(pos.X + 20, pos.Y + 20), Color.White);
+                }
+                else
+                {
+                    /*spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.None,
+                    1);*/
+                    spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["DialougeBox"][0],
+                        pos,
+                        new Rectangle(0, 0, Game1.ANIMATION_DICTIONARY["DialougeBox"][0].Width, Game1.ANIMATION_DICTIONARY["DialougeBox"][0].Height),
+                        Color.White,
+                        0,
+                        new Vector2(0,0),
+                        scale,
+                        SpriteEffects.None,
+                        1);
+
+                    scale = new Vector2(scale.X + .1f, scale.Y + .1f);
+                    if (scale.X >= 1)
+                    {
+                        scaleUpBox = false;
+                        scale = new Vector2(0, 0);
+                    }
+
+                }
             }
         }
 

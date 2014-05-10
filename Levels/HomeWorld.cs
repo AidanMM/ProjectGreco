@@ -84,6 +84,7 @@ namespace ProjectGreco.Levels
 
             MediaPlayer.Volume = .5f;
             MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
+            
 
 
 			SortByZorder();

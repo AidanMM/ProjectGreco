@@ -12,7 +12,7 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.GameObjects
 {
-    
+
 
     class Arrow : Projectile
     {
@@ -20,7 +20,7 @@ namespace ProjectGreco.GameObjects
         public int id;
         public bool piercing;
 
-        public Arrow(Vector2 vel, Vector2 pos, string name, bool piercing = false) : 
+        public Arrow(Vector2 vel, Vector2 pos, string name, bool piercing = false) :
             base(vel, pos, Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Arrow"]), name, 0)
         {
             acceleration.Y = 0.2f;
@@ -41,7 +41,7 @@ namespace ProjectGreco.GameObjects
             {
                 angle = (float)Math.Atan(velocity.Y / velocity.X) + (float)Math.PI;
             }
-            
+
 
         }
     }
