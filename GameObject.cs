@@ -635,6 +635,8 @@ namespace ProjectGreco
             onScreen = false;
             Game1.OBJECT_HANDLER.objectDictionary.Remove(dictionaryName);
             Game1.OBJECT_HANDLER.collisionList.Remove(dictionaryName);
+            if(Game1.OBJECT_HANDLER.collisionCheckList.Contains(dictionaryName))
+                Game1.OBJECT_HANDLER.collisionCheckList.Remove(dictionaryName);
             Game1.OBJECT_HANDLER.escapeBool = true;
             
         }

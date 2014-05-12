@@ -288,7 +288,7 @@ namespace ProjectGreco.Levels
                 
             }
 
-            AddObjectToHandler("Homeworld", new LevelPortal(new Vector2((LevelVariables.WIDTH - 4) * 64, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 1) * 64),
+            AddObjectToHandler("Homeworld", new LevelPortal(new Vector2((LevelVariables.WIDTH - 4) * 64, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 1) * 64 - 50),
                     Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), new HomeWorld(myPlayer), (LevelObjectDictionary["Player"] as Player)));
             //Sort all of the objects by their zOrder
             SortByZorder();

@@ -41,11 +41,14 @@ namespace ProjectGreco.GameObjects
 
         public override void Update()
         {
+
             base.Update();
             if (onScreen == false)
             {
                 destroyThis = true;
             }
+
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
