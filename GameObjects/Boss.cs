@@ -138,23 +138,26 @@ namespace ProjectGreco
 
             level.AddObjectToHandler("LeftHand", leftHand);
             level.AddObjectToHandler("RightHand", rightHand);
+
             checkForCollisions = true;
 
-            zOrder = -10;
+            zOrder = -100;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            base.Draw(spriteBatch);
+
+            Texture2D mySprite = Game1.IMAGE_DICTIONARY["BossMain"];
+
             Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
                 collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
 
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
-                    drawRec.X + collisionBox.Width / 2,
-                    drawRec.Y + collisionBox.Height / 2,
-                    drawRec.Width,
-                    drawRec.Height)
-                    , null, Color.White, (float)(rotation * Math.PI / 180),
-                    new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+            Vector2 texturePosition = new Vector2(collisionBox.X + (collisionBox.Width / 2) - (mySprite.Width / 2), collisionBox.Y + (collisionBox.Height / 2) - (mySprite.Height / 2));
+
+            spriteBatch.Draw(mySprite, new Rectangle((int)texturePosition.X - (int)Game1.CAMERA_DISPLACEMENT.X, (int)texturePosition.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, mySprite.Width, mySprite.Height),
+                    null, Color.White, (float)(rotation * Math.PI / 180),
+                    new Vector2(mySprite.Width / 2, mySprite.Height / 2), SpriteEffects.None, 0.0f);
         }
 
         public override void Update()

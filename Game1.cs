@@ -202,6 +202,7 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("moonBlock", Content.Load<Texture2D>("moonBlock"));
             IMAGE_DICTIONARY.Add("forestEdge", Content.Load<Texture2D>("forestEdge"));
             IMAGE_DICTIONARY.Add("desertEdge", Content.Load<Texture2D>("desertEdge"));
+            IMAGE_DICTIONARY.Add("BossMain", Content.Load<Texture2D>("Entities\\BossMain"));
 
 
             #endregion
@@ -236,7 +237,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
 
             // Boss Animations
-            ANIMATION_DICTIONARY.Add("BossMain", A_CreateAnimation("Entities\\BossMain"));
+            ANIMATION_DICTIONARY.Add("BossCenter", A_CreateAnimation("Entities\\BossCenter"));
             ANIMATION_DICTIONARY.Add("BossLeftHand", A_CreateAnimation("Entities\\BossLeftHand"));
             ANIMATION_DICTIONARY.Add("BossRightHand", A_CreateAnimation("Entities\\BossRightHand"));
 

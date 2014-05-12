@@ -35,8 +35,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Boss.cs" />
-    <Compile Include="BossWeapon.cs" />
+    <Compile Include="GameObjects\Boss.cs" />
+    <Compile Include="GameObjects\BossWeapon.cs" />
     <Compile Include="CommandInput.cs" />
     <Compile Include="DialougeBox.cs" />
     <Compile Include="Event.cs" />
@@ -160,6 +160,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\dirtEdge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Entities\BossCenter.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Entities\BossLeftHand.png">

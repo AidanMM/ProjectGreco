@@ -51,7 +51,7 @@ namespace ProjectGreco.Levels
 
             
 
-            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossMain"]), new Vector2(2800, -100), this);
+            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(3300, 300), this);
 
             AddObjectToHandler("Boss", myBoss);
 
