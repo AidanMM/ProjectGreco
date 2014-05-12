@@ -211,7 +211,7 @@ namespace ProjectGreco.GameObjects.Buttons
                     }
                     else if (skillToSet == ActionSkills.JumpHeight || skillToSet == ActionSkills.JumpTriple)
                     {
-                        myPlayer.jumpHeight = 15.0f;
+                        myPlayer.jumpHeight = 13.0f;
                     }
                     else if (skillToSet == ActionSkills.FastFall)
                     {

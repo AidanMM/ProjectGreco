@@ -150,10 +150,7 @@ namespace ProjectGreco
 
             Texture2D mySprite = Game1.IMAGE_DICTIONARY["BossMain"];
 
-            Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
-                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
-
-            Vector2 texturePosition = new Vector2(collisionBox.X + (collisionBox.Width / 2) - (mySprite.Width / 2), collisionBox.Y + (collisionBox.Height / 2) - (mySprite.Height / 2));
+            Vector2 texturePosition = new Vector2(collisionBox.X, collisionBox.Y);
 
             spriteBatch.Draw(mySprite, new Rectangle((int)texturePosition.X - (int)Game1.CAMERA_DISPLACEMENT.X, (int)texturePosition.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, mySprite.Width, mySprite.Height),
                     null, Color.White, (float)(rotation * Math.PI / 180),
