@@ -30,6 +30,13 @@ namespace ProjectGreco.GameObjects.Buttons
         public bool active;
 
         /// <summary>
+        /// This bool will trigger whether or not information about this skill will be shown
+        /// </summary>
+        public bool displayText = false;
+
+        public string abiltyText = "Ooops! Something went kind of wrong\n if you are seeing this!";
+
+        /// <summary>
         /// The constructor for the button class, this takes the starting position, the player, and the Playskill that this object will activate
         /// </summary>
         /// <param name="startPos">Starting Position for the object</param>
@@ -168,13 +175,22 @@ namespace ProjectGreco.GameObjects.Buttons
                 base.Draw(spriteBatch, Color.Gray);
             else
                 base.Draw(spriteBatch, Color.White);
+
+            if (displayText == true)
+            {
+                // new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, abiltyText, 
+                    new Vector2(this.position.X - Game1.CAMERA_DISPLACEMENT.X - Width * 3 , this.position.Y - Game1.CAMERA_DISPLACEMENT.Y ), 
+                        Color.White);
+            }
         }
 
         public override void C_OnCollision(GameObject determineEvent)
         {
             if (determineEvent.ObjectType == "Cursor")
             {
-                
+                displayText = true;
+
                 if ((determineEvent as Cursor).MouseClicked == true && active == false
                     && (parent == null || parent.active == true)
                     && myPlayer.skillPoints < myPlayer.maxPoints)
@@ -217,15 +233,17 @@ namespace ProjectGreco.GameObjects.Buttons
                         myPlayer.availableSkills.Add(skillToSet);
 
                     myPlayer.skillPoints++;
-                    
+
                 }
-                
+
+
             }
+          
         }
 
         public override void C_NoCollisions()
         {
-            
+            displayText = false;
         }
 
         public void ResetPlayer()

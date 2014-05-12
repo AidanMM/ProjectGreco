@@ -56,9 +56,9 @@ namespace ProjectGreco.Levels
 
             Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossMain"]), new Vector2(1100, -100), leftHand, rightHand);
 
-            AddObjectToHandler("Boss", myBoss);
-            AddObjectToHandler("LeftHand", leftHand);
-            AddObjectToHandler("RightHand", rightHand);
+           // AddObjectToHandler("Boss", myBoss);
+           // AddObjectToHandler("LeftHand", leftHand);
+           // AddObjectToHandler("RightHand", rightHand);
 
             //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)

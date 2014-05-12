@@ -113,7 +113,7 @@ namespace ProjectGreco
                             }
                         }
                     }
-                    else if (Game1.KBState.IsKeyDown(Keys.Space))
+                    else if (Game1.KBState.IsKeyDown(Keys.Space) || Game1.KBState.IsKeyDown(Keys.Enter))
                     {
                         if (dialougeTextIndex >= dialougeText.Length)
                         {

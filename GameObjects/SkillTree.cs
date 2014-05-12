@@ -26,40 +26,60 @@ namespace ProjectGreco.GameObjects
             currentLevel = toAddTo;
 
             AddSkillButton(ActionSkills.JumpPlus, false, startPosition);
+            leftTree[0].abiltyText = "Plus one jump!";
             AddSkillButton(ActionSkills.JumpHeight, false, new Vector2(startPosition.X, startPosition.Y - 55));
             leftTree[1].parent = leftTree[0];
+            leftTree[1].abiltyText = "Extra jump height!";
             AddSkillButton(ActionSkills.AirRanged, false, new Vector2(startPosition.X, startPosition.Y - 110));
             leftTree[2].parent = leftTree[1];
+            leftTree[2].abiltyText = "Ranged attack while\njumping!";
             AddSkillButton(ActionSkills.LightWall, false, new Vector2(startPosition.X - 75, startPosition.Y - 165));
             leftTree[3].parent = leftTree[2];
+            leftTree[3].abiltyText = "\nGain the ability to\ncreate walls!";
             AddSkillButton(ActionSkills.LightJump, false, new Vector2(startPosition.X - 75, startPosition.Y - 220));
             leftTree[4].parent = leftTree[3];
+            leftTree[4].abiltyText = "Gain the ability to\ncreate a platform\nmade of light!";
             AddSkillButton(ActionSkills.Wings, false, new Vector2(startPosition.X - 75, startPosition.Y - 275));
             leftTree[5].parent = leftTree[4];
+            leftTree[5].abiltyText = "Gain the ability to\nglide through the air!";
             AddSkillButton(ActionSkills.FastFall, false, new Vector2(startPosition.X + 75, startPosition.Y - 165));
             leftTree[6].parent = leftTree[2];
+            leftTree[6].abiltyText = "           fall faster \n           through the air!";
             AddSkillButton(ActionSkills.JumpTriple, false, new Vector2(startPosition.X + 75, startPosition.Y - 220));
             leftTree[7].parent = leftTree[6];
+            leftTree[7].abiltyText = "\n           Extra jump!";
             AddSkillButton(ActionSkills.ConfuseRay, false, new Vector2(startPosition.X + 75, startPosition.Y - 275));
             leftTree[8].parent = leftTree[7];
-
+            leftTree[8].abiltyText = "          Gain the ability \n          to confuse your\n          targets!";
             AddSkillButton(ActionSkills.Dash, true, new Vector2(startPosition.X + 250, startPosition.Y));
+            rightTree[0].abiltyText = "                                           Dash with the shift button!";
             AddSkillButton(ActionSkills.Speed, true, new Vector2(startPosition.X + 250, startPosition.Y - 55));
             rightTree[1].parent = rightTree[0];
+            rightTree[1].abiltyText = "                                           Run faster!";
             AddSkillButton(ActionSkills.AirMelee, true, new Vector2(startPosition.X + 250, startPosition.Y - 110));
             rightTree[2].parent = rightTree[1];
+            rightTree[2].abiltyText = "                                           Gain the ability to melee in the air!";
             AddSkillButton(ActionSkills.Exile, true, new Vector2(startPosition.X - 75 + 250, startPosition.Y - 165));
             rightTree[3].parent = rightTree[2];
+            rightTree[3].abiltyText = "Gain the ability to Exile enemies for a\nbrief period of time!";
             AddSkillButton(ActionSkills.ShadowPush, true, new Vector2(startPosition.X - 75 + 250, startPosition.Y - 220));
             rightTree[4].parent = rightTree[3];
+            rightTree[4].abiltyText = "Gain the ability to push enemies back!";
             AddSkillButton(ActionSkills.ShadowHold, true, new Vector2(startPosition.X - 75 + 250, startPosition.Y - 275));
             rightTree[5].parent = rightTree[4];
+            rightTree[5].abiltyText = "Gain the ability to use shadows to \nhold enemies still";
             AddSkillButton(ActionSkills.Ghost, true, new Vector2(startPosition.X + 75 + 250, startPosition.Y - 165));
             rightTree[6].parent = rightTree[2];
+            rightTree[6].abiltyText = "                                           Gain the ability to hide in the shadows\n"+
+                                      "                                           and become invulnerable!";
             AddSkillButton(ActionSkills.ShadowDagger, true, new Vector2(startPosition.X + 75 + 250, startPosition.Y - 220));
             rightTree[7].parent = rightTree[6];
+            rightTree[7].abiltyText = "                                           Gain the ability to throw a dagger and\n"+
+                                      "                                           telaport to an enemy!";
             AddSkillButton(ActionSkills.ChaoticReset, true, new Vector2(startPosition.X + 75 + 250, startPosition.Y - 275));
             rightTree[8].parent = rightTree[7];
+            rightTree[8].abiltyText = "                                           Gain the ability to Re roll the stage,\n"+
+                                      "                                           One time use!";
 
             
             new RespecButton(new Vector2(startPosition.X + 80, startPosition.Y), this, currentLevel);

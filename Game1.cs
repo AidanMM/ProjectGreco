@@ -69,7 +69,7 @@ namespace ProjectGreco
         /// </summary>
         public static Random RANDOM = new Random();
 
-        public SpriteFont DEFUALT_SPRITEFONT;
+        public static SpriteFont DEFUALT_SPRITEFONT;
 
         public static int TIMER;
 
