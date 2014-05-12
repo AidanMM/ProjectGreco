@@ -22,7 +22,7 @@ namespace ProjectGreco.GameObjects.Buttons
         public override void DoThisOnClick()
         {
             // start game
-            Game1.OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, null, Game1.RENDER_BACKGROUNDS));
+            Game1.OBJECT_HANDLER.ChangeState(new HomeWorld());
         }
     }
 }

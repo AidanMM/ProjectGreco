@@ -268,6 +268,8 @@ namespace ProjectGreco
             //Dialouge box
             ANIMATION_DICTIONARY.Add("DialougeBox", A_CreateAnimation("DialougeBox"));
 
+            ANIMATION_DICTIONARY.Add("Overlay", A_CreateAnimation("DarkOverlay"));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));
@@ -286,7 +288,7 @@ namespace ProjectGreco
 
 
             //OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
-            OBJECT_HANDLER.ChangeState(new HomeWorld());
+            OBJECT_HANDLER.ChangeState(new TitleSreen());
 
             
 

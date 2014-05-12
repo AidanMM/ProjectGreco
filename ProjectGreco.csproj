@@ -75,6 +75,7 @@
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\NoEnemyLevel.cs" />
     <Compile Include="Levels\Spawner.cs" />
+    <Compile Include="Levels\TitleSreen.cs" />
     <Compile Include="ObjectHandler.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Program.cs" />
@@ -107,6 +108,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\DarkOverlay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\desertEdge.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -170,37 +174,10 @@
     <Content Include="Content\Entities\FlyingEnemy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Entities\FlyingEnemyFlap1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemyFlap2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemyFlap3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Entities\FlyingEnemyLarge.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Entities\FlyingEnemyLargeFlap1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemyLargeFlap2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemyLargeFlap3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\Entities\FlyingEnemySmall.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemySmallFlap1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemySmallFlap2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\Entities\FlyingEnemySmallFlap3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Entities\GhostEnemy.png">

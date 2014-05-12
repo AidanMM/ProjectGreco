@@ -144,6 +144,7 @@ namespace ProjectGreco
                 {
                     spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["DialougeBox"][0], pos, Color.White);
                     spriteBatch.DrawString(spriteFont, displayText, new Vector2(pos.X + 20, pos.Y + 20), Color.White);
+                    spriteBatch.DrawString(spriteFont, "Press space to continue...", new Vector2(pos.X + 1050, pos.Y + 170),Color.White);
                 }
                 else
                 {
@@ -165,6 +166,7 @@ namespace ProjectGreco
                         scale,
                         SpriteEffects.None,
                         1);
+                    
 
                     scale = new Vector2(scale.X + .1f, scale.Y + .1f);
                     if (scale.X >= 1)

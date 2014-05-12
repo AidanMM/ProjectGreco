@@ -51,6 +51,8 @@ namespace ProjectGreco.Levels
 
             AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
+            
+
             BossWeapon leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(800, 0));
             BossWeapon rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(1650, 0));
 
