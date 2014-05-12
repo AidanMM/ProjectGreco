@@ -37,7 +37,6 @@ namespace ProjectGreco.GameObjects
 
         public Player myPlayer;
         public List<int> projectiles;
-        public bool destroy = false;
 
         /// <summary>
         /// This bool will control whether or not this enemy is confused.  When it is confused its speed modifier becomes -.5
@@ -214,6 +213,13 @@ namespace ProjectGreco.GameObjects
 
                 if (destroyThis == true)
                 {
+                    if (mySize == EnemySize.Large)
+                        PlayerStats.mula += 4;
+                    if (mySize == EnemySize.Medium)
+                        PlayerStats.mula += 2;
+                    if (mySize == EnemySize.Small)
+                        PlayerStats.mula += 1;
+
                     Destroy();
                 }
 
@@ -424,7 +430,7 @@ namespace ProjectGreco.GameObjects
                             // Catch the enemy if it falls out of the level.
                             if (position.Y > LevelVariables.HEIGHT * 64)
                             {
-                                Destroy();
+                                destroyThis = true;
                             }
                             // Since this guy flys let him have a glide.
                             if (velocity.Y > FLYING_VELOCITY_MAX)
@@ -487,19 +493,6 @@ namespace ProjectGreco.GameObjects
 
 
                 #endregion
-
-
-                if (destroy)
-                {
-                    if (mySize == EnemySize.Large)
-                        PlayerStats.mula += 4;
-                    if (mySize == EnemySize.Medium)
-                        PlayerStats.mula += 2;
-                    if (mySize == EnemySize.Small)
-                        PlayerStats.mula += 1;
-
-                    Destroy();
-                }
             }
             else
             {
@@ -609,7 +602,7 @@ namespace ProjectGreco.GameObjects
                         myArrow.DestroyThis = true;
                     if (currentHealth <= 0)
                     {
-                        destroy = true;
+                        destroyThis = true;
                     }
                 }
             }
@@ -619,7 +612,7 @@ namespace ProjectGreco.GameObjects
                 currentHealth--;
                 if (currentHealth <= 0)
                 {
-                    destroy = true;
+                    destroyThis = true;
                 }
             }
 

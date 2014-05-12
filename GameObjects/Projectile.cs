@@ -44,7 +44,7 @@ namespace ProjectGreco.GameObjects
             base.Update();
             if (onScreen == false)
             {
-                Destroy();
+                destroyThis = true;
             }
         }
 
