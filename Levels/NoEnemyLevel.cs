@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
+using ProjectGreco.GameObjects.Buttons;
 
 
 namespace ProjectGreco.Levels
@@ -53,18 +54,22 @@ namespace ProjectGreco.Levels
         /// </summary>
         /// <param name="levelType">The LevelType you want to create</param>
         /// <param name="renderBackground">Bool that determines whether or not we create background blocks</param>
-        public NoEnemyLevel(LevelName levelType, bool renderBackground = true)
+        public NoEnemyLevel()
             : base()
         {
             myRandom = new Random();
 
-            this.renderBackground = renderBackground;
+            levelType = (LevelName)myRandom.Next(1, 5);
+            this.renderBackground = true;
             this.levelType = levelType;
             currLevel = levelType;
 
             ChooseTextures();
             CreateMap();
             SetupLevel();
+
+            AddObjectToHandler("StartButton", new StartButton());
+            AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
         }
 
         /// <summary>

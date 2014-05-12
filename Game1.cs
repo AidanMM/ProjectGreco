@@ -288,7 +288,7 @@ namespace ProjectGreco
 
 
             //OBJECT_HANDLER.ChangeState(new Level(LevelName.Desert, RENDER_BACKGROUNDS));
-            OBJECT_HANDLER.ChangeState(new TitleSreen());
+            OBJECT_HANDLER.ChangeState(new NoEnemyLevel());
 
             
 

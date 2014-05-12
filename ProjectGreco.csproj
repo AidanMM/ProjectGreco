@@ -75,7 +75,6 @@
     <Compile Include="Levels\Map.cs" />
     <Compile Include="Levels\NoEnemyLevel.cs" />
     <Compile Include="Levels\Spawner.cs" />
-    <Compile Include="Levels\TitleSreen.cs" />
     <Compile Include="ObjectHandler.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="Program.cs" />
