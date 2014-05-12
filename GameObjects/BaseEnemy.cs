@@ -140,6 +140,7 @@ namespace ProjectGreco.GameObjects
             this.ai = ai;
             this.myPlayer = myPlayer;
             this.mySize = size;
+            this.animating = true;
 
             this.projectiles = new List<int>();
 
@@ -157,6 +158,7 @@ namespace ProjectGreco.GameObjects
                 maxHealth = 1;
                 currentHealth = 1;
                 baseSpeed = 2.0f;
+                chaseDistance = 6 * 64;
             }
 
             if (mySize == EnemySize.Medium)
@@ -164,6 +166,7 @@ namespace ProjectGreco.GameObjects
                 maxHealth = 3;
                 currentHealth = 3;
                 baseSpeed = 1.0f;
+                chaseDistance = 8 * 64;
             }
 
             if (mySize == EnemySize.Large)
@@ -171,6 +174,7 @@ namespace ProjectGreco.GameObjects
                 maxHealth = 10;
                 currentHealth = 10;
                 baseSpeed = 0.5f;
+                chaseDistance = 10 * 64;
             }
 
         }
@@ -180,6 +184,11 @@ namespace ProjectGreco.GameObjects
         /// </summary>
         public override void Update()
         {
+            if (myPlayer.Position.X > position.X)
+                hFlip = false;
+
+            if (myPlayer.Position.X < position.X)
+                hFlip = true;
 
             if (exiled == false && held == false)
             {
@@ -563,6 +572,64 @@ namespace ProjectGreco.GameObjects
                         drawRec.Height)
                         , null, Color.Black, (float)(rotation * Math.PI / 180),
                         new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
+                }
+            }
+
+            else if (ai == EnemyType.Flying)
+            {
+                if (!hFlip)
+                {
+                    if (held == false)
+                    {
+                        spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                            new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                            new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                            Color.White,
+                            angle,
+                            new Vector2(Width / 2, Height / 2),
+                            scale,
+                            SpriteEffects.None,
+                            1);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                            new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                            new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                            Color.Black,
+                            angle,
+                            new Vector2(Width / 2, Height / 2),
+                            scale,
+                            SpriteEffects.None,
+                            1);
+                    }
+                }
+                else
+                {
+                    if (held == false)
+                    {
+                        spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                            new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                            new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                            Color.White,
+                            angle,
+                            new Vector2(Width / 2, Height / 2),
+                            scale,
+                            SpriteEffects.FlipHorizontally,
+                            1);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                            new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                            new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                            Color.Black,
+                            angle,
+                            new Vector2(Width / 2, Height / 2),
+                            scale,
+                            SpriteEffects.FlipHorizontally,
+                            1);
+                    }   
                 }
             }
                 
