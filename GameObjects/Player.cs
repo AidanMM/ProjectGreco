@@ -732,23 +732,24 @@ namespace ProjectGreco.GameObjects
                 }
             }
 
-            if (determineEvent.ObjectType == "enemy" && flashCounter == 0)
-            {
-                flashCounter = 60;
-                BaseEnemy myEnemy = (determineEvent as BaseEnemy);
-                health--;
-                
-                if (health == 0)
-                {
-                    destroyThis = true;
-                }
-                
-            }
+            
 
             //Do the collision code for checking against enemies here. We don't have any yet, but do it inside of the ghosting check
             if (ghosting == false)
             {
+                if (determineEvent.ObjectType == "enemy" && flashCounter == 0)
+                {
+                    flashCounter = 60;
+                    BaseEnemy myEnemy = (determineEvent as BaseEnemy);
+                    health--;
 
+                    if (health == 0)
+                    {
+                        health = 3;
+                        new ChaoticReset(this);
+                    }
+
+                }
             }
 
             

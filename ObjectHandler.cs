@@ -247,7 +247,16 @@ namespace ProjectGreco
         {
             
             currentState = level;
-            objectDictionary = currentState.LevelObjectDictionary;
+            try
+            {
+                objectDictionary = currentState.LevelObjectDictionary;
+            }
+            catch
+            {
+                level = new Level(currentState.LevelType, (level as Level).MyPlayer, true);
+                currentState = level;
+                objectDictionary = currentState.LevelObjectDictionary;
+            }
 			onScreenList = new List<string>();
             collisionList = currentState.collisionList;
             Game1.CAMERA_DISPLACEMENT = new Vector2(0, 0);

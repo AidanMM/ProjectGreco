@@ -23,7 +23,7 @@ namespace ProjectGreco.Events
 
         public override bool Update()
         {
-            if (Game1.OBJECT_HANDLER.objectDictionary["Player"].Position.X > 600 && Game1.OBJECT_HANDLER.currentState.LevelType == LevelName.Home)
+            if (Game1.OBJECT_HANDLER.currentState.LevelType == LevelName.Home && Game1.OBJECT_HANDLER.objectDictionary["Player"].Position.X > 600)
             {
                 return true;
             }
