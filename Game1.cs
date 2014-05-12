@@ -225,14 +225,14 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("moonFiller", A_CreateAnimation("moonFiller"));
             ANIMATION_DICTIONARY.Add("tempGround", A_CreateAnimation("TempGround"));
             ANIMATION_DICTIONARY.Add("Onion", A_CreateAnimation("Entities\\Onion"));
-            ANIMATION_DICTIONARY.Add("FlyingEnemy", A_CreateAnimation("Entities\\FlyingEnemy"));
             ANIMATION_DICTIONARY.Add("GhostEnemy", A_CreateAnimation("Entities\\GhostEnemy"));
             ANIMATION_DICTIONARY.Add("GhostEnemyLarge", A_CreateAnimation("Entities\\GhostEnemyLarge"));
             ANIMATION_DICTIONARY.Add("GhostEnemySmall", A_CreateAnimation("Entities\\GhostEnemySmall"));
             ANIMATION_DICTIONARY.Add("GroundEnemyLarge", A_CreateAnimation("Entities\\GroundEnemyLarge"));
             ANIMATION_DICTIONARY.Add("GroundEnemySmall", A_CreateAnimation("Entities\\GroundEnemySmall"));
-            ANIMATION_DICTIONARY.Add("FlyingEnemyLarge", A_CreateAnimation("Entities\\FlyingEnemyLarge"));
-            ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemyLarge", A_CreateAnimation("Entities\\FlyingEnemyLarge", "Entities\\FlyingEnemyLargeFlap1", "Entities\\FlyingEnemyLargeFlap2", "Entities\\FlyingEnemyLargeFlap3"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemy", A_CreateAnimation("Entities\\FlyingEnemy", "Entities\\FlyingEnemyFlap1", "Entities\\FlyingEnemyFlap2", "Entities\\FlyingEnemyFlap3"));
+            ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall", "Entities\\FlyingEnemySmallFlap1", "Entities\\FlyingEnemySmallFlap2", "Entities\\FlyingEnemySmallFlap3"));
             ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
 
             // Boss Animations
