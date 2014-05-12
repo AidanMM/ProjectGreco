@@ -51,14 +51,9 @@ namespace ProjectGreco.Levels
 
             
 
-            BossWeapon leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(2500, 0));
-            BossWeapon rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(3350, 0));
-
-            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossMain"]), new Vector2(2800, -100), leftHand, rightHand);
+            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossMain"]), new Vector2(2800, -100), this);
 
             AddObjectToHandler("Boss", myBoss);
-            AddObjectToHandler("LeftHand", leftHand);
-            AddObjectToHandler("RightHand", rightHand);
 
             //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)

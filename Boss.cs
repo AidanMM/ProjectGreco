@@ -102,10 +102,25 @@ namespace ProjectGreco
             set { rightHand = value; }
         }
 
+        public int rotation = 0;
+
         /// <summary>
         /// Stores projectiles that have already hit the boss to prevent multiple hits from one arrow.
         /// </summary>
         private List<int> projectiles = new List<int>();
+
+        /// <summary>
+        /// The level the boss exists in.  Used for spawning.
+        /// </summary>
+        private BaseState level;
+
+        /// <summary>
+        /// The level the boss exists in.  Used for spawning.
+        /// </summary>
+        public BaseState Level
+        {
+            get { return level; }
+        }
 
         //
         // Constructor
@@ -114,13 +129,32 @@ namespace ProjectGreco
         /// <summary>
         /// Creates a boss and it's two minion arms.
         /// </summary>
-        public Boss(List<List<Texture2D>> animationList, Vector2 pos, BossWeapon leftHand, BossWeapon rightHand)
+        public Boss(List<List<Texture2D>> animationList, Vector2 pos, BaseState level)
             : base(animationList, pos, "Boss")
         {
-            this.leftHand = leftHand;
-            this.rightHand = rightHand;
+            this.leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(2500, 0));
+            this.rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(3350, 0));
+            this.level = level;
+
+            level.AddObjectToHandler("LeftHand", leftHand);
+            level.AddObjectToHandler("RightHand", rightHand);
+            checkForCollisions = true;
 
             zOrder = -10;
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle drawRec = new Rectangle(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
+                collisionBox.Y - (int)Game1.CAMERA_DISPLACEMENT.Y, collisionBox.Width, collisionBox.Height);
+
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle(
+                    drawRec.X + collisionBox.Width / 2,
+                    drawRec.Y + collisionBox.Height / 2,
+                    drawRec.Width,
+                    drawRec.Height)
+                    , null, Color.White, (float)(rotation * Math.PI / 180),
+                    new Vector2(collisionBox.Width / 2, collisionBox.Height / 2), SpriteEffects.None, 0.0f);
         }
 
         public override void Update()
@@ -140,6 +174,11 @@ namespace ProjectGreco
             }
 
             OnScreenCheck();
+
+            rotation += 1;
+            rotation = rotation % 360;
+
+            // Enemy spawning
 
             if (destroyThis)
             {
