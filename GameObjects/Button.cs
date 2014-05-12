@@ -16,7 +16,7 @@ namespace ProjectGreco.GameObjects
     {
         int buttonState;    // controls button state: 0- base 1- over 2- down
         List<List<Texture2D>> buttonList;
-        private bool clickable;
+        protected bool clickable;
         private string buttonText;
 
         public Button(Vector2 startPos, List<List<Texture2D>> aList, string bTxt, bool click)
@@ -41,14 +41,7 @@ namespace ProjectGreco.GameObjects
         public override void Draw(SpriteBatch spriteBatch)
         {
 			base.Draw(spriteBatch);
-			//if (clickable == true)
-			//{
-			//	spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
-			//}
-			//else if (clickable == false)
-			//{
-			//	spriteBatch.Draw(animationList[0][frameIndex], new Rectangle((int)position.X, (int)position.Y, 128, 64), Color.White);
-			//}
+			
         }
         
         /// <summary>
@@ -76,8 +69,9 @@ namespace ProjectGreco.GameObjects
                         A_GoToFrameIndex(0);
                     }
                 }
-                
+
             }
+            
 			
         }
 

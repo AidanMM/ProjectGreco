@@ -270,6 +270,17 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("Overlay", A_CreateAnimation("DarkOverlay"));
 
+            string[] portal = new string[60];
+
+            for (int i = 0; i < portal.Length; i++)
+            {
+                if(i > 9)
+                    portal[i] = "Portal\\portal" + i;
+                else
+                    portal[i] = "Portal\\portal0" + i;
+            }
+            ANIMATION_DICTIONARY.Add("Portal", A_CreateAnimation(portal));
+
             #region Frappy(Just Ignore this)
             ANIMATION_DICTIONARY.Add("Frappy", A_CreateAnimation("Frappy"));
             ANIMATION_DICTIONARY.Add("Pipe", A_CreateAnimation("Pipe"));

@@ -59,7 +59,7 @@ namespace ProjectGreco.Levels
         {
             myRandom = new Random();
 
-            levelType = (LevelName)myRandom.Next(1, 5);
+            levelType = (LevelName)myRandom.Next(1, 4);
             this.renderBackground = true;
             this.levelType = levelType;
             currLevel = levelType;
@@ -70,6 +70,8 @@ namespace ProjectGreco.Levels
 
             AddObjectToHandler("StartButton", new StartButton());
             AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
+            AddObjectToHandler("WanderingCam", new WanderingCam(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64)));
+            
         }
 
         /// <summary>

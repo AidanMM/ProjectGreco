@@ -39,17 +39,15 @@ namespace ProjectGreco.Levels
             LevelObjectDictionary["Grass"].FramesPerSecond = 2;
             LevelObjectDictionary["Grass"].A_BeginAnimation();
             LevelObjectDictionary["Grass"].ZOrder = 3;
-            AddObjectToHandler("Button", new Button(new Vector2(200, 200), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "clickable test", true));
-            AddObjectToHandler("NoButton", new Button(new Vector2(200, 300), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "unclickable test", false));
             // Don't spawn the portal if the level is complete.
 
-            AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(1500, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalHills", new LevelPortal(new Vector2(1500, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.hill, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(1700, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalIce", new LevelPortal(new Vector2(1700, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.snow, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1900, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalDesert", new LevelPortal(new Vector2(1900, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.desert, (LevelObjectDictionary["Player"] as Player)));
 
-            AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 400), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
+            AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
             
 

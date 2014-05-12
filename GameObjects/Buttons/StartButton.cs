@@ -14,15 +14,75 @@ namespace ProjectGreco.GameObjects.Buttons
 {
     class StartButton : Button
     {
+        bool cursorCollision = false;
+
+
         public StartButton()
             : base (new Vector2(50,50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "Start", true)
-        {            
+        {
+            position = new Vector2(500, 500);
+        }
+
+        
+
+        public override void Update()
+        {
+            base.Update();
+            position = Game1.OBJECT_HANDLER.objectDictionary["WanderingCam"].Position;
+
+            if (cursorCollision == false)
+            {
+                A_GoToFrameIndex(0);
+            }
+
+            cursorCollision = false;
         }
 
         public override void DoThisOnClick()
         {
             // start game
             Game1.OBJECT_HANDLER.ChangeState(new HomeWorld());
+
+           
+
+
         }
+
+        public override void C_OnCollision(GameObject determineEvent)
+        {
+            if (determineEvent.ObjectType == "Cursor")
+            {
+                cursorCollision = true;
+                if (clickable == true)
+                {
+                    if ((determineEvent as Cursor).MouseClicked == false)
+                    {
+                        A_GoToFrameIndex(1);
+                    }
+                    else if ((determineEvent as Cursor).MouseClicked == true)
+                    {
+                        A_GoToFrameIndex(2);
+                        DoThisOnClick();
+                    }
+                    else
+                    {
+                        A_GoToFrameIndex(0);
+                    }
+                }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+
+            spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["Overlay"][0], new Vector2(collisionBox.X - 1280 / 2 - (int)Game1.CAMERA_DISPLACEMENT.X ,
+                collisionBox.Y - 720 / 2 - (int)Game1.CAMERA_DISPLACEMENT.Y), Color.White);
+
+            base.Draw(spriteBatch);
+
+            
+        }
+
+        
     }
 }

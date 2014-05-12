@@ -48,6 +48,19 @@ namespace ProjectGreco.GameObjects
             zOrder = -5;
 			levelToSend = goLevel;
 			playerToSend = toPass;
+            A_BeginAnimation();
+            framesPerSecond = 30;
+            A_GoToFrameIndex(Game1.RANDOM.Next(0, 60));
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (closed == false)
+            {
+                base.Draw(spriteBatch);
+            }
+            else
+                base.Draw(spriteBatch, Color.Gray);
         }
 
 		public override void Update()

@@ -458,6 +458,34 @@ namespace ProjectGreco
             }
         }
 
+        public virtual void Draw(SpriteBatch spriteBatch, bool staticPos)
+        {
+            if (hFlip == false && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X , collisionBox.Y ),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.None,
+                    1);
+            }
+            else if (hFlip == true && Math.Floor((double)flashCounter / (double)7) % 2 == 0)
+            {
+                spriteBatch.Draw(animationList[animationListIndex][frameIndex],
+                    new Vector2(collisionBox.X , collisionBox.Y ),
+                    new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
+                    Color.White,
+                    angle,
+                    new Vector2(Width / 2, Height / 2),
+                    scale,
+                    SpriteEffects.FlipHorizontally,
+                    1);
+            }
+        }
+
         /// <summary>
         /// Start the animating process
         /// </summary>
