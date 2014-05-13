@@ -272,6 +272,8 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("Overlay", A_CreateAnimation("DarkOverlay"));
 
+            ANIMATION_DICTIONARY.Add("Cursor", A_CreateAnimation("cursor"));
+
             string[] portal = new string[60];
 
             for (int i = 0; i < portal.Length; i++)
