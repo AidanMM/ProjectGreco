@@ -36,7 +36,6 @@ namespace ProjectGreco.Levels
             AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
             AddObjectToHandler("Ground", new GameObject(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["homeWorld"]), new Vector2(0, 500), "EdgeTile"));
             AddObjectToHandler("Grass", new GameObject(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Grass"]), new Vector2(0, 485), "Grass"));
-            AddObjectToHandler("LeftWall", new GameObject(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["edgeWall"]), new Vector2(-96, -1000), "EdgeTile"));
             LevelObjectDictionary["Grass"].FramesPerSecond = 2;
             LevelObjectDictionary["Grass"].A_BeginAnimation();
             LevelObjectDictionary["Grass"].ZOrder = 3;
@@ -52,7 +51,7 @@ namespace ProjectGreco.Levels
 
             
 
-            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(3100, 200), this);
+            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossMain"]), new Vector2(2800, -100), this);
 
             AddObjectToHandler("Boss", myBoss);
 
