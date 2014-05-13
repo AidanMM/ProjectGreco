@@ -189,7 +189,7 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("defaultEdge", Content.Load<Texture2D>("defaultEdge"));
             IMAGE_DICTIONARY.Add("dirtEdge", Content.Load<Texture2D>("dirtEdge"));
             IMAGE_DICTIONARY.Add("caveEdge", Content.Load<Texture2D>("caveEdge"));
-            IMAGE_DICTIONARY.Add("cursor", Content.Load<Texture2D>("cursor"));
+            IMAGE_DICTIONARY.Add("cursor", Content.Load<Texture2D>("newcursor"));
             IMAGE_DICTIONARY.Add("castleblock", Content.Load<Texture2D>("castleblock"));
             IMAGE_DICTIONARY.Add("caveDirtBlock", Content.Load<Texture2D>("caveDirtBlock"));
             IMAGE_DICTIONARY.Add("caveWall", Content.Load<Texture2D>("caveWall"));

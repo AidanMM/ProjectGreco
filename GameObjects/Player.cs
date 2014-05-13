@@ -823,7 +823,10 @@ namespace ProjectGreco.GameObjects
                     if (health == 0)
                     {
                         health = 3;
-                        new ChaoticReset(this);
+                        if (Game1.OBJECT_HANDLER.currentState.LevelType != LevelName.Home)
+                        {
+                            (Game1.OBJECT_HANDLER.currentState as Level).PositionPlayer();
+                        }
                     }
 
                 }
