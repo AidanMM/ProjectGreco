@@ -517,8 +517,8 @@ namespace ProjectGreco.GameObjects
             if (Game1.mouseState.LeftButton == ButtonState.Pressed && Game1.prevMouseState.LeftButton == ButtonState.Released && (applyGravity == false || airRanged == true))
             {
                 Vector2 toMouse = new Vector2(
-                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X + Width / 2,
-                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y + Height / 2);
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.X - this.position.X ,
+                    Game1.OBJECT_HANDLER.objectDictionary["Cursor"].Position.Y - this.position.Y );
                 Vector2 dir = toMouse;
                 
                 dir.Normalize();
