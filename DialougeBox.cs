@@ -247,6 +247,7 @@ namespace ProjectGreco
         public void HideTextBox()
         {
             showText = false;
+            scaleUpBox = true;
             Game1.pauseObjectUpdate = false;
             
 

@@ -54,7 +54,7 @@ namespace ProjectGreco.GameObjects
             {
                 angle += .12f;
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
-                    new Vector2(player.Position.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, player.Position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Vector2(player.Position.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2 - 10, player.Position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2 + Height / 4),
                     new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
                     Color.White,
                     angle,
@@ -67,7 +67,7 @@ namespace ProjectGreco.GameObjects
             {
                 angle -= .12f;
                 spriteBatch.Draw(animationList[animationListIndex][frameIndex],
-                    new Vector2(player.Position.X - (int)Game1.CAMERA_DISPLACEMENT.X + Width / 2, player.Position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2),
+                    new Vector2(player.Position.X - (int)Game1.CAMERA_DISPLACEMENT.X , player.Position.Y - (int)Game1.CAMERA_DISPLACEMENT.Y + Height / 2 + Height / 4),
                     new Rectangle(0, 0, collisionBox.Width, collisionBox.Height),
                     Color.White,
                     angle,

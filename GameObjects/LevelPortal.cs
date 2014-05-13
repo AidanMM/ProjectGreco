@@ -75,6 +75,23 @@ namespace ProjectGreco.GameObjects
                 {
                     (levelToSend as Level).PositionPlayer();
                     MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);
+
+                    if (levelToSend.LevelType == LevelName.Forest)
+                    {
+                        PlayerStats.forestComplete = true;
+                    }
+                    if (levelToSend.LevelType == LevelName.Hills)
+                    {
+                        PlayerStats.hillComplete = true;
+                    }
+                    if (levelToSend.LevelType == LevelName.Desert)
+                    {
+                        PlayerStats.desertComplete = true;
+                    }
+                    if (levelToSend.LevelType == LevelName.Ice)
+                    {
+                        PlayerStats.snowComplete = true;
+                    }
                 }
                 //Check to see if the level being sent to is the homeworld stage
                 if (levelToSend is HomeWorld)

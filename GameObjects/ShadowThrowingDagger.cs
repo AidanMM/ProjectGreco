@@ -71,6 +71,7 @@ namespace ProjectGreco.GameObjects
                     playerToHold.Position = new Vector2(determineEvent.Position.X - playerToHold.Width - 10, determineEvent.Position.Y);
                 }
                 destroyThis = true;
+                new Ghost(playerToHold);
             }
         }
 

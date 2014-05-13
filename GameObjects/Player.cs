@@ -60,6 +60,8 @@ namespace ProjectGreco.GameObjects
         public int lostStaminaTimer = 0;
         public int lostStamina = 24;
 
+        protected int swordTimer = 0;
+
         
 
         /// <summary>
@@ -534,6 +536,10 @@ namespace ProjectGreco.GameObjects
                 }
                 else
                     arrowVel = new Vector2(dir.X * toMouse.Length() / 200, dir.Y * toMouse.Length() / 200);
+
+
+                
+                arrowVel = new Vector2(arrowVel.X + velocity.X, arrowVel.Y);
                 
                 
                 if (toMouse.X > 0) 
@@ -550,11 +556,13 @@ namespace ProjectGreco.GameObjects
             #endregion
 
             #region Sword
-            if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released && (applyGravity != true || airMelee == true))
+            if (Game1.mouseState.RightButton == ButtonState.Pressed && Game1.prevMouseState.RightButton == ButtonState.Released && (applyGravity != true || airMelee == true) && swordTimer >= 25)
             {
                 new Sword(this);
                 EndGhost();
+                swordTimer = 0;
             }
+            swordTimer++;
             #endregion
 
             #region Other Events
@@ -608,6 +616,18 @@ namespace ProjectGreco.GameObjects
                     ghostTimer = 0;
                     ghosting = false;
                 }
+            }
+            if (position.X < 0)
+            {
+                position.X = 0;
+            }
+            if (Game1.OBJECT_HANDLER.currentState.LevelType == LevelName.Home && position.X > 3950)
+            {
+                position.X = 3950;
+            }
+            else if (position.X > LevelVariables.WIDTH * 64 - 50)
+            {
+                position.X = LevelVariables.WIDTH * 64 - 50;
             }
             
 
@@ -808,6 +828,8 @@ namespace ProjectGreco.GameObjects
 
                 }
             }
+
+            
 
             
         }

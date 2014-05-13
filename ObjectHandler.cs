@@ -182,7 +182,14 @@ namespace ProjectGreco
                 }
                 if (collideCall == false)
                 {
-                    objectDictionary[collisionCheckList[x]].C_NoCollisions();
+                    try
+                    {
+                        objectDictionary[collisionCheckList[x]].C_NoCollisions();
+                    }
+                    catch
+                    {
+                        Console.WriteLine(collisionCheckList[x]);
+                    }
                 }
             }
         }
