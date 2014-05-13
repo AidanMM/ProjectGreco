@@ -38,6 +38,7 @@
     <Compile Include="CommandInput.cs" />
     <Compile Include="DialougeBox.cs" />
     <Compile Include="Event.cs" />
+    <Compile Include="Events\PortalEvent.cs" />
     <Compile Include="Events\SkillTreeEvent.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObject.cs" />

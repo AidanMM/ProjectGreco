@@ -83,6 +83,8 @@ namespace ProjectGreco
 
             eventList = new List<Event>();
             eventList.Add(new SkillTreeEvent(3));
+            eventList.Add(new PortalEvent());
+
             scale = new Vector2(0, 0);
         }
 

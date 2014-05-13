@@ -1,5 +1,5 @@
 ﻿@1This is our first test of loading in font so that we can easily tell the dialouge box what, where and when it should load things in! I think it is a pretty cool feature, but hey, if you don't agree then maybe you simply just shouldn't play again.  You know what, screw it, I do not want to play, I just don't! Oh well, whatever, I don't need you, stop playing the game!
 @2Oh, so you are back, just back back back.  Did you decide that you want to play?  Well that was a bad choice, beacause, like, this game does not want you to play anymore, like at all. Just stop. Please. Do. Not. Play
 @3Anyway, this is a level! You can jump around and stuff. It is pretty fun.
-@4This is the skill Tree! How cool!
-@5Seriously though, HOW FREAKING COOL IS THIS! LIKE, CAN YOU EVEN HANDLE THIS RIGHT NOW!?!?!?!?! I CAN'T. REALLY, I CAN'T!!!!!! <(0_0<)
+@4This is the skill Tree. You have a total of 8 skill points to use to choose your skills from.  Some of the skills are activated, some of the skills are passive.  When you have an activated skill, press the space button to use it!  Some skills require a target, to target an enemy, hover your mouse over them and then click space.  To cycle through activated skills, use the Q & E buttons.  
+@5Portal dialouge
