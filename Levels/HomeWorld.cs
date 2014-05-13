@@ -49,9 +49,7 @@ namespace ProjectGreco.Levels
 
             AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
-            
-
-            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(2800, -100), this);
+            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(3050, 200), this);
 
             AddObjectToHandler("Boss", myBoss);
 

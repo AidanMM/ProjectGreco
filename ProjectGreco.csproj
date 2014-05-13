@@ -162,6 +162,9 @@
     <Content Include="Content\dirtEdge.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Entities\BossCenter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Entities\BossLeftHand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

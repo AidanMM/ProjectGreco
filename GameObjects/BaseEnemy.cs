@@ -141,6 +141,7 @@ namespace ProjectGreco.GameObjects
             this.myPlayer = myPlayer;
             this.mySize = size;
             this.animating = true;
+            this.looping = true;
 
             this.projectiles = new List<int>();
 
