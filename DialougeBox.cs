@@ -94,8 +94,30 @@ namespace ProjectGreco
             {
                 if (scaleUpBox == false)
                 {
-
-                    if (waitForInput == false)
+                    if ((Game1.KBState.IsKeyDown(Keys.Space) || Game1.KBState.IsKeyDown(Keys.Enter)) && waitForInput == false)
+                    {
+                        while (!waitForInput)
+                        {
+                            displayText += dialougeText[dialougeTextIndex];
+                            charsPerLine++;
+                            dialougeTextIndex++;
+                            if (dialougeTextIndex >= dialougeText.Length)
+                            {
+                                waitForInput = true;
+                            }
+                            if (charsPerLine > charLimit)
+                            {
+                                displayText += "\n";
+                                charsPerLine = 0;
+                                curLines++;
+                                if (curLines == lineLimit)
+                                {
+                                    waitForInput = true;
+                                }
+                            }
+                        }
+                    }
+                    else if (waitForInput == false)
                     {
                         displayText += dialougeText[dialougeTextIndex];
                         charsPerLine++;
@@ -115,7 +137,7 @@ namespace ProjectGreco
                             }
                         }
                     }
-                    else if (Game1.KBState.IsKeyDown(Keys.Space) || Game1.KBState.IsKeyDown(Keys.Enter))
+                    else if ((Game1.KBState.IsKeyDown(Keys.Space) || Game1.KBState.IsKeyDown(Keys.Enter)) && (!Game1.oldKBstate.IsKeyDown(Keys.Space) && !Game1.oldKBstate.IsKeyDown(Keys.Enter)))
                     {
                         if (dialougeTextIndex >= dialougeText.Length)
                         {

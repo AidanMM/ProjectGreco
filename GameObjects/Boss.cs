@@ -122,6 +122,9 @@ namespace ProjectGreco
             get { return level; }
         }
 
+        private Random rand = new Random();
+        private Player myPlayer;
+
         //
         // Constructor
         //
@@ -129,12 +132,13 @@ namespace ProjectGreco
         /// <summary>
         /// Creates a boss and it's two minion arms.
         /// </summary>
-        public Boss(List<List<Texture2D>> animationList, Vector2 pos, BaseState level)
+        public Boss(List<List<Texture2D>> animationList, Vector2 pos, BaseState level, Player myPlayer)
             : base(animationList, pos, "Boss")
         {
             this.leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(2500, 0));
             this.rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(3350, 0));
             this.level = level;
+            this.myPlayer = myPlayer;
 
             level.AddObjectToHandler("LeftHand", leftHand);
             level.AddObjectToHandler("RightHand", rightHand);
@@ -173,11 +177,89 @@ namespace ProjectGreco
 
             }
 
+            rotation += 1;
+            rotation = rotation % 360;
+
             //OnScreenCheck();
             onScreen = true;
             
 
             // Enemy spawning
+
+            if (rotation == 0)
+            {
+                EnemyType myType = (EnemyType)rand.Next(0, 3);
+                EnemySize mySize = (EnemySize)rand.Next(0, 3);
+
+                int numberToSpawn = 0;
+                string myTexture = "";
+
+                // Choose a texture and a number of enemies to spawn.
+                #region TextureChoosing
+                switch (myType)
+                {
+                    case EnemyType.Flying:
+                        if (mySize == EnemySize.Large)
+                        {
+                            myTexture = "FlyingEnemyLarge";
+                            numberToSpawn = 1;
+                        }
+                        if (mySize == EnemySize.Medium)
+                        {
+                            myTexture = "FlyingEnemy";
+                            numberToSpawn = 2;
+                        }
+                        if (mySize == EnemySize.Small)
+                        {
+                            myTexture = "FlyingEnemySmall";
+                            numberToSpawn = 5;
+                        }
+                        break;
+                    case EnemyType.Ghost:
+                        if (mySize == EnemySize.Large)
+                        {
+                            myTexture = "GhostEnemyLarge";
+                            numberToSpawn = 1;
+                        }
+                        if (mySize == EnemySize.Medium)
+                        {
+                            myTexture = "GhostEnemy";
+                            numberToSpawn = 2;
+                        }
+                        if (mySize == EnemySize.Small)
+                        {
+                            myTexture = "GhostEnemySmall";
+                            numberToSpawn = 5;
+                        }
+                        break;
+                    case EnemyType.Ground:
+                        if (mySize == EnemySize.Large)
+                        {
+                            myTexture = "GroundEnemyLarge";
+                            numberToSpawn = 1;
+                        }
+                        if (mySize == EnemySize.Medium)
+                        {
+                            myTexture = "Onion";
+                            numberToSpawn = 2;
+                        }
+                        if (mySize == EnemySize.Small)
+                        {
+                            myTexture = "GroundEnemySmall";
+                            numberToSpawn = 5;
+                        }
+                        break;
+                }
+                #endregion
+
+                for (int i = 0; i < numberToSpawn; i++ )
+                {
+                    BaseEnemy myEnemy = new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[myTexture]), new Vector2(position.X + rand.Next(-64,65), position.Y + rand.Next(-64,65)), myType, rand, myPlayer, mySize);
+                    myEnemy.chaseDistance = 14 * 64;
+                    level.AddObjectToHandler("Enemy", myEnemy);
+                }
+
+            }
 
             if (destroyThis)
             {
