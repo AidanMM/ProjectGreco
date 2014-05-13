@@ -260,6 +260,7 @@ namespace ProjectGreco
             }
             catch
             {
+                
                 level = new Level(currentState.LevelType, (level as Level).MyPlayer, true);
                 currentState = level;
                 objectDictionary = currentState.LevelObjectDictionary;

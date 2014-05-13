@@ -66,45 +66,52 @@ namespace ProjectGreco.GameObjects
 		public override void Update()
 		{
 			base.Update();
-
-			if (changeState == true && closed == false)
-			{
-                
-				//Check to see if the level being sent to is an platforming stage
-                if (levelToSend is Level)
+            if (levelToSend != null)
+            {
+                if (changeState == true && closed == false)
                 {
-                    (levelToSend as Level).PositionPlayer();
-                    MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);
 
-                    if (levelToSend.LevelType == LevelName.Forest)
+                    //Check to see if the level being sent to is an platforming stage
+
+                    if (levelToSend is Level)
                     {
-                        PlayerStats.forestComplete = true;
+                        (levelToSend as Level).PositionPlayer();
+                        MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);
+
+                        if (levelToSend.LevelType == LevelName.Forest)
+                        {
+                            PlayerStats.forestComplete = true;
+                        }
+                        if (levelToSend.LevelType == LevelName.Hills)
+                        {
+                            PlayerStats.hillComplete = true;
+                        }
+                        if (levelToSend.LevelType == LevelName.Desert)
+                        {
+                            PlayerStats.desertComplete = true;
+                        }
+                        if (levelToSend.LevelType == LevelName.Ice)
+                        {
+                            PlayerStats.snowComplete = true;
+                        }
                     }
-                    if (levelToSend.LevelType == LevelName.Hills)
+                    //Check to see if the level being sent to is the homeworld stage
+                    if (levelToSend is HomeWorld)
                     {
-                        PlayerStats.hillComplete = true;
+                        Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 200);
+                        Game1.OBJECT_HANDLER.objectDictionary["Player"].Velocity = new Vector2(0, 0);
+                        MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);
+                        levelToSend = new HomeWorld(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player);
                     }
-                    if (levelToSend.LevelType == LevelName.Desert)
-                    {
-                        PlayerStats.desertComplete = true;
-                    }
-                    if (levelToSend.LevelType == LevelName.Ice)
-                    {
-                        PlayerStats.snowComplete = true;
-                    }
+
+                    Game1.OBJECT_HANDLER.ChangeState(levelToSend);
+                    MediaPlayer.Volume = .2f;
+
                 }
-                //Check to see if the level being sent to is the homeworld stage
-                if (levelToSend is HomeWorld)
-                {
-                    Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 200);
-                    Game1.OBJECT_HANDLER.objectDictionary["Player"].Velocity = new Vector2(0, 0);
-                    MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);
-                }
-                Game1.OBJECT_HANDLER.ChangeState(levelToSend);
-                MediaPlayer.Volume = .2f;
-                
-			}
-		}
+            }
+            else
+                closed = true;
+        }
 
 		public override void C_OnCollision(GameObject determineEvent)
 		{
