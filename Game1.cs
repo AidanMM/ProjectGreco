@@ -151,8 +151,6 @@ namespace ProjectGreco
                 graphics.GraphicsDevice.Viewport.Height, 0,    // bottom, top
                 0, 1);                                         // near, far plane
 
-            IsMouseVisible = true;
-
             debugMode = false;
 
             pauseObjectUpdate = false;
@@ -166,7 +164,8 @@ namespace ProjectGreco
             SOUND_LIBRARY = new Dictionary<string, SoundEffect>();
 
             DIALOUGE_BOX = new DialougeBox();
-            
+
+            //IsMouseVisible = false;   
 
             base.Initialize();
         }
@@ -277,7 +276,7 @@ namespace ProjectGreco
 
             ANIMATION_DICTIONARY.Add("Overlay", A_CreateAnimation("DarkOverlay"));
 
-            ANIMATION_DICTIONARY.Add("Cursor", A_CreateAnimation("cursor"));
+            ANIMATION_DICTIONARY.Add("Cursor", A_CreateAnimation("newcursor"));
 
             string[] portal = new string[60];
 

@@ -77,7 +77,7 @@ namespace ProjectGreco.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle((int)screenPosition.X, (int)screenPosition.Y, (int)Width, (int)Height), Color.White);
+            spriteBatch.Draw(animationList[animationListIndex][frameIndex], new Rectangle((int)screenPosition.X - 10, (int)screenPosition.Y - 10, (int)Width, (int)Height), Color.White);
         }
         /// <summary>
         /// Override of the base collisions to incorporate an action to happen when you collide with an object. This one will check to see if the cursor is interacting with a button
