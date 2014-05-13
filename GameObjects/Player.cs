@@ -239,6 +239,9 @@ namespace ProjectGreco.GameObjects
                 lostStamina = stamina;
             }
 
+            // Timer for mula
+            PlayerStats.timeInLevel++;
+
             OldPosition = new Vector2(position.X, position.Y);
 
             #region Animation
@@ -650,7 +653,7 @@ namespace ProjectGreco.GameObjects
             {
                 base.Draw(spriteBatch);
             }
-            else if(ghosting == true)
+            else if (ghosting == true)
             {
                 base.Draw(spriteBatch, Color.Black);
             }
@@ -683,8 +686,8 @@ namespace ProjectGreco.GameObjects
 
 
 
-            if(availableSkills.Count > 0)
-            spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 28), Color.White);
+            if (availableSkills.Count > 0)
+                spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 28), Color.White);
             if (activeSkillIndex >= availableSkills.Count)
             {
                 activeSkillIndex = availableSkills.Count - 1;
@@ -729,6 +732,17 @@ namespace ProjectGreco.GameObjects
             {
                 skillFrame = 8;
             }
+
+            double mulaModifier = 1 - (PlayerStats.timeInLevel / (double)7200);
+            if (mulaModifier < 0)
+            {
+                mulaModifier = 0;
+            }
+
+            mulaModifier = Math.Round(100 * mulaModifier);
+            
+            spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "Mula: " + PlayerStats.mula, new Vector2(66, 30), Color.Black);
+            spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "Portion of Mula Per Kill: " + mulaModifier + "%", new Vector2(66, 50), Color.Black);
         }
 
         /// <summary>

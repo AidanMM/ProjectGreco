@@ -98,12 +98,15 @@ namespace ProjectGreco.GameObjects
                     //Check to see if the level being sent to is the homeworld stage
                     if (levelToSend is HomeWorld)
                     {
+                        PlayerStats.timeInLevel = 7200;
                         Game1.OBJECT_HANDLER.objectDictionary["Player"].Position = new Vector2(0, 200);
                         Game1.OBJECT_HANDLER.objectDictionary["Player"].Velocity = new Vector2(0, 0);
                         MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);
                         levelToSend = new HomeWorld(Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player);
+                        (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).health = (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).maxHealth;
                     }
 
+                    PlayerStats.timeInLevel = 0;
                     Game1.OBJECT_HANDLER.ChangeState(levelToSend);
                     MediaPlayer.Volume = .2f;
 

@@ -220,15 +220,19 @@ namespace ProjectGreco.GameObjects
                 {
                     currentHealth--;
                 }
+                
+                double mulaModifier = 1 - (PlayerStats.timeInLevel / (double)7200);
+                if (mulaModifier < 0)
+                    mulaModifier = 0;
 
                 if (destroyThis == true)
                 {
                     if (mySize == EnemySize.Large)
-                        PlayerStats.mula += 4;
+                        PlayerStats.mula += (int)(400 * mulaModifier);
                     if (mySize == EnemySize.Medium)
-                        PlayerStats.mula += 2;
+                        PlayerStats.mula += (int)(200 * mulaModifier);
                     if (mySize == EnemySize.Small)
-                        PlayerStats.mula += 1;
+                        PlayerStats.mula += (int)(100 * mulaModifier);
 
                     Destroy();
                 }

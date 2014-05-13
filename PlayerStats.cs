@@ -15,7 +15,6 @@ namespace ProjectGreco
         public static bool forestComplete = false;
         public static bool snowComplete = false;
 
-
         public static bool firstTime = true;
 
         public static Level hill;
@@ -23,5 +22,6 @@ namespace ProjectGreco
         public static Level forest;
         public static Level snow;
 
+        public static int timeInLevel = 0;
     }
 }
