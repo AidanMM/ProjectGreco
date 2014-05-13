@@ -42,7 +42,7 @@ namespace ProjectGreco.GameObjects
         public bool canDash = false;
         public bool dashing = false;
         public int dashTimer = 0;
-        public int dashTimeLength = 10;
+        public int dashTimeLength = 11;
         public int jumpCounter = 0;
         public float strengthOfGravity = .3f;
         public float jumpHeight = 10.5f;
@@ -222,8 +222,6 @@ namespace ProjectGreco.GameObjects
             }
             #endregion
 
-            
-
             #region General Movement
             if (Game1.KBState.IsKeyDown(Keys.A))
             {
@@ -302,7 +300,23 @@ namespace ProjectGreco.GameObjects
 
             #region Dashing
             
-            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.A) && canDash == true)
+            if (dashing)
+            {
+                if (dashTimer >= dashTimeLength)
+                {
+                    velocity.X = 0;
+                    dashing = false;
+                    applyGravity = true;
+                    dashTimer = 0;
+                }
+                else
+                {
+                    dashTimer++;
+                    acceleration.Y = 0;
+                    applyGravity = false;
+                }
+            }
+            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.A))
             {
                 if (SkillDash)
                 {
@@ -310,7 +324,7 @@ namespace ProjectGreco.GameObjects
                 }
                 
             }
-            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.D) && canDash == true)
+            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.D))
             {
 
                 if (SkillDash)
@@ -319,31 +333,6 @@ namespace ProjectGreco.GameObjects
                 }
                 
             }
-            else if (dashing == true)
-            {
-                dashTimer = 0;
-                velocity.X = 0;
-                dashing = false;
-                canDash = false;
-                if (velocity.X > speedLimit)
-                    velocity.X = speedLimit;
-
-                if (velocity.X < -speedLimit)
-                    velocity.X = -speedLimit;
-            }
-            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
-            {
-                canDash = true;
-            }
-            if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
-            {
-                canDash = true;
-            }
-            
-            
-
-           
-
             #endregion
 
             #region Skills

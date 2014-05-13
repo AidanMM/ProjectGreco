@@ -14,7 +14,7 @@ using ProjectGreco.GameObjects;
 
 namespace ProjectGreco.Skills
 {
-    enum Direction
+    public enum Direction
     {
         Left,
         Right,
@@ -34,13 +34,6 @@ namespace ProjectGreco.Skills
                     myPlayer.Velocity = new Vector2(-myPlayer.dashVelocity, myPlayer.Velocity.Y);
                     myPlayer.Velocity = new Vector2(myPlayer.Velocity.X, 0);
                     myPlayer.Acceleration = new Vector2(0, myPlayer.Acceleration.Y);
-                    if (myPlayer.dashTimer > myPlayer.dashTimeLength)
-                    {
-                        myPlayer.dashTimer = 0;
-                        myPlayer.Velocity = new Vector2(0, myPlayer.Velocity.Y);
-                        myPlayer.canDash = false;
-
-                    }
                 }
             }
             else
@@ -52,13 +45,8 @@ namespace ProjectGreco.Skills
                     myPlayer.Velocity = new Vector2(myPlayer.dashVelocity, myPlayer.Velocity.Y);
                     myPlayer.Velocity = new Vector2(myPlayer.Velocity.X, 0);
                     myPlayer.Acceleration = new Vector2(0, myPlayer.Acceleration.Y);
-                    if (myPlayer.dashTimer > myPlayer.dashTimeLength)
-                    {
-                        myPlayer.dashTimer = 0;
-                        myPlayer.Velocity = new Vector2(0, myPlayer.Velocity.Y);
-                        myPlayer.canDash = false;
 
-                    }
+                    
                 }
             }
         }
