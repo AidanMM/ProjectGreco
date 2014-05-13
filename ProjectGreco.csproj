@@ -117,6 +117,9 @@
     <Content Include="Content\DialougeBox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\edgeWall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Entities\arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
