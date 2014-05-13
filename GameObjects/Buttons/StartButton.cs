@@ -18,9 +18,10 @@ namespace ProjectGreco.GameObjects.Buttons
 
 
         public StartButton()
-            : base (new Vector2(50,50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "Start", true)
+            : base (new Vector2(50,50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "        Start", true)
         {
             position = new Vector2(500, 500);
+            buttonText = "         Start!";
         }
 
         

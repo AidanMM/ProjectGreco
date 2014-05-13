@@ -21,6 +21,7 @@ namespace ProjectGreco.GameObjects.Buttons
         {
             skillTree = skTree;
             toAdd.AddObjectToHandler("Respec Button", this);
+            buttonText = "      Respec";
             zOrder = -5;
         }
 

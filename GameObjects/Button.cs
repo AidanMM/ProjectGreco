@@ -17,7 +17,11 @@ namespace ProjectGreco.GameObjects
         int buttonState;    // controls button state: 0- base 1- over 2- down
         List<List<Texture2D>> buttonList;
         protected bool clickable;
-        private string buttonText;
+
+        /// <summary>
+        /// The text to display on this button
+        /// </summary>
+        protected string buttonText;
 
         public Button(Vector2 startPos, List<List<Texture2D>> aList, string bTxt, bool click)
             : base(aList, startPos, "Button")
@@ -34,13 +38,15 @@ namespace ProjectGreco.GameObjects
 
         public override void Update()
         {
-            //UpdateCollisionBox();            
+            UpdateCollisionBox();            
             base.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
 			base.Draw(spriteBatch);
+            spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, buttonText, new Vector2(collisionBox.X - (int)Game1.CAMERA_DISPLACEMENT.X,
+                collisionBox.Y + Height / 2 - 13  - (int)Game1.CAMERA_DISPLACEMENT.Y), Color.White);
 			
         }
         
