@@ -173,10 +173,9 @@ namespace ProjectGreco
 
             }
 
-            OnScreenCheck();
-
-            rotation += 1;
-            rotation = rotation % 360;
+            //OnScreenCheck();
+            onScreen = true;
+            
 
             // Enemy spawning
 
