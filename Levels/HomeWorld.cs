@@ -75,8 +75,9 @@ namespace ProjectGreco.Levels
             skillTree = new SkillTree(new Vector2(800, 400), LevelObjectDictionary["Player"] as Player, this);
 
 
-            MediaPlayer.Volume = .5f;
-            MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
+            MediaPlayer.Volume = .2f;
+            MediaPlayer.IsRepeating = true;
+            //MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
             
 
 

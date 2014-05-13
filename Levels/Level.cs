@@ -75,7 +75,7 @@ namespace ProjectGreco.Levels
             CreateMap();
             SetupLevel();
 
-            MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);   
+            
 
             
         }
