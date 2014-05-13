@@ -123,7 +123,7 @@ namespace ProjectGreco.GameObjects
             {
                 leftTree[7].active = true;
             }
-            if (toHold.jumpHeight > 10.5f)
+            if (toHold.jumpHeight > 11.5f)
             {
                 leftTree[1].active = true;
             }
@@ -177,7 +177,7 @@ namespace ProjectGreco.GameObjects
             toHold.airRanged = false;
             toHold.airMelee = false;
             toHold.strengthOfGravity = .3f;
-            toHold.jumpHeight = 10.5f;
+            toHold.jumpHeight = 11.5f;
             toHold.MaximumJumps = 1;
             toHold.speed = .5f;
             toHold.speedLimit = 7.5f;

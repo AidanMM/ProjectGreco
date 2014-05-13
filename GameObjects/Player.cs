@@ -45,12 +45,20 @@ namespace ProjectGreco.GameObjects
         public int dashTimeLength = 11;
         public int jumpCounter = 0;
         public float strengthOfGravity = .3f;
-        public float jumpHeight = 10.5f;
+        public float jumpHeight = 11.5f;
 
         public int skillPoints = 0;
         public int maxPoints = 8;
 
         public int health = 3;
+        public int maxHealth = 3;
+
+        public int maxStamina = 24;
+        public int stamina = 24;
+
+        public int staminaRegenTimer = 0;
+        public int lostStaminaTimer = 0;
+        public int lostStamina = 24;
 
         
 
@@ -203,8 +211,31 @@ namespace ProjectGreco.GameObjects
 
         public override void Update()
         {
+            // Stamina regen
+            staminaRegenTimer++;
 
-            
+            // Counts down before doing the lost stamina graphic
+            if (lostStaminaTimer > 0)
+                lostStaminaTimer--;
+
+            // Regens faster if you haven't been spamming
+            if (staminaRegenTimer >= 80 && stamina < maxStamina)
+            {
+                stamina++;
+                staminaRegenTimer = 80 - (maxStamina - stamina);
+            }
+
+            // Decrease lost stamina when appropriate
+            if (lostStaminaTimer <= 0)
+            {
+                lostStamina--;
+            }
+
+            // Make sure it's never less.
+            if (lostStamina < stamina)
+            {
+                lostStamina = stamina;
+            }
 
             OldPosition = new Vector2(position.X, position.Y);
 
@@ -316,20 +347,26 @@ namespace ProjectGreco.GameObjects
                     applyGravity = false;
                 }
             }
-            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.A))
+            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.A) && stamina >= 6)
             {
                 if (SkillDash)
                 {
                     Dash myDash = new Dash(this, Direction.Left);
+                    stamina-= 6;
+                    staminaRegenTimer = 0;
+                    lostStaminaTimer = 30;
                 }
                 
             }
-            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.D))
+            else if (Game1.KBState.IsKeyDown(Keys.LeftShift) && !Game1.oldKBstate.IsKeyDown(Keys.LeftShift) && Game1.KBState.IsKeyDown(Keys.D) && stamina >= 6)
             {
 
                 if (SkillDash)
                 {
                     Dash myDash = new Dash(this, Direction.Right);
+                    stamina-= 6;
+                    staminaRegenTimer = 0;
+                    lostStaminaTimer = 30;
                 }
                 
             }
@@ -339,10 +376,12 @@ namespace ProjectGreco.GameObjects
 
             
             // Main skill
-            if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space))
+            if (Game1.KBState.IsKeyDown(Keys.Space) && Game1.oldKBstate.IsKeyUp(Keys.Space) && stamina >= 8 && availableSkills.Count > 0)
             {
                 UseSkill(activeSkillIndex);
-                
+                stamina -= 8;
+                staminaRegenTimer = 0;
+                lostStaminaTimer = 30;
             }
             // Secondary Skill
             //if (Game1.KBState.IsKeyDown(Keys.LeftShift) && Game1.oldKBstate.IsKeyUp(Keys.LeftShift))
@@ -595,8 +634,37 @@ namespace ProjectGreco.GameObjects
             {
                 base.Draw(spriteBatch, Color.Black);
             }
+            // Draw the health and stamina empty bars first
+            for (int i = 0; i < maxHealth; i++)
+            {
+                spriteBatch.Draw(Game1.IMAGE_DICTIONARY["EmptyBar"], new Vector2(i * 64, 0), Color.White);
+            }
+            for (int i = 0; i < maxStamina; i++)
+            {
+                spriteBatch.Draw(Game1.IMAGE_DICTIONARY["EmptyStaminaBar"], new Vector2(i * 8, 14), Color.White);
+            }
+
+            // Draw any of the lost stamina bars if they're there.
+
+            for (int i = 0; i < lostStamina; i++)
+            {
+                spriteBatch.Draw(Game1.IMAGE_DICTIONARY["LostStaminaBar"], new Vector2(i * 8, 14), Color.White);
+            }
+
+            // Draw the health and stamina bars.
+            for (int i = 0; i < health; i++)
+            {
+                spriteBatch.Draw(Game1.IMAGE_DICTIONARY["HealthBar"], new Vector2(i * 64, 0), Color.White);
+            }
+            for (int i = 0; i < stamina; i++)
+            {
+                spriteBatch.Draw(Game1.IMAGE_DICTIONARY["StaminaBar"], new Vector2(i * 8, 14), Color.White);
+            }
+
+
+
             if(availableSkills.Count > 0)
-            spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 0), Color.White);
+            spriteBatch.Draw(skillBox[0][skillFrame], new Vector2(0, 28), Color.White);
             if (activeSkillIndex >= availableSkills.Count)
             {
                 activeSkillIndex = availableSkills.Count - 1;

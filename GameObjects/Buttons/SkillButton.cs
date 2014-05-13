@@ -253,7 +253,7 @@ namespace ProjectGreco.GameObjects.Buttons
             myPlayer.airRanged = false;
             myPlayer.airMelee = false;
             myPlayer.strengthOfGravity = .3f;
-            myPlayer.jumpHeight = 10.5f;
+            myPlayer.jumpHeight = 11.5f;
             myPlayer.MaximumJumps = 1;
             myPlayer.speed = .5f;
             myPlayer.speedLimit = 7.5f;
@@ -281,7 +281,7 @@ namespace ProjectGreco.GameObjects.Buttons
             {
                 active = true;
             }
-            if (myPlayer.jumpHeight > 10.5f && skillToSet == ActionSkills.JumpHeight)
+            if (myPlayer.jumpHeight > 11.5f && skillToSet == ActionSkills.JumpHeight)
             {
                 active = true;
             }

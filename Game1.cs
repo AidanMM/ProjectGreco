@@ -203,6 +203,11 @@ namespace ProjectGreco
             IMAGE_DICTIONARY.Add("forestEdge", Content.Load<Texture2D>("forestEdge"));
             IMAGE_DICTIONARY.Add("desertEdge", Content.Load<Texture2D>("desertEdge"));
             IMAGE_DICTIONARY.Add("BossMain", Content.Load<Texture2D>("Entities\\BossMain"));
+            IMAGE_DICTIONARY.Add("EmptyBar", Content.Load<Texture2D>("EmptyBar"));
+            IMAGE_DICTIONARY.Add("HealthBar", Content.Load<Texture2D>("HealthBar"));
+            IMAGE_DICTIONARY.Add("StaminaBar", Content.Load<Texture2D>("StaminaBar"));
+            IMAGE_DICTIONARY.Add("EmptyStaminaBar", Content.Load<Texture2D>("EmptyStaminaBar"));
+            IMAGE_DICTIONARY.Add("LostStaminaBar", Content.Load<Texture2D>("LostStaminaBar"));
 
 
             #endregion
