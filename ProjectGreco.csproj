@@ -35,8 +35,6 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Boss.cs" />
-    <Compile Include="BossWeapon.cs" />
     <Compile Include="CommandInput.cs" />
     <Compile Include="DialougeBox.cs" />
     <Compile Include="Event.cs" />
@@ -46,6 +44,8 @@
     <Compile Include="GameObjects\Arrow.cs" />
     <Compile Include="GameObjects\BackgroundTile.cs" />
     <Compile Include="GameObjects\BaseEnemy.cs" />
+    <Compile Include="GameObjects\Boss.cs" />
+    <Compile Include="GameObjects\BossWeapon.cs" />
     <Compile Include="GameObjects\Button.cs" />
     <Compile Include="GameObjects\Buttons\RespecButton.cs" />
     <Compile Include="GameObjects\Buttons\SkillButton.cs" />
