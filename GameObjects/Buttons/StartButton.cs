@@ -77,9 +77,11 @@ namespace ProjectGreco.GameObjects.Buttons
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-
+            
             spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["Overlay"][0], new Vector2(collisionBox.X - 1280 / 2 - (int)Game1.CAMERA_DISPLACEMENT.X ,
                 collisionBox.Y - 720 / 2 - (int)Game1.CAMERA_DISPLACEMENT.Y), Color.White);
+
+            spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["titleLogo"][0], new Vector2(330, 78), Color.White);
 
             base.Draw(spriteBatch);
 

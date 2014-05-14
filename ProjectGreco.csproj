@@ -571,6 +571,9 @@
     <Content Include="Content\RedBeat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\SideStep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\SkillBox\AM.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

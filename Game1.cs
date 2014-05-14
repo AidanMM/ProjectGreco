@@ -240,6 +240,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("FlyingEnemySmall", A_CreateAnimation("Entities\\FlyingEnemySmall", "Entities\\FlyingEnemySmallFlap1", "Entities\\FlyingEnemySmallFlap2", "Entities\\FlyingEnemySmallFlap3"));
             ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
             ANIMATION_DICTIONARY.Add("edgeWall", A_CreateAnimation("edgeWall"));
+            ANIMATION_DICTIONARY.Add("titleLogo", A_CreateAnimation("SideStep"));
 
             // Boss Animations
             ANIMATION_DICTIONARY.Add("BossCenter", A_CreateAnimation("Entities\\BossCenter"));
