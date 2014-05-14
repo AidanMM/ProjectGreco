@@ -845,6 +845,10 @@ namespace ProjectGreco.GameObjects
                         {
                             (Game1.OBJECT_HANDLER.currentState as Level).PositionPlayer();
                         }
+
+                        PlayerStats.mula -= 1000;
+                        if (PlayerStats.mula < 0)
+                            PlayerStats.mula = 0;
                     }
 
                 }
