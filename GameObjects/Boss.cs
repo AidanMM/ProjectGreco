@@ -254,16 +254,17 @@ namespace ProjectGreco
 
                 for (int i = 0; i < numberToSpawn; i++ )
                 {
-                    //BaseEnemy myEnemy = new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[myTexture]), new Vector2(position.X + rand.Next(-64,65), position.Y + rand.Next(-64,65)), myType, rand, myPlayer, mySize);
-                    //myEnemy.chaseDistance = 14 * 64;
-                    //level.AddObjectToHandler("Enemy", myEnemy);
+                    BaseEnemy myEnemy = new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[myTexture]), new Vector2(position.X + rand.Next(-64,65), position.Y + rand.Next(-64,65)), myType, rand, myPlayer, mySize);
+                    myEnemy.chaseDistance = 14 * 64;
+                    level.AddObjectToHandler("Enemy", myEnemy);
                 }
 
             }
 
             if (destroyThis)
             {
-                //End the game
+                PlayerStats.mula += 10000;
+                Destroy();
             }
         }
 
