@@ -272,6 +272,7 @@ namespace ProjectGreco
                 catch
                 {
                     StreamWriter st2Writer = new StreamWriter(File.Create("..\\Debug\\Content\\HighScores.txt"));
+                    st2Writer.Close();
                     stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
                 }
                 string all = stReader.ReadToEnd();
