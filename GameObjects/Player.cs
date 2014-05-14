@@ -696,6 +696,10 @@ namespace ProjectGreco.GameObjects
                     activeSkillIndex = 0;
                 }
             }
+            else if (activeSkillIndex < 0)
+            {
+                activeSkillIndex = 0;
+            }
             else if (availableSkills[activeSkillIndex] == ActionSkills.ChaoticReset)
             {
                 skillFrame = 0;

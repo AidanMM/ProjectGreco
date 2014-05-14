@@ -59,7 +59,7 @@ namespace ProjectGreco.Levels
         {
             myRandom = new Random();
 
-            levelType = (LevelName)myRandom.Next(1, 4);
+            levelType = (LevelName)myRandom.Next(1, 5);
             this.renderBackground = true;
             this.levelType = levelType;
             currLevel = levelType;
