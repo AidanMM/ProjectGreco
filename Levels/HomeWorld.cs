@@ -50,9 +50,9 @@ namespace ProjectGreco.Levels
 
             AddObjectToHandler("PortalForest", new LevelPortal(new Vector2(2100, 366), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["Portal"]), PlayerStats.forest, (LevelObjectDictionary["Player"] as Player)));
 
-            //Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(3050, 200), this, myPlayer);
+            Boss myBoss = new Boss(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossCenter"]), new Vector2(3050, 200), this, myPlayer);
 
-            //AddObjectToHandler("Boss", myBoss);
+            AddObjectToHandler("Boss", myBoss);
 
             //Close the portals if they player has completed them
             if (PlayerStats.hillComplete)

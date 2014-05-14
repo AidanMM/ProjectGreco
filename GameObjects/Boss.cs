@@ -21,7 +21,7 @@ namespace ProjectGreco
         /// <summary>
         /// Amount of health the boss has left.
         /// </summary>
-        private int health = 200;
+        private int health = 125;
 
         /// <summary>
         /// Amount of health the boss has left.
@@ -135,8 +135,8 @@ namespace ProjectGreco
         public Boss(List<List<Texture2D>> animationList, Vector2 pos, BaseState level, Player myPlayer)
             : base(animationList, pos, "Boss")
         {
-            this.leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(2500, 0));
-            this.rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(3350, 0));
+            this.leftHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossLeftHand"]), new Vector2(2500, 0), myPlayer, rand);
+            this.rightHand = new BossWeapon(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["BossRightHand"]), new Vector2(3350, 0), myPlayer, rand);
             this.level = level;
             this.myPlayer = myPlayer;
 
@@ -258,7 +258,6 @@ namespace ProjectGreco
                     myEnemy.chaseDistance = 14 * 64;
                     level.AddObjectToHandler("Enemy", myEnemy);
                 }
-
             }
 
             if (destroyThis)
@@ -285,6 +284,14 @@ namespace ProjectGreco
                     if (health <= 0)
                     {
                         destroyThis = true;
+                        if (leftHand != null)
+                        {
+                            leftHand.DestroyThis = true;
+                        }
+                        if (rightHand != null)
+                        {
+                            rightHand.DestroyThis = true;
+                        }
                     }
                 }
             }
