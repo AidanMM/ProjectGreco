@@ -308,6 +308,9 @@
     <Content Include="Content\HealthBar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\highscoretable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\hillsBlock.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

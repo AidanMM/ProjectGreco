@@ -72,10 +72,27 @@ namespace ProjectGreco.GameObjects.Buttons
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "Highest Scores obtained:", new Vector2(position.X - 1000, position.Y - 600), Color.Black);
-            for (int i = 0; i < scoreList.Count; i++)
+            spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["highScoreTable"][0], new Vector2(0, 0), Color.White);
+
+            if (scoreList.Count < 10)
             {
-                spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "" +scoreList[i], new Vector2(position.X - 900, position.Y - 580 + i * 40), Color.Black);
+                for (int i = 0; i < scoreList.Count; i++)
+                {
+                    if(i < 5)
+                        spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "" + scoreList[i], new Vector2(position.X - 600, position.Y - 410 + i * 90), Color.White);
+                    else
+                        spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "" + scoreList[i], new Vector2(position.X - 280, position.Y - 410 + (i - 5) * 90), Color.White);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (i < 5)
+                        spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "" + scoreList[i], new Vector2(position.X - 600, position.Y - 410 + i * 90), Color.White);
+                    else
+                        spriteBatch.DrawString(Game1.DEFUALT_SPRITEFONT, "" + scoreList[i], new Vector2(position.X - 280, position.Y - 410 + (i - 5) * 90), Color.White);
+                }
             }
 
             base.Draw(spriteBatch);
