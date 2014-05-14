@@ -269,7 +269,7 @@ namespace ProjectGreco.Levels
                 {
                     case EnemySize.Large:
                         AddObjectToHandler("Enemy", new BaseEnemy(Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY[enemyType]),
-                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64), myEnemy.movementType,
+                            new Vector2(myEnemy.xPosition * 64, (LevelVariables.HEIGHT - myEnemy.yPosition) * 64 - 128), myEnemy.movementType,
                             myRandom, myPlayer, EnemySize.Large));
                         break;
                     case EnemySize.Medium:
