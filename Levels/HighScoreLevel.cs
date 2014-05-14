@@ -30,7 +30,14 @@ namespace ProjectGreco.Levels
 
             for (int i = 0; i < scores.Length -1; i++)
             {
-                scoreList.Add(System.Convert.ToInt32(scores[i]));
+                try
+                {
+                    scoreList.Add(System.Convert.ToInt32(scores[i]));
+                }
+                catch
+                {
+
+                }
             }
 
             for (int k = 0; k < scoreList.Count; k++)

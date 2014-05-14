@@ -22,6 +22,8 @@ namespace ProjectGreco
         public static Level forest;
         public static Level snow;
 
+        public static bool bossDead = false;
+
         public static int timeInLevel = 0;
     }
 }

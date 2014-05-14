@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
 using ProjectGreco.Levels;
+using System.IO;
 
 namespace ProjectGreco
 {
@@ -263,6 +264,14 @@ namespace ProjectGreco
             if (destroyThis)
             {
                 PlayerStats.mula += 10000;
+                StreamReader stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+                string all = stReader.ReadToEnd();
+                stReader.Close();
+                StreamWriter stWriter = new StreamWriter(File.OpenWrite("..\\Debug\\Content\\HighScores.txt"));
+                
+                stWriter.WriteLine( all + PlayerStats.mula );
+                
+                stWriter.Close();
                 Destroy();
             }
         }
@@ -283,6 +292,7 @@ namespace ProjectGreco
                         myArrow.DestroyThis = true;
                     if (health <= 0)
                     {
+                        PlayerStats.bossDead = true;
                         destroyThis = true;
                         if (leftHand != null)
                         {
