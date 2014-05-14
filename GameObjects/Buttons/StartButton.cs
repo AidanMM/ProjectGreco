@@ -21,7 +21,7 @@ namespace ProjectGreco.GameObjects.Buttons
         public StartButton()
             : base (new Vector2(50,50), Game1.A_CreateListOfAnimations(Game1.ANIMATION_DICTIONARY["ButtonStates"]), "        Start", true)
         {
-            position = new Vector2(500, 500);
+            position = new Vector2(640, 360);
             buttonText = "         Start!";
         }
 
@@ -81,7 +81,7 @@ namespace ProjectGreco.GameObjects.Buttons
             spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["Overlay"][0], new Vector2(collisionBox.X - 1280 / 2 - (int)Game1.CAMERA_DISPLACEMENT.X ,
                 collisionBox.Y - 720 / 2 - (int)Game1.CAMERA_DISPLACEMENT.Y), Color.White);
 
-            spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["titleLogo"][0], new Vector2(330, 78), Color.White);
+            spriteBatch.Draw(Game1.ANIMATION_DICTIONARY["titleLogo"][0], new Vector2(320, 78), Color.White);
 
             base.Draw(spriteBatch);
 
