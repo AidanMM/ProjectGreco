@@ -26,6 +26,6 @@ namespace ProjectGreco
 
         
 
-        public static int timeInLevel = 0;
+        public static int timeInLevel = 7200;
     }
 }

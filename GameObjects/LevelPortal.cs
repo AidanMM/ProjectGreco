@@ -75,6 +75,8 @@ namespace ProjectGreco.GameObjects
 
                     if (levelToSend is Level)
                     {
+                        PlayerStats.timeInLevel = 0;
+
                         (levelToSend as Level).PositionPlayer();
                         MediaPlayer.Play(Game1.SONG_LIBRARY["StartMusic"]);
 
@@ -106,7 +108,7 @@ namespace ProjectGreco.GameObjects
                         (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).health = (Game1.OBJECT_HANDLER.objectDictionary["Player"] as Player).maxHealth;
                     }
 
-                    PlayerStats.timeInLevel = 0;
+                    
                     Game1.OBJECT_HANDLER.ChangeState(levelToSend);
                     MediaPlayer.Volume = .2f;
 
