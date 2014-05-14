@@ -48,8 +48,10 @@
     <Compile Include="GameObjects\Boss.cs" />
     <Compile Include="GameObjects\BossWeapon.cs" />
     <Compile Include="GameObjects\Button.cs" />
+    <Compile Include="GameObjects\Buttons\HighScores.cs" />
     <Compile Include="GameObjects\Buttons\RespecButton.cs" />
     <Compile Include="GameObjects\Buttons\SkillButton.cs" />
+    <Compile Include="GameObjects\Buttons\StartFromLeaderboard.cs" />
     <Compile Include="GameObjects\Cursor.cs" />
     <Compile Include="GameObjects\EdgeTile.cs" />
     <Compile Include="GameObjects\EndPipe.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Levels\Algorithms\HillGeneration.cs" />
     <Compile Include="Levels\BaseState.cs" />
     <Compile Include="Levels\FlappyBird.cs" />
+    <Compile Include="Levels\HighScoreLevel.cs" />
     <Compile Include="Levels\HomeWorld.cs" />
     <Compile Include="Levels\Level.cs" />
     <Compile Include="Levels\LevelVariables.cs" />
@@ -302,6 +305,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\HealthBar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\HighScores.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\hillsBlock.png">
