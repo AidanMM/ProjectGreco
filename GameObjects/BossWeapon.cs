@@ -158,6 +158,21 @@ namespace ProjectGreco
                 }
             }
 
+            if (determineEvent.ObjectType == "Player" && myPlayer.FlashCounter == 0)
+            {
+                myPlayer.FlashCounter = 60;
+                myPlayer.health--;
+
+                if (myPlayer.health == 0)
+                {
+                    myPlayer.health = 3;
+                    if (Game1.OBJECT_HANDLER.currentState.LevelType != LevelName.Home)
+                    {
+                        (Game1.OBJECT_HANDLER.currentState as Level).PositionPlayer();
+                    }
+                }
+            }
+
             if (determineEvent.ObjectType == "EdgeTile" && myState == BossState.Smash)
             {
                 OldPosition = new Vector2(OldPosition.X, OldPosition.Y - velocity.Y);
