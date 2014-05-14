@@ -139,7 +139,12 @@ namespace ProjectGreco
 
                         if ((distanceBetweenObjects.X >= 0 && distanceBetweenObjects.X < objectDictionary[onScreenList[y]].CollisionBox.Width) || (distanceBetweenObjects.X <= 0 && Math.Abs(distanceBetweenObjects.X) < objectDictionary[collisionCheckList[x]].CollisionBox.Width))
                         {
+                            
                             if (distanceBetweenObjects.Y < objectDictionary[collisionCheckList[x]].CollisionBox.Height)
+                            {
+                                collidedObjects[x, y] = onScreenList[y];
+                            }
+                            else if (distanceBetweenObjects.Y < objectDictionary[onScreenList[y]].CollisionBox.Height && distanceY > 0)
                             {
                                 collidedObjects[x, y] = onScreenList[y];
                             }

@@ -73,7 +73,7 @@ namespace ProjectGreco.GameObjects
         {
             base.C_OnCollision(determineEvent);
 
-            if (determineEvent.ObjectType == "EdgeTile")
+            if (determineEvent.ObjectType == "EdgeTile" )
             {
                 destroyThis = true;
             }
