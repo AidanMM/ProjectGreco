@@ -273,6 +273,7 @@ namespace ProjectGreco
                 
                 stWriter.Close();
                 Destroy();
+                PlayerStats.bossDead = true;
             }
         }
 
@@ -292,7 +293,7 @@ namespace ProjectGreco
                         myArrow.DestroyThis = true;
                     if (health <= 0)
                     {
-                        PlayerStats.bossDead = true;
+                        
                         destroyThis = true;
                         if (leftHand != null)
                         {
@@ -312,6 +313,16 @@ namespace ProjectGreco
                 if (health <= 0)
                 {
                     destroyThis = true;
+                }
+                
+                
+                if (leftHand != null)
+                {
+                    leftHand.DestroyThis = true;
+                }
+                if (rightHand != null)
+                {
+                    rightHand.DestroyThis = true;
                 }
             }
         }
