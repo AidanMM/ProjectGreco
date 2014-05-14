@@ -69,8 +69,9 @@ namespace ProjectGreco.Levels
             SetupLevel();
 
             AddObjectToHandler("StartButton", new StartButton());
-            AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
+            
             AddObjectToHandler("ScoresButton", new HighScores());
+            AddObjectToHandler("Cursor", new Cursor(new Vector2(200, 0), Game1.IMAGE_DICTIONARY["cursor"]));
             AddObjectToHandler("WanderingCam", new WanderingCam(new Vector2(200, (LevelVariables.HEIGHT - LevelVariables.GROUND_HEIGHT - 3) * 64)));
             
             

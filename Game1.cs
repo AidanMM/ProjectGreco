@@ -117,6 +117,8 @@ namespace ProjectGreco
         public static Dictionary<string, SoundEffect> SOUND_LIBRARY;
 
         public static DialougeBox DIALOUGE_BOX;
+
+        public static bool QUIT = false;
         
 
         public Game1()
@@ -138,6 +140,7 @@ namespace ProjectGreco
         {
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
+            graphics.IsFullScreen = true;
 
             // TODO: Add your initialization logic here
             IMAGE_DICTIONARY = new Dictionary<string, Texture2D>();
@@ -165,7 +168,7 @@ namespace ProjectGreco
 
             DIALOUGE_BOX = new DialougeBox();
 
-            //IsMouseVisible = false;   
+            IsMouseVisible = false;   
 
             base.Initialize();
         }
@@ -357,7 +360,13 @@ namespace ProjectGreco
                     debugMode = true;
             }
 
+            
+            
+
             DIALOUGE_BOX.Update();
+
+            if (QUIT == true)
+                Exit();
 
             oldKBstate = KBState;
             prevMouseState = mouseState;

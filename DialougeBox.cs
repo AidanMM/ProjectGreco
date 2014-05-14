@@ -58,6 +58,8 @@ namespace ProjectGreco
 
         public bool scaleUpBox = true;
 
+        public bool quit = false;
+
         string[] dialouges;
 
         public List<Event> eventList;
@@ -142,6 +144,8 @@ namespace ProjectGreco
                     {
                         if (dialougeTextIndex >= dialougeText.Length)
                         {
+                            if (quit == true)
+                                Game1.QUIT = true;
                             HideTextBox();
                         }
                         else
@@ -157,6 +161,8 @@ namespace ProjectGreco
                 {
                     ShowNewDialouge(eventList[i].index);
                     eventList[i].Happened = true;
+                    if (eventList[i] is BossDefeated)
+                        quit = true;
                 }
             }
         }

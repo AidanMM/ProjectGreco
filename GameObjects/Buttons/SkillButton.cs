@@ -205,11 +205,11 @@ namespace ProjectGreco.GameObjects.Buttons
                         myPlayer.speed = .8f;
                         myPlayer.speedLimit = 9.0f;
                     }
-                    else if (skillToSet == ActionSkills.JumpPlus)
+                    else if (skillToSet == ActionSkills.JumpPlus || skillToSet == ActionSkills.JumpTriple)
                     {
                         myPlayer.MaximumJumps += 1;
                     }
-                    else if (skillToSet == ActionSkills.JumpHeight || skillToSet == ActionSkills.JumpTriple)
+                    else if (skillToSet == ActionSkills.JumpHeight )
                     {
                         myPlayer.jumpHeight = 13.0f;
                     }
