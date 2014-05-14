@@ -28,6 +28,7 @@ namespace ProjectGreco.Levels
             catch
             {
                 StreamWriter stWriter = new StreamWriter(File.Create("..\\Debug\\Content\\HighScores.txt"));
+                stWriter.Close();
                 stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
             }
             string allText = stReader.ReadToEnd();
