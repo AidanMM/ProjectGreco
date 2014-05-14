@@ -20,9 +20,49 @@ namespace ProjectGreco.Skills
         {
             if (BaseState.currLevel != LevelName.Home)
             {
-                Level levelToSet = new Level(BaseState.currLevel, myPlayer, true);
-                (levelToSet as Level).PositionPlayer();
-                Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+                Level levelToSet;
+
+                switch(BaseState.currLevel)
+                {
+                    case LevelName.Desert:
+                        if (PlayerStats.desertChaotic)
+                            break;
+                        PlayerStats.desertChaotic = true;
+                        levelToSet = new Level(BaseState.currLevel, myPlayer, true);
+                        (levelToSet as Level).PositionPlayer();
+                        Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+                        PlayerStats.timeInLevel = 0;
+                        break;
+                    case LevelName.Forest:
+                        if (PlayerStats.forestChaotic)
+                            break;
+                        PlayerStats.forestChaotic = true;
+                        levelToSet = new Level(BaseState.currLevel, myPlayer, true);
+                        (levelToSet as Level).PositionPlayer();
+                        Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+                        PlayerStats.timeInLevel = 0;
+                        break;
+                    case LevelName.Hills:
+                        if (PlayerStats.hillChaotic)
+                            break;
+                        PlayerStats.hillChaotic = true;
+                        levelToSet = new Level(BaseState.currLevel, myPlayer, true);
+                        (levelToSet as Level).PositionPlayer();
+                        Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+                        PlayerStats.timeInLevel = 0;
+                        break;
+                    case LevelName.Ice:
+                        if (PlayerStats.snowChaotic)
+                            break;
+                        PlayerStats.snowChaotic = true;
+                        levelToSet = new Level(BaseState.currLevel, myPlayer, true);
+                        (levelToSet as Level).PositionPlayer();
+                        Game1.OBJECT_HANDLER.ChangeState(levelToSet);
+                        PlayerStats.timeInLevel = 0;
+                        break;
+                }
+
+                
             }
         }
     }

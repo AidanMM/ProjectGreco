@@ -24,6 +24,10 @@ namespace ProjectGreco
         public static Level forest;
         public static Level snow;
 
+        public static bool hillChaotic = false;
+        public static bool desertChaotic = false;
+        public static bool forestChaotic = false;
+        public static bool snowChaotic = false;
         
 
         public static int timeInLevel = 7200;
