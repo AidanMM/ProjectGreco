@@ -3,3 +3,4 @@
 @3Anyway, this is a level! You can jump around and stuff. It is pretty fun.
 @4This is the skill Tree. You have a total of 8 skill points to use to choose your skills from.  Some of the skills are activated, some of the skills are passive.  When you have an activated skill, press the "SPACE" button to use it!  Some skills require a target, to target an enemy, hover your mouse over them and then click "SPACE".  To cycle through activated skills, use the "Q" & "E" buttons.  
 @5Wow!  So many Portals to choose from!  Press "W" to enter one and fight for points and glory!
+@6You've defeated the evil spiral power master, and his minions-- left hand and right hand!  You've saved this tiny insignificant chunk of the universe, and can go on to bigger things!
