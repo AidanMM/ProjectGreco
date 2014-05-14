@@ -264,7 +264,16 @@ namespace ProjectGreco
             if (destroyThis)
             {
                 PlayerStats.mula += 10000;
-                StreamReader stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+                StreamReader stReader;
+                try
+                {
+                    stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+                }
+                catch
+                {
+                    StreamWriter st2Writer = new StreamWriter(File.Create("..\\Debug\\Content\\HighScores.txt"));
+                    stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+                }
                 string all = stReader.ReadToEnd();
                 stReader.Close();
                 StreamWriter stWriter = new StreamWriter(File.OpenWrite("..\\Debug\\Content\\HighScores.txt"));

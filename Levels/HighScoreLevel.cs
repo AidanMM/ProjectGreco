@@ -20,7 +20,16 @@ namespace ProjectGreco.Levels
     {
         public HighScoreLevel()
         {
-            StreamReader stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+            StreamReader stReader;
+            try
+            {
+                stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+            }
+            catch
+            {
+                StreamWriter stWriter = new StreamWriter(File.Create("..\\Debug\\Content\\HighScores.txt"));
+                stReader = new StreamReader(File.OpenRead("..\\Debug\\Content\\HighScores.txt"));
+            }
             string allText = stReader.ReadToEnd();
             stReader.Close();
 
