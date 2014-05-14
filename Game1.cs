@@ -241,6 +241,7 @@ namespace ProjectGreco
             ANIMATION_DICTIONARY.Add("homeWorld", A_CreateAnimation("homeworld"));
             ANIMATION_DICTIONARY.Add("edgeWall", A_CreateAnimation("edgeWall"));
             ANIMATION_DICTIONARY.Add("titleLogo", A_CreateAnimation("SideStep"));
+            ANIMATION_DICTIONARY.Add("highScoreTable", A_CreateAnimation("highscoretable"));
 
             // Boss Animations
             ANIMATION_DICTIONARY.Add("BossCenter", A_CreateAnimation("Entities\\BossCenter"));
