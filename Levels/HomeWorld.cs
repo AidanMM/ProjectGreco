@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using ProjectGreco.GameObjects;
@@ -76,11 +76,6 @@ namespace ProjectGreco.Levels
 
            
             skillTree = new SkillTree(new Vector2(800, 400), LevelObjectDictionary["Player"] as Player, this);
-
-
-            MediaPlayer.Volume = .2f;
-            MediaPlayer.IsRepeating = true;
-            //MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
             
 
 

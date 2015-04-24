@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
+
 using Microsoft.Xna.Framework.Media;
 using ProjectGreco.Levels;
 
@@ -43,7 +43,6 @@ namespace ProjectGreco.GameObjects.Buttons
         public override void DoThisOnClick()
         {
             // start game
-            MediaPlayer.Play(Game1.SONG_LIBRARY["HomeWorldMusic"]);  
             Game1.OBJECT_HANDLER.ChangeState(new HomeWorld());
 
            
